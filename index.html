@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>🌿 200㎡花园智能养护与科研攻关系统</title>
+<!-- PWA 元信息 -->
+<link rel="manifest" href="./manifest.json">
+<meta name="description" content="200㎡花园智能养护与科研攻关系统：我的花园百科 × 物理区域看板 × 综合待办 × 病虫害应急与科研攻关，离线可用。">
+<meta name="theme-color" content="#2c5e3b">
+<link rel="apple-touch-icon" href="./images/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="我的花园">
+<style>
+/* ===================== 设计变量 ===================== */
+:root{
+  --g900:#10291b; --g800:#173825; --g700:#1f4a30; --g600:#2c6a44;
+  --g500:#3d8a5c; --g400:#5cab7d; --g300:#8ecba8; --g100:#e3f2e9; --g50:#f2f7f3;
+  --card:#ffffff; --line:#dbe8de; --txt:#1c2b22; --sub:#5f7267; --faint:#93a89b;
+  --amber:#b97d10; --amber-bg:#fdf3e0; --red:#c04b3a; --red-bg:#fdeceb;
+  --blue:#2b6cb0; --blue-bg:#e8f1fb; --purple:#6b46c1; --purple-bg:#f1eafd;
+  --teal:#0f7b74; --teal-bg:#e0f2f1;
+  --radius:14px; --shadow:0 2px 10px rgba(23,56,37,.08);
+  --shadow-lg:0 14px 44px rgba(23,56,37,.2);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;background:var(--g50);color:var(--txt);line-height:1.55;-webkit-tap-highlight-color:transparent}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input,select,textarea{font-family:inherit;font-size:14px;color:var(--txt)}
+img{max-width:100%}
+a{color:var(--g600)}
+
+/* ===================== 顶栏 ===================== */
+header.app{position:sticky;top:0;z-index:50;background:linear-gradient(135deg,var(--g800),var(--g600));color:#fff;box-shadow:var(--shadow)}
+.app-inner{max-width:1180px;margin:0 auto;padding:12px 16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.logo{font-size:18px;font-weight:700;letter-spacing:.4px}
+.logo small{font-weight:400;opacity:.72;margin-left:8px;font-size:12px}
+.navtabs{display:flex;gap:6px;margin-left:auto;flex-wrap:wrap}
+.ntab{padding:8px 15px;border-radius:999px;background:rgba(255,255,255,.12);color:#e8f5ec;font-size:13.5px;transition:.18s;white-space:nowrap}
+.ntab:hover{background:rgba(255,255,255,.24)}
+.ntab.active{background:#fff;color:var(--g800);font-weight:600}
+.ntab .cnt{font-size:11px;opacity:.85;margin-left:2px}
+
+main{max-width:1180px;margin:0 auto;padding:16px 16px 60px}
+.view{display:none}
+.view.active{display:block;animation:fade .25s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* ===================== 通用零件 ===================== */
+.bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;background:var(--card);border-radius:var(--radius);padding:11px 14px;box-shadow:var(--shadow);margin-bottom:14px}
+.bar .grow{flex:1;min-width:180px}
+.bar select,.bar input{padding:9px 12px;border-radius:10px;border:1.5px solid var(--line);background:#fff}
+.sec-title{display:flex;align-items:center;gap:10px;margin:20px 0 12px;font-size:16px;font-weight:700;color:var(--g800)}
+.sec-title .hint{font-size:12px;color:var(--sub);font-weight:400}
+.sec-title .right{margin-left:auto;display:flex;gap:8px}
+.btn{padding:9px 15px;border-radius:10px;font-size:13.5px;font-weight:600;transition:.15s;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.btn-primary{background:var(--g600);color:#fff}
+.btn-primary:hover{background:var(--g700)}
+.btn-outline{border:1.5px solid var(--g500);color:var(--g700);background:#fff}
+.btn-outline:hover{background:var(--g100)}
+.btn-soft{background:var(--g100);color:var(--g700)}
+.btn-soft:hover{background:var(--g300)}
+.btn-ghost{border:1.5px solid var(--line);color:var(--sub);background:#fff}
+.btn-ghost:hover{background:var(--g50)}
+.btn-danger{background:var(--red-bg);color:var(--red)}
+.btn-danger:hover{background:#f8d7d4}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn.sm{padding:6px 11px;font-size:12.5px}
+.empty{padding:34px;text-align:center;color:var(--sub);font-size:14px;background:var(--card);border-radius:var(--radius);border:1.5px dashed var(--line)}
+.empty .big{font-size:34px;display:block;margin-bottom:8px;opacity:.7}
+.badge{font-size:11px;padding:2px 9px;border-radius:999px;font-weight:600;white-space:nowrap;display:inline-block}
+.badge.overdue{background:var(--red-bg);color:var(--red)}
+.badge.today{background:var(--amber-bg);color:var(--amber)}
+.badge.soon{background:var(--blue-bg);color:var(--blue)}
+.badge.done{background:var(--g100);color:var(--g600)}
+.badge.zone{background:var(--teal-bg);color:var(--teal)}
+.badge.wish{background:var(--purple-bg);color:var(--purple)}
+.badge.gray{background:#eef2ef;color:var(--sub)}
+
+/* 图片占位 */
+.ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--g300),var(--g500));color:#fff}
+.ph span{font-size:30px;filter:drop-shadow(0 2px 4px rgba(0,0,0,.18))}
+.ph small{display:block;font-size:11px;opacity:.85;margin-top:4px}
+
+/* ===================== 模块一：子标签 ===================== */
+.subtabs{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.stab{padding:8px 16px;border-radius:999px;background:var(--card);border:1.5px solid var(--line);font-size:13.5px;color:var(--sub);transition:.16s;font-weight:600}
+.stab:hover{border-color:var(--g400);color:var(--g700)}
+.stab.active{background:var(--g700);border-color:var(--g700);color:#fff}
+.subview{display:none}
+.subview.active{display:block}
+
+/* 植物卡片网格 */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(228px,1fr));gap:14px}
+.pcard{background:var(--card);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);cursor:pointer;transition:.18s;display:flex;flex-direction:column;position:relative}
+.pcard:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+.pcard .cover{height:150px;position:relative;overflow:hidden;background:var(--g100)}
+.pcard .cover img{width:100%;height:100%;object-fit:cover;display:block}
+.pcard .tagchip{position:absolute;left:10px;top:10px;background:rgba(16,41,27,.74);color:#d9f2e2;font-size:11.5px;padding:3px 10px;border-radius:999px;backdrop-filter:blur(3px)}
+.pcard .rm{position:absolute;right:8px;top:8px;background:rgba(0,0,0,.42);color:#fff;width:26px;height:26px;border-radius:50%;font-size:14px;display:none;align-items:center;justify-content:center}
+.pcard:hover .rm{display:flex}
+.pcard .body{padding:12px 14px;display:flex;flex-direction:column;gap:5px;flex:1}
+.pcard .name{font-weight:700;font-size:15.5px}
+.pcard .sci{font-size:11.5px;color:var(--sub);font-style:italic;line-height:1.4}
+.pcard .tax{font-size:12px;color:var(--sub)}
+.pcard .dyn{font-size:12.5px;color:var(--sub);border-top:1px dashed var(--line);padding-top:8px;margin-top:auto;line-height:1.7}
+.pcard .dyn b{color:var(--g700)}
+
+/* ===================== 模块一：分类树 ===================== */
+.tree{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:8px 6px}
+.tnode{margin-left:14px}
+.tnode.fam{margin-left:0}
+.thead{display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:10px;cursor:pointer;transition:.15s;font-size:14px;user-select:none}
+.thead:hover{background:var(--g50)}
+.thead .arrow{transition:.2s;color:var(--faint);font-size:11px;width:10px}
+.thead.open .arrow{transform:rotate(90deg)}
+.thead .label{font-weight:600}
+.thead.fam .label{font-weight:700;color:var(--g800);font-size:15px}
+.thead .num{font-size:11.5px;color:var(--faint);margin-left:4px}
+.tbody{display:none;border-left:1.5px dashed var(--line);margin-left:8px}
+.tbody.open{display:block}
+.tleaf{display:flex;align-items:center;gap:10px;padding:7px 12px;border-radius:10px;cursor:pointer}
+.tleaf:hover{background:var(--g100)}
+.tleaf .mini{width:34px;height:34px;border-radius:8px;overflow:hidden;flex:none;background:var(--g100)}
+.tleaf .mini img{width:100%;height:100%;object-fit:cover}
+.tleaf .mini .ph span{font-size:16px}
+.tleaf .nm{font-size:13.5px;font-weight:600}
+.tleaf .ss{font-size:11px;color:var(--faint);font-style:italic}
+.tleaf .st{margin-left:auto}
+
+/* ===================== 模块二：区域看板 ===================== */
+.zonegrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+.zcard{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column}
+.zcard .zhead{padding:13px 16px;display:flex;align-items:center;gap:10px;color:#fff;background:linear-gradient(120deg,var(--g700),var(--g500))}
+.zcard.global .zhead{background:linear-gradient(120deg,#6b46c1,#8b5cf6)}
+.zcard .zhead .zi{font-size:22px}
+.zcard .zhead .zn{font-weight:700;font-size:15px}
+.zcard .zhead .zc{margin-left:auto;font-size:12px;background:rgba(255,255,255,.2);padding:3px 10px;border-radius:999px}
+.rules{padding:12px 16px;display:flex;flex-direction:column;gap:8px;border-bottom:1px solid var(--line)}
+.rule{display:flex;gap:10px;align-items:flex-start;font-size:12.5px;line-height:1.5}
+.rule .ri{font-size:15px;flex:none}
+.rule .rt{font-weight:600}
+.rule .rd{color:var(--sub)}
+.rule .rd em{font-style:normal;color:var(--teal);font-weight:600}
+.zbody{padding:12px 16px;display:flex;gap:8px;flex-wrap:wrap;flex:1;align-content:flex-start}
+.zchip{display:inline-flex;align-items:center;gap:7px;background:var(--g50);border:1px solid var(--line);border-radius:999px;padding:4px 11px 4px 5px;font-size:12.5px;cursor:pointer;transition:.15s}
+.zchip:hover{border-color:var(--g400);background:var(--g100)}
+.zchip .mini{width:22px;height:22px;border-radius:50%;overflow:hidden;flex:none;background:var(--g100)}
+.zchip .mini img{width:100%;height:100%;object-fit:cover}
+.zchip .mini .ph span{font-size:12px}
+.zchip .due{font-size:11px;color:var(--faint)}
+.zchip.od{border-color:#f0c9c4;background:var(--red-bg)}
+.zchip.td{border-color:#ecd7ac;background:var(--amber-bg)}
+
+/* ===================== 模块三：待办中心 ===================== */
+#stream{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px}
+.todo{background:var(--card);border-radius:var(--radius);padding:13px 15px;box-shadow:var(--shadow);border-left:5px solid var(--g500);display:flex;flex-direction:column;gap:8px;animation:fade .3s ease}
+.todo.overdue{border-left-color:var(--red)}
+.todo.today{border-left-color:var(--amber)}
+.todo.soon{border-left-color:var(--blue)}
+.todo-top{display:flex;align-items:flex-start;gap:10px}
+.todo-top .em{font-size:22px}
+.todo-title{font-weight:700;font-size:14.5px}
+.todo-title .who{color:var(--g700)}
+.todo-detail{font-size:12.5px;color:var(--sub)}
+.todo-src{font-size:11px;color:var(--faint);margin-top:2px}
+.todo-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:auto}
+.todo-actions .btn{padding:7px 13px;font-size:12.5px}
+.todo .topbadge{margin-left:auto}
+
+/* ===================== 模块四 ===================== */
+.emg-card,.rd-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px 16px;display:flex;flex-direction:column;gap:9px;border-left:5px solid var(--red)}
+.emg-card.archived{border-left-color:var(--faint);opacity:.72}
+.rd-card{border-left-color:var(--purple)}
+.rd-card.solved{border-left-color:var(--g400)}
+.card-head{display:flex;align-items:flex-start;gap:10px}
+.card-head .tt{font-weight:700;font-size:15px}
+.card-head .sub{font-size:12px;color:var(--sub)}
+.card-head .right{margin-left:auto;text-align:right}
+.meta-row{font-size:12.5px;color:var(--sub);display:flex;gap:14px;flex-wrap:wrap}
+.meta-row b{color:var(--txt);font-weight:600}
+.logs{display:flex;flex-direction:column;gap:7px;border-top:1px dashed var(--line);padding-top:9px}
+.log{font-size:12.5px;line-height:1.5;display:flex;gap:9px}
+.log .lt{color:var(--faint);flex:none;font-variant-numeric:tabular-nums}
+.log .lx{color:var(--txt);white-space:pre-wrap}
+.log-add{display:flex;gap:8px;margin-top:2px}
+.log-add textarea{flex:1;padding:8px 10px;border-radius:10px;border:1.5px solid var(--line);resize:vertical;min-height:38px}
+.rd-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:14px}
+.emg-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px}
+
+/* ===================== 弹窗 ===================== */
+.overlay{position:fixed;inset:0;background:rgba(12,26,18,.55);z-index:100;display:none;align-items:flex-start;justify-content:center;padding:4vh 14px;overflow:auto;backdrop-filter:blur(2px)}
+.overlay.open{display:flex}
+.modal{background:var(--card);border-radius:18px;max-width:780px;width:100%;animation:pop .22s ease;box-shadow:var(--shadow-lg);margin-bottom:4vh;overflow:hidden}
+@keyframes pop{from{transform:scale(.96);opacity:0}to{transform:none;opacity:1}}
+.modal .mhead{display:flex;align-items:center;gap:10px;padding:15px 20px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--card);z-index:2}
+.modal .mhead .mt{font-weight:700;font-size:16px}
+.modal .mhead .x{margin-left:auto;font-size:20px;color:var(--faint);width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.modal .mhead .x:hover{background:var(--g50);color:var(--txt)}
+.modal .mbody{padding:18px 20px}
+.modal .mfoot{padding:14px 20px;border-top:1px solid var(--line);display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;background:var(--g50)}
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+.field label{font-size:13px;font-weight:600;color:var(--g800)}
+.field .tip{font-size:11.5px;color:var(--faint);font-weight:400}
+.field input,.field select,.field textarea{padding:9px 12px;border-radius:10px;border:1.5px solid var(--line);width:100%}
+.field textarea{resize:vertical;min-height:64px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.seg{display:flex;gap:0;border:1.5px solid var(--line);border-radius:10px;overflow:hidden}
+.seg button{flex:1;padding:9px;font-size:13px;font-weight:600;color:var(--sub);background:#fff}
+.seg button.active{background:var(--g600);color:#fff}
+.seg button+button{border-left:1.5px solid var(--line)}
+.search-results{max-height:280px;overflow:auto;border:1.5px solid var(--line);border-radius:12px;margin-top:6px}
+.sr-item{display:flex;align-items:center;gap:10px;padding:8px 11px;cursor:pointer;border-bottom:1px solid var(--g50)}
+.sr-item:hover{background:var(--g50)}
+.sr-item:last-child{border-bottom:none}
+.sr-item .mini{width:38px;height:38px;border-radius:8px;overflow:hidden;flex:none;background:var(--g100)}
+.sr-item .mini img{width:100%;height:100%;object-fit:cover}
+.sr-item .mini .ph span{font-size:17px}
+.sr-item .info .nm{font-size:13.5px;font-weight:600}
+.sr-item .info .ss{font-size:11px;color:var(--faint)}
+.sr-item .tag{font-size:10.5px;color:var(--sub);margin-top:1px}
+/* 详情弹窗 */
+.detail-hero{height:200px;position:relative;overflow:hidden;background:var(--g100)}
+.detail-hero img{width:100%;height:100%;object-fit:cover;display:block}
+.detail-hero .cap{position:absolute;left:0;right:0;bottom:0;padding:26px 20px 12px;background:linear-gradient(transparent,rgba(12,26,18,.82));color:#fff}
+.detail-hero .cap h3{font-size:20px;font-weight:700}
+.detail-hero .cap .ss{font-size:12.5px;font-style:italic;opacity:.9}
+.detail-hero .cap .tags{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.detail-hero .cap .tags .badge{background:rgba(255,255,255,.22);color:#fff}
+.d-sec{margin-bottom:16px}
+.d-sec h4{font-size:13.5px;color:var(--g700);margin-bottom:7px;display:flex;align-items:center;gap:7px}
+.d-sec h4::before{content:"";width:3px;height:14px;background:var(--g400);border-radius:2px}
+.d-txt{font-size:13.5px;color:var(--txt);line-height:1.65;background:var(--g50);border-radius:10px;padding:10px 13px}
+.d-txt .k{color:var(--sub);font-size:12.5px}
+.d-grid{display:grid;grid-template-columns:1fr;gap:8px}
+.d-item{background:var(--g50);border-radius:10px;padding:8px 12px;font-size:13px;line-height:1.65;display:block}
+.d-item .k{display:inline-block;min-width:4.5em;font-size:12px;color:var(--faint);margin:0 2px 0 0}
+.d-item .k::after{content:"："}
+.d-item .v{display:inline}
+.trouble{font-size:12.5px;background:var(--amber-bg);border-radius:10px;padding:9px 12px;margin-bottom:7px}
+.trouble b{color:var(--amber)}
+.care-state{display:flex;gap:8px;flex-wrap:wrap}
+.cs-item{background:var(--teal-bg);color:var(--teal);border-radius:10px;padding:8px 12px;font-size:12.5px;line-height:1.5}
+.cs-item b{display:block;font-size:11px;opacity:.85;font-weight:600}
+
+/* 折叠组（已归档 / 已解决） */
+.fold-head{grid-column:1/-1;width:100%;margin-top:4px;background:var(--card);border:1.5px dashed var(--line);border-radius:12px;padding:12px 16px;font-size:13.5px;font-weight:600;color:var(--sub);display:flex;align-items:center;gap:8px;box-shadow:var(--shadow);transition:.15s}
+.fold-head:hover{border-color:var(--g400);color:var(--g700)}
+.fold-head .arrow{margin-left:auto;font-size:12px;transition:.2s}
+.fold-head.open .arrow{transform:rotate(90deg)}
+.fold-body{grid-column:1/-1;display:none;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px;padding-top:4px}
+.fold-body.open{display:grid}
+.rd-card.solved{border-left-color:var(--faint);opacity:.72}
+
+/* 打卡历史 */
+#history-box{margin-top:16px}
+.hist-body{display:none;flex-direction:column;gap:6px;background:var(--card);border-radius:12px;padding:12px 14px;box-shadow:var(--shadow)}
+.hist-body.open{display:flex}
+.hrow{display:flex;align-items:center;gap:10px;font-size:12.5px;padding:6px 4px;border-bottom:1px dashed var(--line)}
+.hrow:last-child{border-bottom:none}
+.hrow .ht{color:var(--faint);flex:none;font-variant-numeric:tabular-nums}
+.hrow .hl{font-weight:600;flex:1;min-width:0}
+.hrow .hd{color:var(--sub);font-weight:400}
+
+/* 区域卡编辑按钮 */
+.zedit{margin-left:8px;background:rgba(255,255,255,.18);color:#fff;border-radius:8px;padding:4px 10px;font-size:11.5px;transition:.15s}
+.zedit:hover{background:rgba(255,255,255,.34)}
+
+/* 养护规则编辑器行 */
+.trow{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px}
+.trow input{padding:8px 10px;border-radius:9px;border:1.5px solid var(--line);font-size:12.5px}
+.trow .zt-emoji{width:50px;text-align:center;flex:none}
+.trow .zt-label{flex:1;min-width:86px}
+.trow .zt-int{width:78px;flex:none}
+.trow .zt-note{flex:1.4;min-width:130px}
+.trow .zt-alt{flex:1.2;min-width:120px}
+.trow .zt-del{width:34px;flex:none;text-align:center;padding:6px 0}
+.trow-h{color:var(--faint);font-size:11px;font-weight:600;margin-bottom:4px}
+.trow-h span{display:block;padding:0 10px;font-size:11px;border:1.5px solid transparent}
+
+/* ===================== Toast ===================== */
+#toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:var(--g800);color:#fff;padding:11px 20px;border-radius:999px;font-size:13.5px;box-shadow:var(--shadow-lg);opacity:0;pointer-events:none;transition:.25s;z-index:200;max-width:88vw}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ===================== 响应式 ===================== */
+@media (max-width:640px){
+  .logo{font-size:16px}.logo small{display:none}
+  .ntab{padding:7px 12px;font-size:12.5px}
+  .grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+  .pcard .cover{height:118px}
+  .row2,.row3,.d-grid{grid-template-columns:1fr}
+  main{padding:12px 12px 40px}
+}
+</style>
+</head>
+<body>
+
+<header class="app">
+  <div class="app-inner">
+    <div class="logo">🌿 200㎡ 花园智能养护与科研攻关系统 <small>My Garden OS</small></div>
+    <nav class="navtabs" id="navtabs">
+      <button class="ntab active" data-view="stream">⚡ 待办中心 <span class="cnt" id="nav-stream-cnt"></span></button>
+      <button class="ntab" data-view="garden">📖 我的花园</button>
+      <button class="ntab" data-view="zones">🏡 区域看板</button>
+      <button class="ntab" data-view="lab">🔬 应急&科研</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- ==================== 模块：待办中心（默认首页） ==================== -->
+  <section class="view active" id="view-stream">
+    <div class="sec-title">⚡ 综合待办中心
+      <span class="hint">区域养护 · 应急执行 · 自定义事件，统一调度</span>
+      <span class="right">
+        <button class="btn btn-primary sm" onclick="openAddCustom()">➕ 自定义待办</button>
+        <button class="btn btn-ghost sm" onclick="filterStream('due')" id="f-due">仅到期</button>
+        <button class="btn btn-soft sm" onclick="filterStream('all')" id="f-all">全部</button>
+      </span>
+    </div>
+    <div id="stream"></div>
+    <div id="history-box"></div>
+  </section>
+
+  <!-- ==================== 模块：我的花园百科 ==================== -->
+  <section class="view" id="view-garden">
+    <div class="subtabs" id="subtabs">
+      <button class="stab active" data-sub="planted">🏡 已种植 <span id="cnt-planted"></span></button>
+      <button class="stab" data-sub="wishlist">🌱 愿望清单 <span id="cnt-wish"></span></button>
+      <button class="stab" data-sub="tree">🌳 科—属—种 分类全景</button>
+    </div>
+
+    <div class="subview active" id="sub-planted">
+      <div class="bar">
+        <div class="grow" style="font-weight:600;color:var(--g800)">🏡 花园中已种植的植物</div>
+        <button class="btn btn-primary" onclick="openAddPlant('planted')">➕ 录入新植物</button>
+      </div>
+      <div class="grid" id="grid-planted"></div>
+    </div>
+
+    <div class="subview" id="sub-wishlist">
+      <div class="bar">
+        <div class="grow" style="font-weight:600;color:var(--g800)">🌱 愿望清单</div>
+        <button class="btn btn-primary" onclick="openAddPlant('wishlist')">➕ 加入愿望清单</button>
+      </div>
+      <div class="grid" id="grid-wishlist"></div>
+    </div>
+
+    <div class="subview" id="sub-tree">
+      <div class="bar">
+        <div class="grow" style="font-weight:600;color:var(--g800)">🌳 名下植物（已种植 + 预备）的科—属—种体系</div>
+        <button class="btn btn-soft sm" onclick="expandTree('fam')">展开所有科</button>
+        <button class="btn btn-soft sm" onclick="expandTree('genus')">展开所有属</button>
+        <button class="btn btn-ghost sm" onclick="expandTree('none')">一键收起</button>
+      </div>
+      <div class="tree" id="tree"></div>
+    </div>
+  </section>
+
+  <!-- ==================== 模块：区域看板 ==================== -->
+  <section class="view" id="view-zones">
+    <div class="sec-title">🏡 物理区域体系化看板 <span class="hint">水培组 · 室内盆栽组 · 北阳台组 · 室外院子组 · 全园大事件</span></div>
+    <div class="zonegrid" id="zonegrid"></div>
+  </section>
+
+  <!-- ==================== 模块：应急 & 科研 ==================== -->
+  <section class="view" id="view-lab">
+    <div class="sec-title">🚨 病虫害应急模块 <span class="hint">阶段性异常，按间隔喷药，治愈后归档</span>
+      <span class="right"><button class="btn btn-primary sm" onclick="openAddEmergency()">➕ 新建应急事件</button></span>
+    </div>
+    <div class="emg-cards" id="emg-list"></div>
+
+    <div class="sec-title" style="margin-top:26px">🔬 园艺科研攻关中心 <span class="hint">攻克疑难杂症 · 阶段性研究观察日志</span>
+      <span class="right"><button class="btn btn-primary sm" onclick="openAddResearch()">➕ 提交新课题</button></span>
+    </div>
+    <div class="rd-cards" id="rd-list"></div>
+  </section>
+</main>
+
+<!-- ==================== 通用弹窗容器 ==================== -->
+<div class="overlay" id="overlay">
+  <div class="modal" id="modal"></div>
+</div>
+<div id="toast"></div>
+
+<script>
+/* =====================================================================
+ * 200㎡花园智能养护与科研攻关系统
+ *  - 静态科学字典：只读读取 ./data/plants.json（绝不写回）
+ *  - 个人动态数据：全部存 localStorage
+ * ===================================================================== */
+
+/* ---------- 存储键 ---------- */
+const K = {
+  members : 'garden.members.v1',   // 名下植物（已种植 + 预备）
+  zones   : 'garden.zones.v1',     // 物理区域与养护规则
+  care    : 'garden.care.v1',      // 每株每事件打卡状态 { uid: { key: {last,next,altIdx} } }
+  zcare   : 'garden.zcare.v1',     // 区域级打卡状态（区域内暂无植物时使用） { zid: { key: {last,next,altIdx} } }
+  gcare   : 'garden.gcare.v1',     // 全园大事件（缓释肥）
+  emergency:'garden.emergency.v1', // 病虫害应急
+  research: 'garden.research.v1',  // 科研课题
+  custom  : 'garden.custom.v1',    // 自定义待办事件
+  history : 'garden.history.v1',   // 打卡历史（含撤销快照）
+  rulesRev: 'garden.rulesRev.v1'   // 默认养护规则版本（用于旧数据迁移）
+};
+
+/* ---------- 默认物理区域与严谨养护规则 ---------- */
+const DEFAULT_ZONES = [
+  { id:'hydro', name:'水培组', emoji:'💧', kind:'zone', sample:'富贵竹 / 红掌',
+    tasks:[
+      { key:'water', label:'换水', emoji:'💧', interval:7, note:'' },
+      { key:'fert', label:'营养/施肥', emoji:'🧪', interval:7,
+        note:'交替：补铁 ⇄ 营养液', alt:['补铁','营养液'] }
+    ]},
+  { id:'indoor', name:'室内盆栽组', emoji:'🪴', kind:'zone', sample:'龟背竹 / 竹芋 / 绿萝',
+    tasks:[
+      { key:'water', label:'浇水', emoji:'💧', interval:7, note:'见干见湿' },
+      { key:'fert', label:'施肥', emoji:'🧪', interval:14,
+        note:'交替：「花多多」⇄「补铁」自动循环', alt:['花多多','补铁'] }
+    ]},
+  { id:'northbalcony', name:'北阳台植物组', emoji:'🌥️', kind:'zone', sample:'耐阴观叶 / 蕨类',
+    tasks:[
+      { key:'water', label:'浇水', emoji:'💧', interval:7, note:'散射光环境，蒸发慢' },
+      { key:'fert', label:'施肥', emoji:'🧪', interval:14,
+        note:'喜酸植物专项：「一次补铁」⇄「下一次补花多多」交替', alt:['补铁','花多多'] }
+    ]},
+  { id:'outdoor', name:'室外院子组', emoji:'🌳', kind:'zone', sample:'绣球 / 月季 / 紫薇',
+    tasks:[
+      { key:'water', label:'浇水', emoji:'💧', interval:7, note:'视天气调整' },
+      { key:'fert', label:'施肥', emoji:'🧪', interval:14,
+        note:'喜酸植物专项：「一次补铁」⇄「下一次补花多多」交替', alt:['补铁','花多多'] }
+    ]},
+  { id:'global', name:'全园大事件', emoji:'🪨', kind:'global', sample:'长效基建',
+    tasks:[
+      { key:'slow', label:'缓释肥', emoji:'🪨', interval:90, note:'全园埋缓释肥（长效基建，3 个月一次）' }
+    ]}
+];
+
+/* ---------- 旧数据迁移：默认养护规则 v2 ----------
+ * 已存 localStorage 的区域数据不会自动跟随 DEFAULT_ZONES，这里做一次性迁移：
+ * 只更新内置项目的间隔/说明/交替，保留用户自建项目与其他字段。 */
+const RULES_REV = 3;
+const RULE_SPECS = {
+  2: {
+    hydro:        { water:{ interval:7, note:'', alt:[] }, fert:{ interval:7 } },
+    indoor:       { water:{ interval:7 }, fert:{ interval:14 } },
+    northbalcony: { water:{ interval:7 }, fert:{ interval:14, note:'喜酸植物交替：补铁 ⇄ 营养液', alt:['补铁','营养液'] } },
+    outdoor:      { water:{ interval:7 }, fert:{ interval:14 } }
+  },
+  3: {
+    northbalcony: { fert:{ note:'喜酸植物专项：「一次补铁」⇄「下一次补花多多」交替', alt:['补铁','花多多'] } }
+  }
+};
+function applyRuleSpec(spec){
+  zones.forEach(z => {
+    const s = spec[z.id]; if(!s) return;
+    (z.tasks || []).forEach(t => {
+      const u = s[t.key]; if(!u) return;
+      if(u.interval !== undefined) t.interval = u.interval;
+      if(u.note !== undefined) t.note = u.note;
+      if(u.alt !== undefined){ if(u.alt.length) t.alt = u.alt.slice(); else delete t.alt; }
+      /* 仅在间隔变化时，按「上次打卡 + 新间隔」重算下次到期（未打卡过则从今天起算） */
+      if(u.interval !== undefined){
+        members.filter(m => m.status === 'planted' && m.zoneId === z.id).forEach(m => {
+          const st = care[m.uid] && care[m.uid][t.key];
+          if(st) st.next = addDays(st.last || today0(), t.interval);
+        });
+        const zs = zcare[z.id] && zcare[z.id][t.key];
+        if(zs) zs.next = addDays(zs.last || today0(), t.interval);
+      }
+    });
+  });
+}
+function migrateRules(){
+  let rev = LS.get(K.rulesRev, 0);
+  if(rev >= RULES_REV) return;
+  /* 逐版本推进，只应用缺失版本对应的改动，避免覆盖用户后续手动修改 */
+  for(let v = rev + 1; v <= RULES_REV; v++){
+    if(RULE_SPECS[v]) applyRuleSpec(RULE_SPECS[v]);
+  }
+  LS.set(K.rulesRev, RULES_REV);
+}
+
+/* ---------- 运行时状态 ---------- */
+let KB = [], KB_BY_ID = {};
+let members = [], zones = [], care = {}, gcare = {}, zcare = {};
+let emergency = [], research = [], custom = [], history = [];
+let streamFilter = 'all';
+let streamEntries = [];   // 当前渲染的待办条目（供打卡按索引定位）
+
+/* ---------- 小工具 ---------- */
+const $  = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const DAY = 86400000;
+const uid = p => (p||'m') + '_' + Math.random().toString(36).slice(2,8) + Date.now().toString(36).slice(-3);
+const today0 = () => { const d = new Date(); d.setHours(0,0,0,0); return d.getTime(); };
+const addDays = (ts,n) => { const d = new Date(ts); d.setDate(d.getDate()+n); return d.getTime(); };
+const fmt = ts => { const d = new Date(ts); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); };
+const fmtT = ts => { const d = new Date(ts); return String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')+' '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0'); };
+const diffDays = ts => Math.round((new Date(ts).setHours(0,0,0,0) - today0())/DAY);
+const LS = {
+  get(k,d){ try{ const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; }catch(e){ return d; } },
+  set(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){ console.warn('存储失败', e); } }
+};
+function toast(msg){ const t = $('#toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(t._t); t._t = setTimeout(()=>t.classList.remove('show'), 2200); }
+const zoneById = id => zones.find(z => z.id === id);
+
+/* ---------- 初始化 ---------- */
+async function init(){
+  zones = LS.get(K.zones, null) || JSON.parse(JSON.stringify(DEFAULT_ZONES));
+  members = LS.get(K.members, []);
+  care = LS.get(K.care, {});
+  gcare = LS.get(K.gcare, {});
+  zcare = LS.get(K.zcare, {});
+  emergency = LS.get(K.emergency, []);
+  research = LS.get(K.research, []);
+  custom = LS.get(K.custom, []);
+  history = LS.get(K.history, []);
+
+  try{
+    const res = await fetch('./data/plants.json', {cache:'no-store'});
+    KB = await res.json();
+    KB.forEach(p => KB_BY_ID[p.plant_id] = p);
+  }catch(e){
+    console.warn('plants.json 读取失败（离线或路径问题）', e);
+    KB = [];
+  }
+
+  migrateRules();
+  ensureGlobalCare();
+  ensureZoneCare();
+  members.filter(m => m.status === 'planted').forEach(ensureCare);
+  saveAll();
+  renderAll();
+  bindEvents();
+  registerSW();
+}
+
+function saveAll(){
+  LS.set(K.zones, zones);
+  LS.set(K.members, members);
+  LS.set(K.care, care);
+  LS.set(K.gcare, gcare);
+  LS.set(K.zcare, zcare);
+  LS.set(K.emergency, emergency);
+  LS.set(K.research, research);
+  LS.set(K.custom, custom);
+  LS.set(K.history, history);
+}
+
+/* =====================================================================
+ * 静态属性解析：优先 plants.json（只读），自定义植物回退到本地字段
+ * ===================================================================== */
+function getStatic(m){
+  const b = (m.refId && KB_BY_ID[m.refId]) ? KB_BY_ID[m.refId] : null;
+  if(b){
+    const bi = b.basic_info || {}, er = b.environment_requirements || {}, cm = b.care_and_maintenance || {};
+    return {
+      kb:true,
+      name: bi.name || m.name,
+      sci: bi.scientific_name || '',
+      family: bi.family || m.family || '未分类',
+      genus: bi.genus || m.genus || '未定属',
+      aliases: bi.aliases || [],
+      cover: (b.media && b.media.cover_image && b.media.cover_image.url) || m.cover || '',
+      type: bi.plant_type || '',
+      tag: bi.garden_fit_tag || '',
+      diff: bi.difficulty_level || '',
+      tox: bi.toxicity || '',
+      light: (er.light && er.light.description) || '',
+      location: (er.light && er.light.ideal_location) || '',
+      water: (er.watering && er.watering.strategy) || '',
+      steps: (er.watering && er.watering.actionable_steps) || '',
+      temp: (er.temperature && er.temperature.optimal_range) || '',
+      fert: cm.fertilization || '',
+      soil: cm.repotting_and_soil || '',
+      prune: cm.pruning || '',
+      trouble: b.troubleshooting || []
+    };
+  }
+  return {
+    kb:false,
+    name: m.name || '未命名植物',
+    sci: m.sci || '',
+    family: m.family || '未分类',
+    genus: m.genus || '未定属',
+    aliases: [],
+    cover: m.cover || '',
+    type:'', tag:'自定义植物', diff:'', tox:'',
+    light: m.light || '', location:'', water:'', steps:'', temp:'',
+    fert:'', soil:'', prune:'', trouble:[]
+  };
+}
+
+/* 图片或优雅占位 */
+function phSwap(img){ const d = document.createElement('div'); d.className = 'ph'; d.innerHTML = '<span>🌱</span>'; img.replaceWith(d); }
+function coverHTML(src){
+  if(src) return '<img src="'+esc(src)+'" alt="" loading="lazy" onerror="phSwap(this)">';
+  return '<div class="ph"><span>🌱</span></div>';
+}
+function coverMini(src){
+  if(src) return '<img src="'+esc(src)+'" alt="" loading="lazy" onerror="phSwap(this)">';
+  return '<div class="ph"><span>🌱</span></div>';
+}
+
+/* =====================================================================
+ * 打卡状态（care）计算
+ * ===================================================================== */
+function ensureCare(m){
+  if(m.status !== 'planted' || !m.zoneId) return;
+  const z = zoneById(m.zoneId); if(!z || z.kind !== 'zone') return;
+  care[m.uid] = care[m.uid] || {};
+  z.tasks.forEach(t => {
+    if(!care[m.uid][t.key]) care[m.uid][t.key] = { last:null, next:addDays(today0(), t.interval), altIdx:0 };
+  });
+}
+function ensureGlobalCare(){
+  const z = zoneById('global');
+  if(!z) return;
+  z.tasks.forEach(t => { if(!gcare[t.key]) gcare[t.key] = { last:null, next:addDays(today0(), t.interval), altIdx:0 }; });
+}
+/* 区域级打卡状态：区域内暂无植物时，养护动作仍同步到待办中心 */
+function ensureZoneCare(){
+  zones.filter(z => z.kind === 'zone').forEach(z => {
+    zcare[z.id] = zcare[z.id] || {};
+    z.tasks.forEach(t => {
+      if(!zcare[z.id][t.key]) zcare[z.id][t.key] = { last:null, next:addDays(today0(), t.interval), altIdx:0 };
+    });
+  });
+}
+function altLabel(task, state){ return (task.alt && task.alt.length) ? task.alt[state.altIdx % task.alt.length] : ''; }
+
+/* 生成某株植物在所属区域下的全部待办条目 */
+function entriesFor(m){
+  const z = zoneById(m.zoneId); if(!z || z.kind !== 'zone') return [];
+  const st = care[m.uid] || {};
+  return z.tasks.map(t => {
+    const s = st[t.key] || { last:null, next:addDays(today0(), t.interval), altIdx:0 };
+    return { type:'plant', uid:m.uid, plant:m, zone:z, task:t, state:s,
+             next:s.next, kindLabel: altLabel(t, s) };
+  });
+}
+/* 按区域组聚合待办：每个区域 × 每个养护项目 = 1 张卡片；
+ * 另汇入：全园大事件、进行中的应急执行、自定义待办 */
+function groupEntries(){
+  const cards = [];
+  zones.forEach(z => {
+    if(z.kind === 'global'){
+      z.tasks.forEach(t => {
+        const s = gcare[t.key];
+        cards.push({ type:'global', zone:z, task:t, state:s, next:s.next });
+      });
+      return;
+    }
+    const mems = members.filter(m => m.status === 'planted' && m.zoneId === z.id);
+    z.tasks.forEach(t => {
+      if(mems.length){
+        /* 区域内有植物：按组聚合（每株独立追踪） */
+        const per = mems.map(m => ({ m, s: (care[m.uid] && care[m.uid][t.key]) || { last:null, next:addDays(today0(),t.interval), altIdx:0 } }));
+        const next = Math.min.apply(null, per.map(p => p.s.next));
+        cards.push({ type:'zonegroup', zone:z, task:t, per, next });
+      }else{
+        /* 区域内暂无植物：区域级卡片，养护动作仍同步到待办中心 */
+        if(!zcare[z.id]) zcare[z.id] = {};
+        if(!zcare[z.id][t.key]) zcare[z.id][t.key] = { last:null, next:addDays(today0(), t.interval), altIdx:0 };
+        const s = zcare[z.id][t.key];
+        cards.push({ type:'zone', zone:z, task:t, state:s, next:s.next });
+      }
+    });
+  });
+  /* 应急执行（病虫害） */
+  emergency.filter(x => x.status === 'active').forEach(x => {
+    cards.push({ type:'emg', emg:x, next:x.next,
+      task:{ emoji:'🚨', label:x.issue, interval:x.interval } });
+  });
+  /* 自定义待办（未完成的一次性 + 周期事件） */
+  custom.filter(c => !c.done).forEach(c => {
+    cards.push({ type:'custom', ct:c, next:c.next,
+      task:{ emoji:c.emoji||'📌', label:c.title, interval:c.interval||0 } });
+  });
+  return cards.sort((a,b) => a.next - b.next);
+}
+function entryLevel(next){
+  const d = diffDays(next);
+  if(d < 0) return 'overdue';
+  if(d === 0) return 'today';
+  if(d <= 2) return 'soon';
+  return 'later';
+}
+function levelText(next){
+  const d = diffDays(next);
+  if(d < 0) return '逾期 '+(-d)+' 天';
+  if(d === 0) return '今天到期';
+  return d+' 天后';
+}
+
+/* 按指定日期打卡：更新状态、反转交替、从该日期推进下次日期（补卡复用） */
+function applyCheckinOn(task, state, date){
+  state.last = date;
+  if(task.alt && task.alt.length) state.altIdx = (state.altIdx + 1) % task.alt.length;
+  state.next = addDays(date, task.interval);
+}
+function applyCheckin(task, state){ applyCheckinOn(task, state, today0()); }
+
+/* ---------- 打卡历史（含撤销快照） ---------- */
+function recordHistory(entry){
+  history.unshift(Object.assign({ id: uid('h'), time: Date.now() }, entry));
+  if(history.length > 200) history.length = 200;
+}
+/* 撤销一次打卡：按快照恢复 last/next/altIdx（及自定义待办的 done） */
+function undoCheckin(hid){
+  const h = history.find(x => x.id === hid); if(!h) return;
+  (h.prev || []).forEach(p => {
+    if(h.kind === 'zone'){
+      const st = care[p.uid] && care[p.uid][p.key];
+      if(st){ st.last = p.last; st.next = p.next; st.altIdx = p.altIdx; }
+    }else if(h.kind === 'zonelevel'){
+      const st = zcare[p.zid] && zcare[p.zid][p.key];
+      if(st){ st.last = p.last; st.next = p.next; st.altIdx = p.altIdx; }
+    }else if(h.kind === 'global'){
+      const st = gcare[p.key];
+      if(st){ st.last = p.last; st.next = p.next; st.altIdx = p.altIdx; }
+    }else if(h.kind === 'emg'){
+      const x = emergency.find(e => e.id === p.id);
+      if(x){ x.last = p.last; x.next = p.next; }
+    }else if(h.kind === 'custom'){
+      const c = custom.find(c => c.id === p.id);
+      if(c){ c.last = p.last; c.next = p.next; c.done = p.done; }
+    }
+  });
+  history = history.filter(x => x.id !== hid);
+  saveAll(); toast('↩️ 已撤销该次打卡'); renderAll();
+}
+
+/* =====================================================================
+ * 渲染调度
+ * ===================================================================== */
+function renderAll(){
+  renderCounts();
+  renderRoster();
+  renderWishlist();
+  renderTree();
+  renderZones();
+  renderStream();
+  renderEmergency();
+  renderResearch();
+}
+function renderCounts(){
+  const planted = members.filter(m => m.status === 'planted').length;
+  const wish = members.filter(m => m.status === 'wishlist').length;
+  $('#cnt-planted').textContent = planted ? '('+planted+')' : '';
+  $('#cnt-wish').textContent = wish ? '('+wish+')' : '';
+  const due = groupEntries().filter(e => entryLevel(e.next) !== 'later').length;
+  $('#nav-stream-cnt').textContent = due ? due : '';
+}
+
+/* ---------- 模块一：植物卡片 ---------- */
+function plantCard(m){
+  const st = getStatic(m);
+  const z = zoneById(m.zoneId);
+  const zt = zoneById(m.targetZoneId);
+  let dyn = '';
+  if(m.status === 'planted'){
+    const ents = entriesFor(m);
+    const nextEnt = ents.slice().sort((a,b)=>a.next-b.next)[0];
+    dyn = '<div class="dyn">📍 区域：<b>'+(z ? z.emoji+' '+z.name : '未分配')+'</b><br>'
+        + (nextEnt ? '⏰ 下一件事：<b>'+esc(nextEnt.task.label)+'</b> · '+fmt(nextEnt.next)+'（'+levelText(nextEnt.next)+'）' : '')
+        + '</div>';
+  }else{
+    dyn = '<div class="dyn">💭 意向区域：<b>'+(zt ? zt.emoji+' '+zt.name : '未指定')+'</b><br>'
+        + '🌱 状态：<b>愿望清单中</b>'+(m.notes ? '<br>📝 '+esc(m.notes) : '')+'</div>';
+  }
+  return '<div class="pcard" onclick="openDetail(\''+m.uid+'\')">'
+    + '<div class="cover">'+coverHTML(st.cover)
+    + '<span class="tagchip">'+(st.family||'')+'</span>'
+    + '<button class="rm" title="移除" onclick="event.stopPropagation();removeMember(\''+m.uid+'\')">✕</button>'
+    + '</div>'
+    + '<div class="body">'
+    + '<div class="name">'+esc(st.name)+'</div>'
+    + '<div class="sci">'+esc(st.sci || (st.genus+' · '+st.family))+'</div>'
+    + '<div class="tax">🌳 '+esc(st.family)+' › '+esc(st.genus)+'</div>'
+    + dyn
+    + '</div></div>';
+}
+function renderRoster(){
+  const list = members.filter(m => m.status === 'planted');
+  const el = $('#grid-planted');
+  el.innerHTML = list.length ? list.map(plantCard).join('')
+    : '<div class="empty" style="grid-column:1/-1"><span class="big">🏡</span>花园还是空的<br>点击右上角「➕ 录入新植物」开始吧</div>';
+}
+function renderWishlist(){
+  const list = members.filter(m => m.status === 'wishlist');
+  const el = $('#grid-wishlist');
+  el.innerHTML = list.length ? list.map(plantCard).join('')
+    : '<div class="empty" style="grid-column:1/-1"><span class="big">🌱</span>愿望清单还是空的<br>把心仪的植物加入清单，随时转入花园</div>';
+}
+
+/* ---------- 模块一：科—属—种 分类树 ---------- */
+let treeOpen = {};   // 展开状态
+function renderTree(){
+  const list = members.slice();
+  // family -> genus -> species(name)
+  const fam = {};
+  list.forEach(m => {
+    const st = getStatic(m);
+    const F = st.family || '未分类', G = st.genus || '未定属';
+    fam[F] = fam[F] || {};
+    fam[F][G] = fam[F][G] || [];
+    fam[F][G].push({ m, st, sp: st.name });
+  });
+  const famKeys = Object.keys(fam).sort();
+  if(!famKeys.length){
+    $('#tree').innerHTML = '<div class="empty"><span class="big">🌳</span>还没有植物可归档<br>先录入植物，这里会按 科 › 属 › 种 自动生成体系树</div>';
+    return;
+  }
+  let html = '';
+  famKeys.forEach(F => {
+    const genusKeys = Object.keys(fam[F]).sort();
+    const famCount = genusKeys.reduce((n,g)=>n+fam[F][g].length,0);
+    html += '<div class="tnode fam">'
+      + '<div class="thead fam '+(treeOpen['F:'+F]?'open':'')+'" onclick="toggleTree(this,\'F:'+esc(F)+'\')">'
+      + '<span class="arrow">▶</span><span>🏛️</span><span class="label">'+esc(F)+'</span><span class="num">'+famCount+' 种 · '+genusKeys.length+' 属</span></div>'
+      + '<div class="tbody '+(treeOpen['F:'+F]?'open':'')+'">';
+    genusKeys.forEach(G => {
+      const spp = fam[F][G].sort((a,b)=>a.sp.localeCompare(b.sp,'zh'));
+      html += '<div class="tnode">'
+        + '<div class="thead '+(treeOpen['G:'+F+'/'+G]?'open':'')+'" onclick="toggleTree(this,\'G:'+esc(F+'/'+G)+'\')">'
+        + '<span class="arrow">▶</span><span>🌿</span><span class="label">'+esc(G)+'</span><span class="num">'+spp.length+' 种</span></div>'
+        + '<div class="tbody '+(treeOpen['G:'+F+'/'+G]?'open':'')+'">';
+      spp.forEach(o => {
+        const st = o.st;
+        const badge = o.m.status === 'planted'
+          ? '<span class="badge zone">已种植</span>'
+          : '<span class="badge wish">预备</span>';
+        html += '<div class="tleaf" onclick="openDetail(\''+o.m.uid+'\')">'
+          + '<div class="mini">'+coverMini(st.cover)+'</div>'
+          + '<div><div class="nm">'+esc(st.name)+'</div><div class="ss">'+esc(st.sci||'')+'</div></div>'
+          + '<div class="st">'+badge+'</div></div>';
+      });
+      html += '</div></div>';
+    });
+    html += '</div></div>';
+  });
+  $('#tree').innerHTML = html;
+}
+function toggleTree(el, key){
+  const open = el.classList.toggle('open');
+  el.nextElementSibling.classList.toggle('open', open);
+  treeOpen[key] = open;
+}
+/* level: 'fam'=仅展开所有科 | 'genus'=展开所有科+属 | 'none'=全部收起 */
+function expandTree(level){
+  treeOpen = {};
+  if(level !== 'none'){
+    members.forEach(m => {
+      const st = getStatic(m);
+      const F = st.family || '未分类', G = st.genus || '未定属';
+      treeOpen['F:'+F] = true;
+      if(level === 'genus') treeOpen['G:'+F+'/'+G] = true;
+    });
+  }
+  renderTree();
+}
+
+/* ---------- 模块二：区域看板 ---------- */
+function renderZones(){
+  const html = zones.map(z => {
+    const list = members.filter(m => m.status === 'planted' && m.zoneId === z.id && z.kind === 'zone');
+    const rules = z.tasks.map(t => {
+      const alt = (t.alt && t.alt.length) ? ' ｜ 交替：<em>'+t.alt.map(esc).join(' ⇄ ')+'</em>' : '';
+      return '<div class="rule"><span class="ri">'+t.emoji+'</span><div><span class="rt">'+esc(t.label)+'</span>'
+        + ' · 每 <b>'+t.interval+'</b> 天</div></div>'
+        + '<div class="rule" style="padding-left:25px"><span class="rd" style="font-size:12px">'+esc(t.note||'')+alt+'</span></div>';
+    }).join('');
+    let body;
+    if(z.kind === 'global'){
+      body = '<div style="width:100%;color:var(--faint);font-size:12.5px">⏰ 到期提醒与打卡已统一放在「⚡ 待办中心」</div>';
+    }else{
+      body = list.length ? list.map(m => {
+        const st = getStatic(m);
+        const ents = entriesFor(m).slice().sort((a,b)=>a.next-b.next);
+        const next = ents[0];
+        const lv = next ? entryLevel(next.next) : 'later';
+        const cls = lv === 'overdue' ? ' od' : (lv === 'today' ? ' td' : '');
+        return '<span class="zchip'+cls+'" onclick="openDetail(\''+m.uid+'\')" title="'+esc(st.name)+'">'
+          + '<span class="mini">'+coverMini(st.cover)+'</span>'+esc(st.name)
+          + (next ? '<span class="due">'+levelText(next.next)+'</span>' : '')+'</span>';
+      }).join('')
+      : '<span style="color:var(--faint);font-size:12.5px">该区域暂无植物，去「我的花园」分配区域</span>';
+    }
+    return '<div class="zcard '+(z.kind==='global'?'global':'')+'">'
+      + '<div class="zhead"><span class="zi">'+z.emoji+'</span><span class="zn">'+esc(z.name)+'</span>'
+      + '<span class="zc">'+(z.kind==='global' ? '全园' : list.length+' 株')+'</span>'
+      + '<button class="zedit" onclick="openEditZone(\''+z.id+'\')">✏️ 编辑规则</button></div>'
+      + '<div class="rules">'+rules+(z.sample?'<div class="rule" style="padding-left:25px;color:var(--faint);font-size:11.5px">'+esc(z.sample)+'</div>':'')+'</div>'
+      + '<div class="zbody">'+body+'</div></div>';
+  }).join('');
+  $('#zonegrid').innerHTML = html;
+}
+
+/* ---------- 养护规则编辑器 ---------- */
+function zoneTaskRow(t){
+  const emoji = t ? t.emoji : '💧';
+  const label = t ? t.label : '';
+  const interval = t ? t.interval : 7;
+  const note = t ? (t.note||'') : '';
+  const alt = (t && t.alt && t.alt.length) ? t.alt.join(',') : '';
+  return '<div class="trow-wrap" data-key="'+esc(t ? t.key : '')+'">'
+    + '<div class="trow">'
+    + '<input class="zt-emoji" value="'+esc(emoji)+'" title="图标">'
+    + '<input class="zt-label" value="'+esc(label)+'" placeholder="项目名称，如：浇水">'
+    + '<input class="zt-int" type="number" min="1" value="'+interval+'" title="间隔天数">'
+    + '<input class="zt-note" value="'+esc(note)+'" placeholder="方法/说明，如：见干见湿">'
+    + '<input class="zt-alt" value="'+esc(alt)+'" placeholder="交替，如：补铁,花多多">'
+    + '<button class="btn btn-danger sm zt-del" onclick="this.closest(\'.trow-wrap\').remove()" title="删除该项">✕</button>'
+    + '</div></div>';
+}
+function openEditZone(zoneId){
+  const z = zoneById(zoneId); if(!z) return;
+  openModal(''
+    + '<div class="mhead"><span class="mt">✏️ 编辑养护规则 · '+z.emoji+' '+esc(z.name)+'</span><button class="x" onclick="closeModal()">✕</button></div>'
+    + '<div class="mbody">'
+    + '<div class="trow trow-h"><span class="zt-emoji">图标</span><span class="zt-label">项目名称</span><span class="zt-int">间隔(天)</span><span class="zt-note">方法/说明</span><span class="zt-alt">交替(逗号分隔)</span><span class="zt-del"></span></div>'
+    + '<div id="ztRows">'+z.tasks.map(zoneTaskRow).join('')+'</div>'
+    + '<button class="btn btn-soft sm" onclick="addZoneTaskRow()">➕ 添加养护项目</button>'
+    + '<div style="margin-top:10px;font-size:11.5px;color:var(--faint)">交替示例：<b>补铁,花多多</b> —— 每次打卡后自动在两者间轮换；留空表示不交替。修改间隔后，下次到期日 = 今天 + 新间隔。</div>'
+    + '</div>'
+    + '<div class="mfoot"><button class="btn btn-ghost" onclick="closeModal()">取消</button>'
+    + '<button class="btn btn-primary" onclick="saveZoneRules(\''+z.id+'\')">保存规则</button></div>'
+  );
+}
+function addZoneTaskRow(){
+  $('#ztRows').insertAdjacentHTML('beforeend', zoneTaskRow(null));
+}
+function saveZoneRules(zoneId){
+  const z = zoneById(zoneId); if(!z) return;
+  const tasks = [];
+  $$('#ztRows .trow-wrap').forEach(w => {
+    const label = w.querySelector('.zt-label').value.trim();
+    if(!label) return;
+    const interval = Math.max(1, parseInt(w.querySelector('.zt-int').value||'7',10) || 7);
+    const altRaw = w.querySelector('.zt-alt').value.trim();
+    const altArr = altRaw ? altRaw.split(/[,，、]/).map(s=>s.trim()).filter(Boolean) : [];
+    let key = w.dataset.key;
+    if(!key) key = 't_' + Math.random().toString(36).slice(2,7);
+    tasks.push({ key, label, emoji: w.querySelector('.zt-emoji').value.trim()||'🌱',
+                 interval, note: w.querySelector('.zt-note').value.trim(),
+                 alt: altArr.length ? altArr : null });
+  });
+  if(!tasks.length){ toast('至少保留一个养护项目'); return; }
+  // 清理被删除项目的打卡状态
+  const removed = z.tasks.filter(old => !tasks.some(n => n.key === old.key));
+  if(z.kind === 'zone'){
+    members.filter(m => m.status==='planted' && m.zoneId === z.id).forEach(m => {
+      removed.forEach(t => { if(care[m.uid]) delete care[m.uid][t.key]; });
+    });
+    if(zcare[z.id]) removed.forEach(t => { delete zcare[z.id][t.key]; });
+  }else if(z.kind === 'global'){
+    removed.forEach(t => { delete gcare[t.key]; });
+  }
+  z.tasks = tasks;
+  if(z.kind === 'zone'){ members.filter(m => m.status==='planted' && m.zoneId === z.id).forEach(ensureCare); ensureZoneCare(); }
+  if(z.kind === 'global') ensureGlobalCare();
+  saveAll(); closeModal(); toast('✅ 养护规则已更新'); renderAll();
+}
+
+/* ---------- 模块三：待办中心 ---------- */
+function filterStream(f){
+  streamFilter = f;
+  $('#f-all').className = 'btn sm ' + (f==='all'?'btn-soft':'btn-ghost');
+  $('#f-due').className = 'btn sm ' + (f==='due'?'btn-soft':'btn-ghost');
+  renderStream();
+}
+function renderStream(){
+  let list = groupEntries();
+  /* 「仅到期」= 今天到期 + 已逾期；未到期（soon/later）不显示 */
+  if(streamFilter === 'due') list = list.filter(e => {
+    const lv = entryLevel(e.next);
+    return lv === 'overdue' || lv === 'today';
+  });
+  const el = $('#stream');
+  streamEntries = list;   // 与渲染保持一致，避免删除后残留旧索引
+  if(!list.length){
+    el.innerHTML = '<div class="empty" style="grid-column:1/-1"><span class="big">🎉</span>'
+      + (streamFilter==='due' ? '暂无到期事项，花园一切安好' : '还没有待办，可在右上角「➕ 自定义待办」添加，或去「我的花园」录入植物')+'</div>';
+  }else{
+    el.innerHTML = list.map((e, i) => {
+      const lv = entryLevel(e.next);
+      const altNext = (e.task.alt && e.task.alt.length)
+        ? ' 🔄 交替：'+e.task.alt.map(esc).join(' ⇄ ') : '';
+      if(e.type === 'global'){
+        return '<div class="todo '+lv+'">'
+          + '<div class="todo-top"><span class="em">'+e.task.emoji+'</span><div>'
+          + '<div class="todo-title">'+esc(e.task.label)+' · <span class="who">全园大事件</span></div>'
+          + '<div class="todo-detail">下次：'+fmt(e.next)+(e.task.note?' · '+esc(e.task.note):'')+'</div>'
+          + '<div class="todo-src">📅 上次：'+(e.state.last?fmt(e.state.last):'（首次，尚未打卡）')+' · 周期 '+e.task.interval+' 天'+altNext+'</div>'
+          + '</div><span class="topbadge badge '+lv+'">'+levelText(e.next)+'</span></div>'
+          + '<div class="todo-actions"><button class="btn btn-primary" onclick="checkinIdx('+i+')">✅ 打卡完成</button>'
+          + '<button class="btn btn-ghost" onclick="openSupplement('+i+')">📋 补卡</button></div></div>';
+      }
+      if(e.type === 'emg'){
+        const x = e.emg;
+        return '<div class="todo '+lv+'" style="border-left-color:var(--red)">'
+          + '<div class="todo-top"><span class="em">🚨</span><div>'
+          + '<div class="todo-title">'+esc(x.issue)+' · <span class="who">'+esc(x.target||'—')+'</span> <span class="badge overdue">应急</span></div>'
+          + '<div class="todo-detail">下次执行：'+fmt(x.next)+(x.action?' · 措施：'+esc(x.action):'')+'</div>'
+          + '<div class="todo-src">📅 上次：'+(x.last?fmt(x.last):'（尚未执行）')+' · 每 '+x.interval+' 天</div>'
+          + '</div><span class="topbadge badge '+lv+'">'+levelText(x.next)+'</span></div>'
+          + '<div class="todo-actions">'
+          + '<button class="btn btn-primary" onclick="checkinIdx('+i+')">✅ 已执行</button>'
+          + '<button class="btn btn-ghost" onclick="openSupplement('+i+')">📋 补卡</button>'
+          + '<button class="btn btn-ghost" onclick="switchView(\'lab\')">前往应急模块</button>'
+          + '</div></div>';
+      }
+      if(e.type === 'custom'){
+        const c = e.ct;
+        return '<div class="todo '+lv+'" style="border-left-color:var(--purple)">'
+          + '<div class="todo-top"><span class="em">'+(c.emoji||'📌')+'</span><div>'
+          + '<div class="todo-title">'+esc(c.title)+' <span class="badge wish">自定义</span></div>'
+          + '<div class="todo-detail">下次：'+fmt(c.next)+(c.note?' · '+esc(c.note):'')+'</div>'
+          + '<div class="todo-src">📅 上次：'+(c.last?fmt(c.last):'（尚未打卡）')+(c.interval?' · 周期 '+c.interval+' 天':' · 一次性事件')+'</div>'
+          + '</div><span class="topbadge badge '+lv+'">'+levelText(c.next)+'</span></div>'
+          + '<div class="todo-actions">'
+          + '<button class="btn btn-primary" onclick="checkinIdx('+i+')">✅ 打卡完成</button>'
+          + '<button class="btn btn-ghost" onclick="openSupplement('+i+')">📋 补卡</button>'
+          + '<button class="btn btn-soft sm" onclick="openEditCustom(\''+c.id+'\')">✏️ 编辑</button>'
+          + '<button class="btn btn-danger sm" onclick="deleteCustom(\''+c.id+'\')">删除</button>'
+          + '</div></div>';
+      }
+      if(e.type === 'zone'){
+        /* 区域内暂无植物：区域级养护卡片 */
+        return '<div class="todo '+lv+'">'
+          + '<div class="todo-top"><span class="em">'+e.task.emoji+'</span><div>'
+          + '<div class="todo-title">'+esc(e.task.label)+' · <span class="who">'+esc(e.zone.name)+'</span>'
+          + ' <span class="badge zone">暂无植物</span></div>'
+          + '<div class="todo-detail">下次：'+fmt(e.next)+(e.task.note?' · '+esc(e.task.note):'')+'</div>'
+          + '<div class="todo-src">📅 上次：'+(e.state.last?fmt(e.state.last):'（尚未打卡）')+' · 周期 '+e.task.interval+' 天'+altNext+'</div>'
+          + '</div><span class="topbadge badge '+lv+'">'+levelText(e.next)+'</span></div>'
+          + '<div class="todo-actions">'
+          + '<button class="btn btn-primary" onclick="checkinIdx('+i+')">✅ 打卡完成</button>'
+          + '<button class="btn btn-ghost" onclick="openSupplement('+i+')">📋 补卡</button>'
+          + '<button class="btn btn-ghost" onclick="switchView(\'zones\')">查看区域</button>'
+          + '</div></div>';
+      }
+      /* 区域组卡片 */
+      const names = e.per.map(p => p.m.name);
+      const preview = names.slice(0,4).join('、') + (names.length>4 ? ' 等' : '');
+      const lastDates = e.per.map(p => p.s.last).filter(Boolean);
+      const lastShow = lastDates.length ? fmt(Math.max.apply(null, lastDates)) + '（组内最近）' : '（尚未打卡）';
+      return '<div class="todo '+lv+'">'
+        + '<div class="todo-top"><span class="em">'+e.task.emoji+'</span><div>'
+        + '<div class="todo-title">'+esc(e.task.label)+' · <span class="who">'+esc(e.zone.name)+'</span>'
+        + ' <span class="badge zone">'+e.per.length+' 株</span></div>'
+        + '<div class="todo-detail">最早到期：'+fmt(e.next)+' · '+esc(preview)+'</div>'
+        + '<div class="todo-src">📅 上次：'+lastShow+' · 周期 '+e.task.interval+' 天'+altNext+'</div>'
+        + '</div><span class="topbadge badge '+lv+'">'+levelText(e.next)+'</span></div>'
+        + '<div class="todo-actions">'
+        + '<button class="btn btn-primary" onclick="checkinIdx('+i+')">✅ 全组打卡（'+e.per.length+' 株）</button>'
+        + '<button class="btn btn-ghost" onclick="openSupplement('+i+')">📋 补卡</button>'
+        + '<button class="btn btn-ghost" onclick="switchView(\'zones\')">查看区域</button>'
+        + '</div></div>';
+    }).join('');
+  }
+  renderHistory();
+}
+/* 按渲染索引打卡（对应 streamEntries）：记录历史快照，可撤销 */
+function checkinIdx(i){ doCheckin(streamEntries[i], today0(), false); }
+/* date = 打卡日期（补卡时为用户选定日期）；isSupplement 用于提示与历史标注 */
+function doCheckin(e, date, isSupplement){
+  if(!e) return;
+  const tag = isSupplement ? '补卡 '+fmt(date) : '';
+  const pre = isSupplement ? '📋 已补卡：' : '✅ 已打卡：';
+  if(e.type === 'global'){
+    const prev = [{ key: e.task.key, last: e.state.last, next: e.state.next, altIdx: e.state.altIdx }];
+    applyCheckinOn(e.task, e.state, date);
+    recordHistory({ kind:'global', label:'全园 · '+e.task.label, detail: tag, prev });
+    toast(pre + '全园 · ' + e.task.label);
+  }else if(e.type === 'emg'){
+    const x = e.emg;
+    const prev = [{ id: x.id, last: x.last, next: x.next }];
+    x.last = date; x.next = addDays(date, x.interval);
+    recordHistory({ kind:'emg', label:'应急 · '+x.issue, detail: tag || (x.target||''), prev });
+    toast(pre + x.issue);
+  }else if(e.type === 'custom'){
+    const c = e.ct;
+    const prev = [{ id: c.id, last: c.last, next: c.next, done: c.done }];
+    c.last = date;
+    if(c.interval){ c.next = addDays(date, c.interval); } else { c.done = true; }
+    recordHistory({ kind:'custom', label:'自定义 · '+c.title, detail: tag || (c.note||''), prev });
+    toast(pre + c.title);
+  }else if(e.type === 'zone'){
+    const prev = [{ zid: e.zone.id, key: e.task.key, last: e.state.last, next: e.state.next, altIdx: e.state.altIdx }];
+    applyCheckinOn(e.task, e.state, date);
+    recordHistory({ kind:'zonelevel', label:e.zone.name+' · '+e.task.label, detail: tag || '区域级（暂无植物）', prev });
+    toast(pre + e.zone.name + ' · ' + e.task.label);
+  }else{
+    const prev = e.per.map(p => ({ uid: p.m.uid, key: e.task.key, last: p.s.last, next: p.s.next, altIdx: p.s.altIdx }));
+    e.per.forEach(p => applyCheckinOn(e.task, p.s, date));
+    recordHistory({ kind:'zone', label:e.zone.name+' · '+e.task.label, detail: tag || e.per.map(p=>p.m.name).join('、'), prev });
+    toast(pre + e.zone.name + ' · ' + e.task.label + '（' + e.per.length + ' 株）');
+  }
+  saveAll(); renderAll();
+}
+
+/* ---------- 补卡：选择今天或之前的实际完成日期 ---------- */
+function openSupplement(i){
+  const e = streamEntries[i]; if(!e) return;
+  const t = fmt(today0());
+  let target = '';
+  if(e.type === 'zonegroup') target = e.zone.name + ' · ' + e.per.length + ' 株';
+  else if(e.type === 'zone') target = e.zone.name + '（区域级 · 暂无植物）';
+  else if(e.type === 'emg') target = '应急 · ' + (e.emg.target || '—');
+  else if(e.type === 'global') target = '全园大事件';
+  else target = '自定义待办';
+  openModal(''
+    + '<div class="mhead"><span class="mt">📋 补卡 · '+esc(e.task.label)+'</span><button class="x" onclick="closeModal()">✕</button></div>'
+    + '<div class="mbody">'
+    + '<div class="field"><label>补卡对象</label>'
+    + '<div style="padding:9px 12px;border-radius:10px;background:var(--g50);font-size:13px">'+esc(target)+'</div></div>'
+    + '<div class="field"><label>实际完成日期 *<span class="tip">只能选今天或之前的日期</span></label>'
+    + '<input id="supDate" type="date" max="'+t+'" value="'+t+'"></div>'
+    + '<div style="font-size:12px;color:var(--faint);line-height:1.6">补卡后，下次到期时间将从该日期 + 周期重新计算。</div>'
+    + '</div>'
+    + '<div class="mfoot"><button class="btn btn-ghost" onclick="closeModal()">取消</button>'
+    + '<button class="btn btn-primary" onclick="submitSupplement('+i+')">确认补卡</button></div>'
+  );
+}
+function submitSupplement(i){
+  const e = streamEntries[i]; if(!e) return;
+  const v = ($('#supDate').value||'').trim();
+  if(!v){ toast('请选择补卡日期'); return; }
+  const ts = new Date(v + 'T00:00:00').getTime();
+  if(isNaN(ts)){ toast('日期格式不正确'); return; }
+  if(ts > today0()){ toast('补卡日期不能晚于今天'); return; }
+  closeModal();
+  doCheckin(e, ts, true);
+}
+
+/* ---------- 打卡历史折叠区 ---------- */
+let histFoldOpen = false;
+function toggleHistFold(){ histFoldOpen = !histFoldOpen; renderHistory(); }
+function renderHistory(){
+  const box = $('#history-box');
+  if(!history.length){ box.innerHTML = ''; return; }
+  const rows = history.map(h =>
+    '<div class="hrow">'
+    + '<span class="ht">'+fmtT(h.time)+'</span>'
+    + '<span class="hl">'+esc(h.label)+(h.detail ? '<span class="hd"> · '+esc(h.detail)+'</span>' : '')+'</span>'
+    + '<button class="btn btn-ghost sm" onclick="undoCheckin(\''+h.id+'\')" title="撤销这次打卡">↩️ 撤销</button>'
+    + '</div>').join('');
+  box.innerHTML = '<button class="fold-head'+(histFoldOpen?' open':'')+'" onclick="toggleHistFold()">'
+    + '🕘 打卡历史（'+history.length+'）<span class="arrow">▶</span></button>'
+    + '<div class="fold-body hist-body'+(histFoldOpen?' open':'')+'">'+rows+'</div>';
+}
+
+/* ---------- 自定义待办 ---------- */
+function openAddCustom(){
+  openModal(''
+    + '<div class="mhead"><span class="mt">➕ 添加自定义待办</span><button class="x" onclick="closeModal()">✕</button></div>'
+    + '<div class="mbody">'
+    + '<div class="row2">'
+    + '<div class="field"><label>事件名称 *</label><input id="cuTitle" placeholder="如：修剪枝条 / 全园喷药"></div>'
+    + '<div class="field"><label>图标（可选）</label><input id="cuEmoji" placeholder="如：✂️" maxlength="4"></div>'
+    + '</div>'
+    + '<div class="field"><label>说明（可选）</label><input id="cuNote" placeholder="如：月季冬剪，剪至离地 30cm"></div>'
+    + '<div class="row2">'
+    + '<div class="field"><label>重复周期（天）<span class="tip">留空或 0 = 一次性事件</span></label><input id="cuInterval" type="number" min="0" placeholder="0"></div>'
+    + '<div class="field"><label>首次到期 <span class="tip">几天后到期，默认今天</span></label><input id="cuInDays" type="number" min="0" value="0"></div>'
+    + '</div></div>'
+    + '<div class="mfoot"><button class="btn btn-ghost" onclick="closeModal()">取消</button>'
+    + '<button class="btn btn-primary" onclick="submitCustom()">添加待办</button></div>'
+  );
+}
+function submitCustom(){
+  const title = ($('#cuTitle').value||'').trim();
+  if(!title){ toast('请填写事件名称'); return; }
+  const interval = Math.max(0, parseInt($('#cuInterval').value||'0',10) || 0);
+  const inDays = Math.max(0, parseInt($('#cuInDays').value||'0',10) || 0);
+  custom.push({ id: uid('c'), title, emoji: ($('#cuEmoji').value||'').trim() || '📌',
+    note: ($('#cuNote').value||'').trim(), interval: interval || null,
+    last: null, next: addDays(today0(), inDays), done: false, createdAt: Date.now() });
+  saveAll(); closeModal(); toast('📌 已添加自定义待办'); renderAll();
+}
+function deleteCustom(id){
+  const c = custom.find(x => x.id === id); if(!c) return;
+  confirmDialog('确定删除自定义待办「'+c.title+'」？删除后可重新添加，但该事件的打卡历史会保留。', '删除', function(){
+    custom = custom.filter(x => x.id !== id);
+    saveAll(); toast('已删除：'+c.title); renderAll();
+  });
+}
+/* 编辑自定义待办 */
+function openEditCustom(id){
+  const c = custom.find(x => x.id === id); if(!c) return;
+  openModal(''
+    + '<div class="mhead"><span class="mt">✏️ 编辑自定义待办</span><button class="x" onclick="closeModal()">✕</button></div>'
+    + '<div class="mbody">'
+    + '<div class="row2">'
+    + '<div class="field"><label>事件名称 *</label><input id="cuTitle" value="'+esc(c.title)+'"></div>'
+    + '<div class="field"><label>图标（可选）</label><input id="cuEmoji" value="'+esc(c.emoji||'')+'" maxlength="4"></div>'
+    + '</div>'
+    + '<div class="field"><label>说明（可选）</label><input id="cuNote" value="'+esc(c.note||'')+'"></div>'
+    + '<div class="row2">'
+    + '<div class="field"><label>重复周期（天）<span class="tip">留空或 0 = 一次性事件</span></label><input id="cuInterval" type="number" min="0" value="'+(c.interval||0)+'"></div>'
+    + '<div class="field"><label>下次到期日期</label><input id="cuNext" type="date" value="'+fmt(c.next)+'"></div>'
+    + '</div></div>'
+    + '<div class="mfoot"><button class="btn btn-ghost" onclick="closeModal()">取消</button>'
+    + '<button class="btn btn-primary" onclick="saveEditCustom(\''+c.id+'\')">保存修改</button></div>'
+  );
+}
+function saveEditCustom(id){
+  const c = custom.find(x => x.id === id); if(!c) return;
+  const title = ($('#cuTitle').value||'').trim();
+  if(!title){ toast('请填写事件名称'); return; }
+  const interval = Math.max(0, parseInt($('#cuInterval').value||'0',10) || 0);
+  const v = ($('#cuNext').value||'').trim();
+  const ts = v ? new Date(v + 'T00:00:00').getTime() : NaN;
+  if(v && isNaN(ts)){ toast('日期格式不正确'); return; }
+  c.title = title;
+  c.emoji = ($('#cuEmoji').value||'').trim() || '📌';
+  c.note = ($('#cuNote').value||'').trim();
+  c.interval = interval || null;
+  if(!isNaN(ts)) c.next = ts;
+  saveAll(); closeModal(); toast('✏️ 已保存修改'); renderAll();
+}
+
+/* ---------- 模块四：病虫害应急 ---------- */
+let emgFoldOpen = false;
+function emgCardHTML(x){
+  const lv = entryLevel(x.next);
+  return '<div class="emg-card '+(x.status==='archived'?'archived':'')+'">'
+    + '<div class="card-head"><div><div class="tt">🚨 '+esc(x.issue)+'</div>'
+    + '<div class="sub">📍 目标：'+esc(x.target||'—')+'</div></div>'
+    + '<div class="right">'+(x.status==='active' ? '<span class="badge '+lv+'">'+levelText(x.next)+'</span>' : '<span class="badge done">已归档</span>')+'</div></div>'
+    + '<div class="meta-row"><span>🛠️ 措施：<b>'+esc(x.action||'—')+'</b></span><span>⏱️ 每 <b>'+x.interval+'</b> 天</span></div>'
+    + (x.status==='active'
+        ? '<div class="meta-row"><span>下次执行：<b>'+fmt(x.next)+'</b></span><span>上次：'+(x.last?fmt(x.last):'—')+'</span><span style="color:var(--faint)">（执行打卡请去「⚡ 待办中心」）</span></div>'
+          + '<div class="todo-actions">'
+          + '<button class="btn btn-soft sm" onclick="openEditEmergency(\''+x.id+'\')">✏️ 编辑</button>'
+          + '<button class="btn btn-outline sm" onclick="emgArchive(\''+x.id+'\')">🌿 治愈归档</button>'
+          + '<button class="btn btn-danger sm" onclick="emgDelete(\''+x.id+'\')">删除</button></div>'
+        : '<div class="todo-actions"><button class="btn btn-ghost sm" onclick="emgReopen(\''+x.id+'\')">重新激活</button>'
+          + '<button class="btn btn-danger sm" onclick="emgDelete(\''+x.id+'\')">删除</button></div>')
+    + '</div>';
+}
+function renderEmergency(){
+  const active = emergency.filter(x => x.status === 'active');
+  const done = emergency.filter(x => x.status === 'archived');
+  const el = $('#emg-list');
+  if(!emergency.length){
+    el.innerHTML = '<div class="empty" style="grid-column:1/-1"><span class="big">🐛</span>暂无病虫害应急事件<br>发现红蜘蛛、蚧壳虫等突发异常时，点上方新建</div>';
+    return;
+  }
+  let html = active.map(emgCardHTML).join('');
+  if(done.length){
+    html += '<button class="fold-head'+(emgFoldOpen?' open':'')+'" onclick="toggleEmgFold()">'
+      + '🗂️ 已治愈归档（'+done.length+'）<span class="arrow">▶</span></button>'
+      + '<div class="fold-body'+(emgFoldOpen?' open':'')+'">'+done.map(emgCardHTML).join('')+'</div>';
+  }
+  if(!active.length && !emgFoldOpen){
+    html += '<div class="empty" style="grid-column:1/-1;padding:18px">当前没有进行中的应急事件 🎉</div>';
+  }
+  el.innerHTML = html;
+}
+function toggleEmgFold(){ emgFoldOpen = !emgFoldOpen; renderEmergency(); }
+function emgArchive(id){ const x = emergency.find(e => e.id === id); if(!x) return; x.status='archived'; saveAll(); toast('🌿 已治愈归档'); renderAll(); }
+function emgReopen(id){ const x = emergency.find(e => e.id === id); if(!x) return; x.status='active'; x.next = addDays(today0(), x.interval); saveAll(); toast('已重新激活'); renderAll(); }
+function emgDelete(id){
+  const x = emergency.find(e => e.id === id); if(!x) return;
+  confirmDialog('确定删除该应急事件「'+x.issue+'」？', '删除', function(){
+    emergency = emergency.filter(e => e.id !== id);
+    saveAll(); toast('已删除'); renderAll();
+  });
+}
+
+/* ---------- 应急事件编辑 ---------- */
+function openEditEmergency(id){
+  const x = emergency.find(e => e.id === id); if(!x) return;
+  openModal(''
+    + '<div class="mhead"><span class="mt">✏️ 编辑应急事件</span><button class="x" onclick="closeModal()">✕</button></div>'
+    + '<div class="mbody">'
+    + '<div class="field"><label>病虫害 / 问题 *</label><input id="eIssue" value="'+esc(x.issue)+'"></div>'
+    + '<div class="row2">'
+    + '<div class="field"><label>目标植物</label><input id="eTarget" value="'+esc(x.target||'')+'"></div>'
+    + '<div class="field"><label>执行间隔（天）*</label><input id="eInterval" type="number" min="1" value="'+x.interval+'"></div>'
+    + '</div>'
+    + '<div class="field"><label>处置措施</label><input id="eAction" value="'+esc(x.action||'')+'"></div>'
+    + '</div>'
+    + '<div class="mfoot"><button class="btn btn-ghost" onclick="closeModal()">取消</button>'
+    + '<button class="btn btn-primary" onclick="emgSaveEdit(\''+x.id+'\')">保存修改</button></div>'
+  );
+}
+function emgSaveEdit(id){
+  const x = emergency.find(e => e.id === id); if(!x) return;
+  const issue = ($('#eIssue').value||'').trim();
+  if(!issue){ toast('请填写病虫害/问题名称'); return; }
+  const newInterval = Math.max(1, parseInt($('#eInterval').value||'3',10));
+  x.issue = issue;
+  x.target = ($('#eTarget').value||'').trim();
+  x.action = ($('#eAction').value||'').trim();
+  if(newInterval !== x.interval){ x.interval = newInterval; x.next = addDays(today0(), newInterval); }
+  saveAll(); closeModal(); toast('✏️ 已保存修改'); renderAll();
+}
+
+/* ---------- 模块四：园艺科研攻关 ---------- */
+let rdFoldOpen = false;
+function rdCardHTML(r){
+  const logs = (r.logs||[]).map(l => '<div class="log"><span class="lt">'+fmt(l.time)+'</span><span class="lx">'+esc(l.text)+'</span></div>').join('');
+  return '<div class="rd-card '+(r.status==='solved'?'solved':'')+'">'
+    + '<div class="card-head"><div><div class="tt">🔬 '+esc(r.title)+'</div>'
+    + '<div class="sub">🎯 对象：'+esc(r.target||'—')+'</div></div>'
+    + '<div class="right"><span class="badge '+(r.status==='solved'?'done':'wish')+'">'+(r.status==='solved'?'已解决':'攻关中')+'</span></div></div>'
+    + (r.goal ? '<div class="meta-row"><span>📌 目标：<b>'+esc(r.goal)+'</b></span></div>' : '')
+    + '<div class="logs">'+(logs||'<div class="log" style="color:var(--faint)">暂无观察日志</div>')+'</div>'
+    + '<div class="log-add"><textarea id="log-'+r.id+'" placeholder="记录一条阶段性观察…（如：环剥+控水 2 周后见花芽）"></textarea>'
+    + '<button class="btn btn-soft sm" onclick="addLog(\''+r.id+'\')">记录</button></div>'
+    + '<div class="todo-actions">'
+    + '<button class="btn btn-soft sm" onclick="openEditResearch(\''+r.id+'\')">✏️ 编辑</button>'
+    + (r.status==='ongoing'
+        ? '<button class="btn btn-primary sm" onclick="rdToggle(\''+r.id+'\')">🎉 标记已解决</button>'
+        : '<button class="btn btn-ghost sm" onclick="rdToggle(\''+r.id+'\')">↩️ 重新攻关</button>')
+    + '<button class="btn btn-danger sm" onclick="rdDelete(\''+r.id+'\')">删除课题</button></div>'
+    + '</div>';
+}
+function renderResearch(){
+  const el = $('#rd-list');
+  if(!research.length){
+    el.innerHTML = '<div class="empty" style="grid-column:1/-1"><span class="big">🔬</span>暂无科研课题<br>把「只长叶不开花」「生长缓慢」这类疑难立项攻关</div>';
+    return;
+  }
+  const ongoing = research.filter(r => r.status === 'ongoing');
+  const solved = research.filter(r => r.status === 'solved');
+  let html = ongoing.map(rdCardHTML).join('');
+  if(solved.length){
+    html += '<button class="fold-head'+(rdFoldOpen?' open':'')+'" onclick="toggleRdFold()">'
+      + '🎉 已解决（'+solved.length+'）<span class="arrow">▶</span></button>'
+      + '<div class="fold-body'+(rdFoldOpen?' open':'')+'">'+solved.map(rdCardHTML).join('')+'</div>';
+  }
+  if(!ongoing.length && !rdFoldOpen){
+    html += '<div class="empty" style="grid-column:1/-1;padding:18px">当前没有攻关中的课题 🎉</div>';
+  }
+  el.innerHTML = html;
+}
+function toggleRdFold(){ rdFoldOpen = !rdFoldOpen; renderResearch(); }
+function addLog(id){
+  const r = research.find(x => x.id === id); if(!r) return;
+  const ta = $('#log-'+id); const text = (ta.value||'').trim(); if(!text) return;
+  r.logs = r.logs || []; r.logs.push({ time: Date.now(), text });
+  saveAll(); toast('📝 已记录观察'); renderAll();
+}
+function rdToggle(id){ const r = research.find(x => x.id === id); if(!r) return; r.status = r.status==='ongoing'?'solved':'ongoing'; saveAll(); renderAll(); }
+function rdDelete(id){
+  const r = research.find(x => x.id === id); if(!r) return;
+  confirmDialog('确定删除该科研课题「'+r.title+'」？', '删除', function(){
+    research = research.filter(x => x.id !== id);
+    saveAll(); toast('已删除'); renderAll();
+  });
+}
+
+/* ---------- 科研课题编辑 ---------- */
+function openEditResearch(id){
+  const r = research.find(x => x.id === id); if(!r) return;
+  openModal(''
+    + '<div class="mhead"><span class="mt">✏️ 编辑科研课题</span><button class="x" onclick="closeModal()">✕</button></div>'
+    + '<div class="mbody">'
+    + '<div class="field"><label>课题名称 *</label><input id="rTitle" value="'+esc(r.title)+'"></div>'
+    + '<div class="row2">'
+    + '<div class="field"><label>研究对象</label><input id="rTarget" value="'+esc(r.target||'')+'"></div>'
+    + '<div class="field"><label>攻关目标</label><input id="rGoal" value="'+esc(r.goal||'')+'"></div>'
+    + '</div></div>'
+    + '<div class="mfoot"><button class="btn btn-ghost" onclick="closeModal()">取消</button>'
+    + '<button class="btn btn-primary" onclick="rdSaveEdit(\''+r.id+'\')">保存修改</button></div>'
+  );
+}
+function rdSaveEdit(id){
+  const r = research.find(x => x.id === id); if(!r) return;
+  const title = ($('#rTitle').value||'').trim();
+  if(!title){ toast('请填写课题名称'); return; }
+  r.title = title;
+  r.target = ($('#rTarget').value||'').trim();
+  r.goal = ($('#rGoal').value||'').trim();
+  saveAll(); closeModal(); toast('✏️ 已保存修改'); renderAll();
+}
+
+/* =====================================================================
+ * 弹窗：新增植物 / 详情
+ * ===================================================================== */
+function openModal(html){
+  $('#modal').innerHTML = html;
+  $('#overlay').classList.add('open');
+}
+function closeModal(){ $('#overlay').classList.remove('open'); }
+
+/* ---------- 应用内确认弹窗（替代原生 confirm）----------
+ * 原生 confirm 在 PWA 独立窗口 / 内嵌浏览器中会阻塞页面甚至导致页面无响应，
+ * 统一改用页面内弹窗；取消时恢复调用前的弹窗内容。 */
+let pendingConfirm = null, confirmBackup = null;
+function confirmDialog(msg, okText, cb){
+  pendingConfirm = cb;
+  confirmBackup = $('#overlay').classList.contains('open') ? $('#modal').innerHTML : null;
+  openModal(''
+    + '<div class="mhead"><span class="mt">⚠️ 请确认</span><button class="x" onclick="confirmCancel()">✕</button></div>'
+    + '<div class="mbody"><div style="font-size:14px;line-height:1.75">'+esc(msg)+'</div></div>'
+    + '<div class="mfoot"><button class="btn btn-ghost" onclick="confirmCancel()">取消</button>'
+    + '<button class="btn btn-danger" onclick="confirmOk()">'+esc(okText||'确定')+'</button></div>'
+  );
+}
+function confirmCancel(){
+  pendingConfirm = null;
+  if(confirmBackup !== null){ $('#modal').innerHTML = confirmBackup; confirmBackup = null; }
+  else closeModal();
+}
+function confirmOk(){
+  const cb = pendingConfirm; pendingConfirm = null; confirmBackup = null;
+  closeModal();
+  if(typeof cb !== 'function') return;
+  try{ cb(); }catch(err){ console.error('确认操作失败', err); toast('操作失败：'+(err && err.message || err)); }
+}
+
+/* ---------- 新增植物 ---------- */
+let addState = { mode:'kb', selected:null, status:'planted' };
+function openAddPlant(status){
+  addState = { mode:'kb', selected:null, status: status || 'planted' };
+  const zoneOptions = zones.filter(z=>z.kind==='zone').map(z=>'<option value="'+z.id+'">'+z.emoji+' '+esc(z.name)+'</option>').join('');
+  openModal(''
+    + '<div class="mhead"><span class="mt">➕ 录入新植物</span><button class="x" onclick="closeModal()">✕</button></div>'
+    + '<div class="mbody">'
+    + '<div class="seg" style="margin-bottom:16px">'
+    + '<button id="seg-kb" class="active" onclick="setAddMode(\'kb\')">🔍 从科学字典选择</button>'
+    + '<button id="seg-custom" onclick="setAddMode(\'custom\')">✍️ 完全自定义录入</button></div>'
+
+    + '<div id="pane-kb">'
+    + '<div class="field"><label>搜索植物 <span class="tip">按中文名 / 别名 / 学名 从 plants.json 检索</span></label>'
+    + '<input id="kbSearch" placeholder="如：绣球 / 月季 / Hydrangea…" oninput="searchKB()"></div>'
+    + '<div class="search-results" id="kbResults"><div style="padding:14px;color:var(--faint);font-size:13px">输入关键词开始搜索…</div></div>'
+    + '<div id="kbPicked" style="margin-top:12px"></div>'
+    + '</div>'
+
+    + '<div id="pane-custom" style="display:none">'
+    + '<div class="field"><label>植物名称 *</label><input id="cName" placeholder="如：稀有蓝雪花"></div>'
+    + '<div class="row3">'
+    + '<div class="field"><label>科 Family *</label><input id="cFamily" placeholder="如：蓝雪科"></div>'
+    + '<div class="field"><label>属 Genus</label><input id="cGenus" placeholder="如：蓝雪花属"></div>'
+    + '<div class="field"><label>种 Species</label><input id="cSpecies" placeholder="如：蓝雪花"></div>'
+    + '</div>'
+    + '<div class="field"><label>学名（可选）</label><input id="cSci" placeholder="Plumbago auriculata"></div>'
+    + '<div class="field"><label>图片路径（可选）<span class="tip">留空则显示优雅占位图</span></label><input id="cCover" placeholder="./images/xxx.jpg"></div>'
+    + '<div class="field"><label>光照需求（可选）</label><input id="cLight" placeholder="如：全日照 / 半阴"></div>'
+    + '</div>'
+
+    + '<div class="row2" style="margin-top:8px">'
+    + '<div class="field"><label>状态</label>'
+    + '<select id="addStatus" onchange="onAddStatusChange()">'
+    + '<option value="planted"'+(addState.status==='planted'?' selected':'')+'>🏡 已种植（进入花园）</option>'
+    + '<option value="wishlist"'+(addState.status==='wishlist'?' selected':'')+'>🌱 预备池 / 愿望清单</option>'
+    + '</select></div>'
+    + '<div class="field"><label id="zoneLabel">物理区域</label>'
+    + '<select id="addZone">'+zoneOptions+'</select></div>'
+    + '</div>'
+    + '<div class="field"><label>备注（可选）</label><textarea id="addNotes" placeholder="位置、购入时间、养护心得…"></textarea></div>'
+    + '</div>'
+    + '<div class="mfoot"><button class="btn btn-ghost" onclick="closeModal()">取消</button>'
+    + '<button class="btn btn-primary" onclick="submitAddPlant()">确认录入</button></div>'
+  );
+  onAddStatusChange();
+  setTimeout(()=>{ const el=$('#kbSearch'); if(el) el.focus(); }, 60);
+}
+function setAddMode(m){
+  addState.mode = m;
+  $('#seg-kb').classList.toggle('active', m==='kb');
+  $('#seg-custom').classList.toggle('active', m==='custom');
+  $('#pane-kb').style.display = m==='kb' ? '' : 'none';
+  $('#pane-custom').style.display = m==='custom' ? '' : 'none';
+}
+function onAddStatusChange(){
+  const v = $('#addStatus').value;
+  const planted = v === 'planted';
+  $('#zoneLabel').textContent = planted ? '物理区域' : '意向区域（可选）';
+}
+function searchKB(){
+  const q = ($('#kbSearch').value||'').trim().toLowerCase();
+  const box = $('#kbResults');
+  if(!q){ box.innerHTML = '<div style="padding:14px;color:var(--faint);font-size:13px">输入关键词开始搜索…</div>'; return; }
+  if(!KB.length){ box.innerHTML = '<div style="padding:14px;color:var(--red);font-size:13px">未能加载 plants.json，请改用「完全自定义录入」</div>'; return; }
+  const res = KB.filter(p => {
+    const bi = p.basic_info||{};
+    const hay = [bi.name, bi.scientific_name, bi.family, bi.genus, (bi.aliases||[]).join(' ')].join(' ').toLowerCase();
+    return hay.includes(q);
+  }).slice(0, 40);
+  if(!res.length){ box.innerHTML = '<div style="padding:14px;color:var(--faint);font-size:13px">字典中未找到，试试「完全自定义录入」</div>'; return; }
+  box.innerHTML = res.map(p => {
+    const bi = p.basic_info||{};
+    const cover = (p.media && p.media.cover_image && p.media.cover_image.url) || '';
+    return '<div class="sr-item" onclick="pickKB(\''+p.plant_id+'\')">'
+      + '<div class="mini">'+coverMini(cover)+'</div>'
+      + '<div class="info"><div class="nm">'+esc(bi.name)+'</div>'
+      + '<div class="ss">'+esc(bi.scientific_name||'')+'</div>'
+      + '<div class="tag">'+esc(bi.family||'')+' › '+esc(bi.genus||'')+' · '+esc(bi.garden_fit_tag||'')+'</div></div></div>';
+  }).join('');
+}
+function pickKB(id){
+  addState.selected = id;
+  const p = KB_BY_ID[id]; const bi = p.basic_info||{};
+  const cover = (p.media && p.media.cover_image && p.media.cover_image.url) || '';
+  $('#kbPicked').innerHTML = '<div class="sr-item" style="border:1.5px solid var(--g400);border-radius:12px">'
+    + '<div class="mini">'+coverMini(cover)+'</div>'
+    + '<div class="info"><div class="nm">✅ 已选择：'+esc(bi.name)+'</div>'
+    + '<div class="ss">'+esc(bi.scientific_name||'')+'</div>'
+    + '<div class="tag">'+esc(bi.family||'')+' › '+esc(bi.genus||'')+'</div></div></div>';
+}
+function submitAddPlant(){
+  let rec = { uid: uid('m'), addedAt: Date.now(), status: $('#addStatus').value,
+              zoneId: null, targetZoneId: null, notes: ($('#addNotes').value||'').trim() };
+  if(addState.mode === 'kb'){
+    if(!addState.selected){ toast('请先从字典中搜索并选择一株植物'); return; }
+    rec.refId = addState.selected;
+    const bi = (KB_BY_ID[addState.selected].basic_info)||{};
+    rec.name = bi.name;
+  }else{
+    const name = ($('#cName').value||'').trim();
+    const family = ($('#cFamily').value||'').trim();
+    if(!name || !family){ toast('自定义录入需填写「植物名称」与「科 Family」'); return; }
+    rec.refId = null;
+    rec.name = name;
+    rec.family = family;
+    rec.genus = ($('#cGenus').value||'').trim() || '未定属';
+    rec.species = ($('#cSpecies').value||'').trim() || name;
+    rec.sci = ($('#cSci').value||'').trim();
+    rec.cover = ($('#cCover').value||'').trim();
+    rec.light = ($('#cLight').value||'').trim();
+  }
+  const zv = $('#addZone').value;
+  if(rec.status === 'planted'){ rec.zoneId = zv; } else { rec.targetZoneId = zv || null; }
+  members.push(rec);
+  if(rec.status === 'planted') ensureCare(rec);
+  saveAll(); closeModal();
+  toast('🌿 已录入：' + rec.name);
+  renderAll();
+  // 录入后跳到对应子视图
+  switchSub(rec.status === 'wishlist' ? 'wishlist' : 'planted');
+  switchView('garden');
+}
+
+/* ---------- 植物详情 ---------- */
+function openDetail(uid_){
+  const m = members.find(x => x.uid === uid_); if(!m) return;
+  const st = getStatic(m);
+  const z = zoneById(m.zoneId), zt = zoneById(m.targetZoneId);
+  const zoneOptions = '<option value="">未分配</option>' + zones.filter(x=>x.kind==='zone')
+      .map(x=>'<option value="'+x.id+'"'+((m.zoneId===x.id||m.targetZoneId===x.id)?' selected':'')+'>'+x.emoji+' '+esc(x.name)+'</option>').join('');
+
+  const info = [];
+  if(st.sci) info.push(['学名', st.sci]);
+  if(st.family) info.push(['科', st.family]);
+  if(st.genus) info.push(['属', st.genus]);
+  if(st.aliases.length) info.push(['别名', st.aliases.join('、')]);
+  if(st.diff) info.push(['养护难度', st.diff]);
+  if(st.light) info.push(['光照', st.light]);
+  if(st.temp) info.push(['适宜温度', st.temp]);
+  if(st.water) info.push(['浇水策略', st.water]);
+  if(st.fert) info.push(['施肥', st.fert]);
+  if(st.tox) info.push(['毒性', st.tox]);
+
+  const infoHTML = info.length
+    ? '<div class="d-grid">'+info.map(([k,v]) => '<div class="d-item"><div class="k">'+esc(k)+'</div><div class="v">'+esc(v)+'</div></div>').join('')+'</div>'
+    : '<div class="d-txt">该植物为自定义录入，暂无字典静态属性。</div>';
+
+  let careHTML = '';
+  if(m.status === 'planted' && z && z.kind==='zone'){
+    careHTML = '<div class="d-sec"><h4>⚡ 动态养护状态（'+z.emoji+' '+esc(z.name)+'）</h4>'
+      + '<div class="care-state">'+ entriesFor(m).map(e =>
+          '<div class="cs-item"><b>'+e.task.emoji+' '+esc(e.task.label)+'</b>下次 '+fmt(e.next)+'（'+levelText(e.next)+'）'
+          + (e.kindLabel?'<br>本次建议 '+esc(e.kindLabel):'') + '</div>').join('')
+      + '</div></div>';
+  }
+
+  const troubleHTML = st.trouble.length
+    ? '<div class="d-sec"><h4>🩺 常见问题与防治</h4>'+st.trouble.map(t =>
+        '<div class="trouble"><b>'+esc(t.symptom)+'</b> · 成因：'+esc(t.cause)+'<br>处方：'+esc(t.solution)+'</div>').join('')+'</div>'
+    : '';
+
+  openModal(''
+    + '<div class="mhead"><span class="mt">'+esc(st.name)+'</span><button class="x" onclick="closeModal()">✕</button></div>'
+    + '<div class="detail-hero">'+coverHTML(st.cover)
+    + '<div class="cap"><h3>'+esc(st.name)+'</h3><div class="ss">'+esc(st.sci||'')+'</div>'
+    + '<div class="tags"><span class="badge">'+esc(st.family)+'</span><span class="badge">'+esc(st.genus)+'</span>'
+    + '<span class="badge">'+(st.kb?'📖 字典':'✍️ 自定义')+'</span>'
+    + '<span class="badge">'+(m.status==='planted'?'🏡 已种植':'🌱 愿望清单')+'</span></div></div></div>'
+    + '<div class="mbody">'
+    + '<div class="d-sec"><h4>📖 静态百科属性</h4>'+infoHTML+'</div>'
+    + (st.type ? '<div class="d-sec"><h4>🌱 植物形态</h4><div class="d-txt">'+esc(st.type)+'</div></div>' : '')
+    + careHTML
+    + '<div class="d-sec"><h4>📍 物理区域</h4>'
+    + '<div class="row2"><div class="field" style="margin:0"><label>'+(m.status==='planted'?'所在区域':'意向区域')+'</label>'
+    + '<select id="dZone">'+zoneOptions+'</select></div>'
+    + '<div style="display:flex;align-items:flex-end;gap:8px"><button class="btn btn-soft" onclick="saveZone(\''+m.uid+'\')">保存区域</button></div></div></div>'
+    + '<div class="d-sec"><h4>📝 我的备注</h4>'
+    + '<textarea id="dNotes" style="width:100%;padding:9px 12px;border-radius:10px;border:1.5px solid var(--line)" placeholder="养护心得 / 观察记录…">'+esc(m.notes||'')+'</textarea>'
+    + '<button class="btn btn-soft sm" style="margin-top:8px" onclick="saveNotes(\''+m.uid+'\')">保存备注</button></div>'
+    + troubleHTML
+    + '</div>'
+    + '<div class="mfoot">'
+    + (m.status === 'planted'
+        ? '<button class="btn btn-outline" onclick="moveToWish(\''+m.uid+'\')">🌱 转回预备池</button>'
+        : '<button class="btn btn-primary" onclick="moveToPlanted(\''+m.uid+'\')">🏡 转入花园种植</button>')
+    + '<button class="btn btn-danger" onclick="removeMember(\''+m.uid+'\')">🗑️ 移除</button>'
+    + '<button class="btn btn-ghost" onclick="closeModal()">关闭</button>'
+    + '</div>'
+  );
+}
+function saveZone(uid_){
+  const m = members.find(x=>x.uid===uid_); if(!m) return;
+  const v = $('#dZone').value;
+  if(m.status === 'planted'){ m.zoneId = v || null; if(m.zoneId) ensureCare(m); else delete care[m.uid]; }
+  else { m.targetZoneId = v || null; }
+  saveAll(); toast('📍 区域已更新'); renderAll(); openDetail(uid_);
+}
+function saveNotes(uid_){
+  const m = members.find(x=>x.uid===uid_); if(!m) return;
+  m.notes = ($('#dNotes').value||'').trim(); saveAll(); toast('📝 备注已保存'); renderAll();
+}
+function moveToWish(uid_){
+  const m = members.find(x=>x.uid===uid_); if(!m) return;
+  m.status = 'wishlist'; m.targetZoneId = m.zoneId; m.zoneId = null; delete care[m.uid];
+  saveAll(); toast('🌱 已转回愿望清单'); closeModal(); renderAll();
+}
+function moveToPlanted(uid_){
+  const m = members.find(x=>x.uid===uid_); if(!m) return;
+  m.status = 'planted'; m.zoneId = m.targetZoneId || (zones.find(z=>z.kind==='zone')||{}).id; m.targetZoneId = null;
+  ensureCare(m); saveAll(); toast('🏡 已转入花园'); closeModal(); renderAll();
+}
+function removeMember(uid_){
+  const m = members.find(x=>x.uid===uid_); if(!m) return;
+  confirmDialog('确定移除「'+m.name+'」？该操作仅影响本地名单。', '移除', function(){
+    members = members.filter(x=>x.uid!==uid_); delete care[uid_];
+    saveAll(); toast('已移除'); closeModal(); renderAll();
+  });
+}
+
+/* ---------- 新建应急 / 课题 ---------- */
+function openAddEmergency(){
+  const plantOpts = members.filter(m=>m.status==='planted').map(m=>'<option value="'+esc(m.name)+'">'+esc(m.name)+'</option>').join('');
+  openModal(''
+    + '<div class="mhead"><span class="mt">🚨 新建病虫害应急事件</span><button class="x" onclick="closeModal()">✕</button></div>'
+    + '<div class="mbody">'
+    + '<div class="field"><label>病虫害 / 问题 *</label><input id="eIssue" placeholder="如：柿子树红蜘蛛 / 吊兰蚧壳虫 / 叶斑病"></div>'
+    + '<div class="row2">'
+    + '<div class="field"><label>目标植物</label><input id="eTarget" list="plantOpts" placeholder="如：柿子树"><datalist id="plantOpts">'+plantOpts+'</datalist></div>'
+    + '<div class="field"><label>执行间隔（天）*</label><input id="eInterval" type="number" min="1" value="3"><span class="tip">如每 3 天喷一次药</span></div>'
+    + '</div>'
+    + '<div class="field"><label>处置措施</label><input id="eAction" placeholder="如：阿维菌素 3000 倍液叶背喷施"></div>'
+    + '</div>'
+    + '<div class="mfoot"><button class="btn btn-ghost" onclick="closeModal()">取消</button>'
+    + '<button class="btn btn-primary" onclick="submitEmergency()">创建事件</button></div>'
+  );
+}
+function submitEmergency(){
+  const issue = ($('#eIssue').value||'').trim();
+  if(!issue){ toast('请填写病虫害/问题名称'); return; }
+  const interval = Math.max(1, parseInt($('#eInterval').value||'3',10));
+  emergency.push({ id: uid('e'), issue, target: ($('#eTarget').value||'').trim(),
+    interval, action: ($('#eAction').value||'').trim(), status:'active',
+    startedAt: Date.now(), last:null, next: addDays(today0(), interval) });
+  saveAll(); closeModal(); toast('🚨 应急事件已创建'); renderAll();
+}
+function openAddResearch(){
+  const plantOpts = members.map(m=>'<option value="'+esc(m.name)+'">'+esc(m.name)+'</option>').join('');
+  openModal(''
+    + '<div class="mhead"><span class="mt">🔬 提交科研攻关课题</span><button class="x" onclick="closeModal()">✕</button></div>'
+    + '<div class="mbody">'
+    + '<div class="field"><label>课题名称 *</label><input id="rTitle" placeholder="如：三角梅只长叶不开花的促花攻关"></div>'
+    + '<div class="row2">'
+    + '<div class="field"><label>研究对象</label><input id="rTarget" list="rPlantOpts" placeholder="如：三角梅"><datalist id="rPlantOpts">'+plantOpts+'</datalist></div>'
+    + '<div class="field"><label>攻关目标</label><input id="rGoal" placeholder="如：60 天内诱导开花"></div>'
+    + '</div>'
+    + '<div class="field"><label>初始观察记录（可选）</label><textarea id="rNote" placeholder="记录当前症状、已尝试的手段…"></textarea></div>'
+    + '</div>'
+    + '<div class="mfoot"><button class="btn btn-ghost" onclick="closeModal()">取消</button>'
+    + '<button class="btn btn-primary" onclick="submitResearch()">立项攻关</button></div>'
+  );
+}
+function submitResearch(){
+  const title = ($('#rTitle').value||'').trim();
+  if(!title){ toast('请填写课题名称'); return; }
+  const logs = [];
+  const note = ($('#rNote').value||'').trim();
+  if(note) logs.push({ time: Date.now(), text: note });
+  research.push({ id: uid('r'), title, target: ($('#rTarget').value||'').trim(),
+    goal: ($('#rGoal').value||'').trim(), status:'ongoing', createdAt: Date.now(), logs });
+  saveAll(); closeModal(); toast('🔬 课题已立项'); renderAll();
+}
+
+/* =====================================================================
+ * 视图 / 子视图切换
+ * ===================================================================== */
+function switchView(v){
+  $$('#navtabs .ntab').forEach(b => b.classList.toggle('active', b.dataset.view === v));
+  $$('.view').forEach(el => el.classList.toggle('active', el.id === 'view-' + v));
+}
+function switchSub(s){
+  $$('#subtabs .stab').forEach(b => b.classList.toggle('active', b.dataset.sub === s));
+  $$('#view-garden .subview').forEach(el => el.classList.toggle('active', el.id === 'sub-' + s));
+}
+function bindEvents(){
+  $('#navtabs').addEventListener('click', e => { const b = e.target.closest('.ntab'); if(b) switchView(b.dataset.view); });
+  $('#subtabs').addEventListener('click', e => { const b = e.target.closest('.stab'); if(b) switchSub(b.dataset.sub); });
+  $('#overlay').addEventListener('click', e => { if(e.target.id === 'overlay') closeModal(); });
+  document.addEventListener('keydown', e => { if(e.key === 'Escape') closeModal(); });
+}
+function registerSW(){
+  if(!('serviceWorker' in navigator)) return;
+  const start = () => {
+    navigator.serviceWorker.register('./sw.js').then(reg => {
+      /* 安装完成后请求后台预热植物图片，断网也能看图 */
+      const askCache = () => {
+        const sw = navigator.serviceWorker.controller || reg.active;
+        if(sw) sw.postMessage({ type:'CACHE_IMAGES' });
+      };
+      if(reg.active) askCache();
+      else if(reg.installing) reg.installing.addEventListener('statechange', e => {
+        if(e.target.state === 'activated') askCache();
+      });
+      navigator.serviceWorker.addEventListener('controllerchange', askCache, { once:true });
+    }).catch(() => {});
+  };
+  /* 脚本可能在 load 之后才执行，此时需立即注册，否则监听器永远不会触发 */
+  if(document.readyState === 'complete') start();
+  else window.addEventListener('load', start, { once:true });
+}
+
+init();
+</script>
+</body>
+</html>

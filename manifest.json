@@ -1,0 +1,35 @@
+{
+  "name": "我的200平花园",
+  "short_name": "我的花园",
+  "description": "我的花园百科 × 物理区域养护看板 × 综合待办 × 病虫害应急与科研攻关，支持离线使用。",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "portrait-primary",
+  "background_color": "#f4f9f4",
+  "theme_color": "#2c5e3b",
+  "lang": "zh-CN",
+  "dir": "ltr",
+  "categories": ["lifestyle", "education", "utilities"],
+  "icons": [
+    {
+      "src": "./images/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./images/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./images/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

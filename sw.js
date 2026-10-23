@@ -6,7 +6,7 @@
  *   3) 页面导航 Network-First，断网回退缓存的 index.html
  *   4) 天气接口 Network-First，断网回退最近一次结果
  * ===================================================================== */
-const VERSION = "garden-sw-v10";
+const VERSION = "garden-sw-v11";
 const SHELL_CACHE = VERSION + "-shell";
 const IMG_CACHE = VERSION + "-img";
 const RUNTIME_CACHE = VERSION + "-runtime";
@@ -62,13 +62,12 @@ function navigationFallback(request) {
     )));
 }
 
-/* 图片：缓存优先，未命中再走网络并写入缓存。
-   no-store 强制绕过浏览器 HTTP 缓存，避免同名覆盖的图片被旧响应污染 */
+/* 图片：缓存优先，未命中再走网络并写入缓存 */
 function cacheFirst(request, cacheName) {
   return caches.open(cacheName).then(cache =>
     cache.match(request).then(cached => {
       if (cached) return cached;
-      return fetch(request, { cache: "no-store" }).then(res => {
+      return fetch(request).then(res => {
         if (res && res.status === 200) {
           cache.put(request, res.clone());
           trimCache(cacheName, IMG_LIMIT);
@@ -92,16 +91,23 @@ function staleWhileRevalidate(request, cacheName) {
   );
 }
 
-/* 网络优先，失败回退缓存 */
-function networkFirst(request, cacheName) {
-  return caches.open(cacheName).then(cache =>
-    fetch(request, { cache: "no-store" })
+/* 网络优先，失败回退缓存。
+   手机上必须加超时：网络慢时先给缓存秒开，网络结果稍后写入缓存备用 */
+function networkFirst(request, cacheName, timeoutMs = 4000) {
+  return caches.open(cacheName).then(cache => {
+    const net = fetch(request, { cache: "no-store" })
       .then(res => {
         if (res && res.status === 200) cache.put(request, res.clone());
         return res;
       })
-      .catch(() => cache.match(request))
-  );
+      .catch(() => undefined);
+    const timer = new Promise(resolve => setTimeout(resolve, timeoutMs));
+    return Promise.race([
+      net.then(res => res || cache.match(request)),
+      timer.then(() => cache.match(request))
+    ]).then(res => res || net.then(r => r || cache.match(request)))
+      .then(res => res || new Response("", { status: 504 }));
+  });
 }
 
 function trimCache(cacheName, maxItems) {
@@ -134,9 +140,10 @@ self.addEventListener("fetch", event => {
     return;
   }
 
-  /* 静态字典：网络优先（保证新增/修改的植物数据立即可见），断网回退缓存 */
+  /* 静态字典：网络优先（保证新增/修改的植物数据立即可见），断网/弱网回退缓存。
+     超时设 2.5 秒，略早于页面的 3 秒兜底，避免手机上一打开就整页等待 */
   if (url.pathname.endsWith("/plants.json")) {
-    event.respondWith(networkFirst(request, SHELL_CACHE));
+    event.respondWith(networkFirst(request, SHELL_CACHE, 2500));
     return;
   }
 
@@ -150,9 +157,14 @@ self.addEventListener("fetch", event => {
   event.respondWith(staleWhileRevalidate(request, RUNTIME_CACHE));
 });
 
-/* ---------- 后台预热全部植物图片 ---------- */
+/* ---------- 后台预热全部植物图片（低速串行，避免拖慢手机） ---------- */
 async function warmImages() {
   try {
+    /* 省流量模式或弱网直接跳过预热，优先保证当前页面正常加载 */
+    const conn = self.navigator.connection || {};
+    if (conn.saveData) return;
+    if (/(^|-)2g$|(^|-)3g$/.test(conn.effectiveType || "")) return;
+
     const res = await fetch("./data/plants.json", { cache: "no-store" });
     if (!res.ok) return;
     const list = await res.json();
@@ -170,14 +182,14 @@ async function warmImages() {
     const arr = [...urls];
     if (!arr.length) return;
     const cache = await caches.open(IMG_CACHE);
-    for (let i = 0; i < arr.length; i += 4) {
-      await Promise.all(arr.slice(i, i + 4).map(async u => {
-        try {
-          if (await cache.match(u)) return;
-          const r = await fetch(u, { cache: "no-store" });
-          if (r && r.status === 200) await cache.put(u, r);
-        } catch (e) { /* 单张失败不影响整体 */ }
-      }));
+    /* 串行下载：一次只用一条连接，每 3 张歇 300ms，不抢占页面带宽 */
+    for (let i = 0; i < arr.length; i++) {
+      try {
+        if (await cache.match(arr[i])) continue;
+        const r = await fetch(arr[i]);
+        if (r && r.status === 200) await cache.put(arr[i], r);
+      } catch (e) { /* 单张失败不影响整体 */ }
+      if (i % 3 === 2) await new Promise(r => setTimeout(r, 300));
     }
     trimCache(IMG_CACHE, IMG_LIMIT);
   } catch (e) { /* 离线或数据异常时静默跳过 */ }

@@ -6,7 +6,7 @@
  *   3) 页面导航 Network-First，断网回退缓存的 index.html
  *   4) 天气接口 Network-First，断网回退最近一次结果
  * ===================================================================== */
-const VERSION = "garden-sw-v1";
+const VERSION = "garden-sw-v5";
 const SHELL_CACHE = VERSION + "-shell";
 const IMG_CACHE = VERSION + "-img";
 const RUNTIME_CACHE = VERSION + "-runtime";

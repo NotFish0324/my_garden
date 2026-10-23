@@ -35,10 +35,12 @@ a{color:var(--g600)}
 
 /* ===================== 顶栏 ===================== */
 header.app{position:sticky;top:0;z-index:50;background:linear-gradient(135deg,var(--g800),var(--g600));color:#fff;box-shadow:var(--shadow)}
-.app-inner{max-width:1180px;margin:0 auto;padding:12px 16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-.logo{font-size:18px;font-weight:700;letter-spacing:.4px}
+.app-inner{max-width:1180px;margin:0 auto;padding:12px 16px;display:flex;flex-direction:column;align-items:stretch;gap:8px}
+.logo{font-size:17px;font-weight:700;letter-spacing:.4px}
 .logo small{font-weight:400;opacity:.72;margin-left:8px;font-size:12px}
-.navtabs{display:flex;gap:6px;margin-left:auto;flex-wrap:wrap}
+.navtabs{display:flex;gap:6px;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.navtabs::-webkit-scrollbar{display:none}
+.navtabs .ntab{flex:1;min-width:max-content;text-align:center}
 .ntab{padding:8px 15px;border-radius:999px;background:rgba(255,255,255,.12);color:#e8f5ec;font-size:13.5px;transition:.18s;white-space:nowrap}
 .ntab:hover{background:rgba(255,255,255,.24)}
 .ntab.active{background:#fff;color:var(--g800);font-weight:600}
@@ -55,7 +57,10 @@ main{max-width:1180px;margin:0 auto;padding:16px 16px 60px}
 .bar select,.bar input{padding:9px 12px;border-radius:10px;border:1.5px solid var(--line);background:#fff}
 .sec-title{display:flex;align-items:center;gap:10px;margin:20px 0 12px;font-size:16px;font-weight:700;color:var(--g800)}
 .sec-title .hint{font-size:12px;color:var(--sub);font-weight:400}
-.sec-title .right{margin-left:auto;display:flex;gap:8px}
+.sec-title .right{margin-left:auto;display:flex;gap:8px;flex-shrink:0}
+.sec-title-right{display:flex;justify-content:flex-end;gap:8px;margin:4px 0 12px;flex-wrap:wrap}
+.sec-hint{font-size:12px;color:var(--sub);margin:-6px 0 12px}
+.tree-hint{font-size:12.5px;color:var(--sub);font-weight:500}
 .btn{padding:9px 15px;border-radius:10px;font-size:13.5px;font-weight:600;transition:.15s;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
 .btn-primary{background:var(--g600);color:#fff}
 .btn-primary:hover{background:var(--g700)}
@@ -86,8 +91,10 @@ main{max-width:1180px;margin:0 auto;padding:16px 16px 60px}
 .ph small{display:block;font-size:11px;opacity:.85;margin-top:4px}
 
 /* ===================== 模块一：子标签 ===================== */
-.subtabs{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
-.stab{padding:8px 16px;border-radius:999px;background:var(--card);border:1.5px solid var(--line);font-size:13.5px;color:var(--sub);transition:.16s;font-weight:600}
+.subtabs{display:flex;gap:8px;margin-bottom:14px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+.subtabs::-webkit-scrollbar{display:none}
+.subtabs .stab{flex:1;min-width:max-content;text-align:center}
+.stab{padding:8px 16px;border-radius:999px;background:var(--card);border:1.5px solid var(--line);font-size:13.5px;color:var(--sub);transition:.16s;font-weight:600;white-space:nowrap}
 .stab:hover{border-color:var(--g400);color:var(--g700)}
 .stab.active{background:var(--g700);border-color:var(--g700);color:#fff}
 .subview{display:none}
@@ -301,7 +308,7 @@ main{max-width:1180px;margin:0 auto;padding:16px 16px 60px}
 
 <header class="app">
   <div class="app-inner">
-    <div class="logo">🌿 200㎡ 花园智能养护与科研攻关系统 <small>My Garden OS</small></div>
+    <div class="logo">🌿 我的花园</div>
     <nav class="navtabs" id="navtabs">
       <button class="ntab active" data-view="stream">⚡ 待办中心 <span class="cnt" id="nav-stream-cnt"></span></button>
       <button class="ntab" data-view="garden">📖 我的花园</button>
@@ -314,13 +321,10 @@ main{max-width:1180px;margin:0 auto;padding:16px 16px 60px}
 <main>
   <!-- ==================== 模块：待办中心（默认首页） ==================== -->
   <section class="view active" id="view-stream">
-    <div class="sec-title">⚡ 综合待办中心
-      <span class="hint">区域养护 · 应急执行 · 自定义事件，统一调度</span>
-      <span class="right">
-        <button class="btn btn-primary sm" onclick="openAddCustom()">➕ 自定义待办</button>
-        <button class="btn btn-ghost sm" onclick="filterStream('due')" id="f-due">仅到期</button>
-        <button class="btn btn-soft sm" onclick="filterStream('all')" id="f-all">全部</button>
-      </span>
+    <div class="sec-title-right">
+      <button class="btn btn-primary sm" onclick="openAddCustom()">➕ 自定义待办</button>
+      <button class="btn btn-ghost sm" onclick="filterStream('due')" id="f-due">仅到期</button>
+      <button class="btn btn-soft sm" onclick="filterStream('all')" id="f-all">全部</button>
     </div>
     <div id="stream"></div>
     <div id="history-box"></div>
@@ -331,7 +335,7 @@ main{max-width:1180px;margin:0 auto;padding:16px 16px 60px}
     <div class="subtabs" id="subtabs">
       <button class="stab active" data-sub="planted">🏡 已种植 <span id="cnt-planted"></span></button>
       <button class="stab" data-sub="wishlist">🌱 愿望清单 <span id="cnt-wish"></span></button>
-      <button class="stab" data-sub="tree">🌳 科—属—种 分类全景</button>
+      <button class="stab" data-sub="tree">🌳 分类全景</button>
     </div>
 
     <div class="subview active" id="sub-planted">
@@ -352,10 +356,10 @@ main{max-width:1180px;margin:0 auto;padding:16px 16px 60px}
 
     <div class="subview" id="sub-tree">
       <div class="bar">
-        <div class="grow" style="font-weight:600;color:var(--g800)">🌳 名下植物（已种植 + 预备）的科—属—种体系</div>
-        <button class="btn btn-soft sm" onclick="expandTree('fam')">展开所有科</button>
-        <button class="btn btn-soft sm" onclick="expandTree('genus')">展开所有属</button>
-        <button class="btn btn-ghost sm" onclick="expandTree('none')">一键收起</button>
+        <div class="grow tree-hint">🌳 名下植物的科—属—种体系</div>
+        <button class="btn btn-soft sm" onclick="expandTree('fam')">展开科</button>
+        <button class="btn btn-soft sm" onclick="expandTree('genus')">展开属</button>
+        <button class="btn btn-ghost sm" onclick="expandTree('none')">收起</button>
       </div>
       <div class="tree" id="tree"></div>
     </div>
@@ -363,20 +367,24 @@ main{max-width:1180px;margin:0 auto;padding:16px 16px 60px}
 
   <!-- ==================== 模块：区域看板 ==================== -->
   <section class="view" id="view-zones">
-    <div class="sec-title">🏡 物理区域体系化看板 <span class="hint">水培组 · 室内盆栽组 · 北阳台组 · 室外院子组 · 全园大事件</span></div>
+    <div class="sec-title">🏡 物理区域体系化看板
+      <span class="right"><button class="btn btn-primary sm" onclick="openAddZone()">➕ 添加区域组</button></span>
+    </div>
     <div class="zonegrid" id="zonegrid"></div>
   </section>
 
   <!-- ==================== 模块：应急 & 科研 ==================== -->
   <section class="view" id="view-lab">
-    <div class="sec-title">🚨 病虫害应急模块 <span class="hint">阶段性异常，按间隔喷药，治愈后归档</span>
+    <div class="sec-title">🚨 病虫害应急模块
       <span class="right"><button class="btn btn-primary sm" onclick="openAddEmergency()">➕ 新建应急事件</button></span>
     </div>
+    <div class="sec-hint">阶段性异常，按间隔喷药，治愈后归档</div>
     <div class="emg-cards" id="emg-list"></div>
 
-    <div class="sec-title" style="margin-top:26px">🔬 园艺科研攻关中心 <span class="hint">攻克疑难杂症 · 阶段性研究观察日志</span>
+    <div class="sec-title" style="margin-top:26px">🔬 园艺科研攻关中心
       <span class="right"><button class="btn btn-primary sm" onclick="openAddResearch()">➕ 提交新课题</button></span>
     </div>
+    <div class="sec-hint">攻克疑难杂症 · 阶段性研究观察日志</div>
     <div class="rd-cards" id="rd-list"></div>
   </section>
 </main>
@@ -699,10 +707,15 @@ function levelText(next){
   return d+' 天后';
 }
 
-/* 按指定日期打卡：更新状态、反转交替、从该日期推进下次日期（补卡复用） */
-function applyCheckinOn(task, state, date){
+/* 按指定日期打卡：更新状态、反转交替、从该日期推进下次日期（补卡复用）
+ * altPick: 补卡时用户指定本次实际做的交替项下标；不指定则按原逻辑 +1 轮换 */
+function applyCheckinOn(task, state, date, altPick){
   state.last = date;
-  if(task.alt && task.alt.length) state.altIdx = (state.altIdx + 1) % task.alt.length;
+  if(task.alt && task.alt.length){
+    state.altIdx = (altPick !== undefined && altPick !== null && altPick !== '')
+      ? ((+altPick) + 1) % task.alt.length
+      : (state.altIdx + 1) % task.alt.length;
+  }
   state.next = addDays(date, task.interval);
 }
 function applyCheckin(task, state){ applyCheckinOn(task, state, today0()); }
@@ -766,14 +779,9 @@ function plantCard(m){
   const zt = zoneById(m.targetZoneId);
   let dyn = '';
   if(m.status === 'planted'){
-    const ents = entriesFor(m);
-    const nextEnt = ents.slice().sort((a,b)=>a.next-b.next)[0];
-    dyn = '<div class="dyn">📍 区域：<b>'+(z ? z.emoji+' '+z.name : '未分配')+'</b><br>'
-        + (nextEnt ? '⏰ 下一件事：<b>'+esc(nextEnt.task.label)+'</b> · '+fmt(nextEnt.next)+'（'+levelText(nextEnt.next)+'）' : '')
-        + '</div>';
+    dyn = '<div class="dyn">📍 区域：<b>'+(z ? z.emoji+' '+z.name : '未分配')+'</b></div>';
   }else{
-    dyn = '<div class="dyn">💭 意向区域：<b>'+(zt ? zt.emoji+' '+zt.name : '未指定')+'</b><br>'
-        + '🌱 状态：<b>愿望清单中</b>'+(m.notes ? '<br>📝 '+esc(m.notes) : '')+'</div>';
+    dyn = '<div class="dyn">💭 意向区域：<b>'+(zt ? zt.emoji+' '+zt.name : '未指定')+'</b>'+(m.notes ? '<br>📝 '+esc(m.notes) : '')+'</div>';
   }
   return '<div class="pcard" onclick="openDetail(\''+m.uid+'\')">'
     + '<div class="cover">'+coverHTML(st.cover)
@@ -883,20 +891,15 @@ function renderZones(){
     }else{
       body = list.length ? list.map(m => {
         const st = getStatic(m);
-        const ents = entriesFor(m).slice().sort((a,b)=>a.next-b.next);
-        const next = ents[0];
-        const lv = next ? entryLevel(next.next) : 'later';
-        const cls = lv === 'overdue' ? ' od' : (lv === 'today' ? ' td' : '');
-        return '<span class="zchip'+cls+'" onclick="openDetail(\''+m.uid+'\')" title="'+esc(st.name)+'">'
-          + '<span class="mini">'+coverMini(st.cover)+'</span>'+esc(st.name)
-          + (next ? '<span class="due">'+levelText(next.next)+'</span>' : '')+'</span>';
+        return '<span class="zchip" onclick="openDetail(\''+m.uid+'\')" title="'+esc(st.name)+'">'
+          + '<span class="mini">'+coverMini(st.cover)+'</span>'+esc(st.name)+'</span>';
       }).join('')
       : '<span style="color:var(--faint);font-size:12.5px">该区域暂无植物，去「我的花园」分配区域</span>';
     }
     return '<div class="zcard '+(z.kind==='global'?'global':'')+'">'
       + '<div class="zhead"><span class="zi">'+z.emoji+'</span><span class="zn">'+esc(z.name)+'</span>'
       + '<span class="zc">'+(z.kind==='global' ? '全园' : list.length+' 株')+'</span>'
-      + '<button class="zedit" onclick="openEditZone(\''+z.id+'\')">✏️ 编辑规则</button></div>'
+      + '<button class="zedit" onclick="openEditZone(\''+z.id+'\')">✏️ 编辑</button></div>'
       + '<div class="rules">'+rules+(z.sample?'<div class="rule" style="padding-left:25px;color:var(--faint);font-size:11.5px">'+esc(z.sample)+'</div>':'')+'</div>'
       + '<div class="zbody">'+body+'</div></div>';
   }).join('');
@@ -923,8 +926,10 @@ function zoneTaskRow(t){
 function openEditZone(zoneId){
   const z = zoneById(zoneId); if(!z) return;
   openModal(''
-    + '<div class="mhead"><span class="mt">✏️ 编辑养护规则 · '+z.emoji+' '+esc(z.name)+'</span><button class="x" onclick="closeModal()">✕</button></div>'
+    + '<div class="mhead"><span class="mt">✏️ 编辑区域 · '+z.emoji+' '+esc(z.name)+'</span><button class="x" onclick="closeModal()">✕</button></div>'
     + '<div class="mbody">'
+    + '<div class="field"><label>区域名称 <span class="tip">改名后所有模块自动同步</span></label>'
+    + '<input id="zNameInput" value="'+esc(z.name)+'" placeholder="如：室内盆栽组"></div>'
     + '<div class="trow trow-h"><span class="zt-emoji">图标</span><span class="zt-label">项目名称</span><span class="zt-int">间隔(天)</span><span class="zt-note">方法/说明</span><span class="zt-alt">交替(逗号分隔)</span><span class="zt-del"></span></div>'
     + '<div id="ztRows">'+z.tasks.map(zoneTaskRow).join('')+'</div>'
     + '<button class="btn btn-soft sm" onclick="addZoneTaskRow()">➕ 添加养护项目</button>'
@@ -939,6 +944,16 @@ function addZoneTaskRow(){
 }
 function saveZoneRules(zoneId){
   const z = zoneById(zoneId); if(!z) return;
+  /* 改名：全局唯一校验；区域按 id 引用，改名后各模块自动联动 */
+  const nameInput = document.getElementById('zNameInput');
+  if(nameInput){
+    const newName = nameInput.value.trim();
+    if(!newName){ toast('区域名称不能为空'); return; }
+    if(zones.some(o => o.id !== z.id && (o.name||'').trim() === newName)){
+      toast('⚠️ 已存在同名区域组'); return;
+    }
+    z.name = newName;
+  }
   const tasks = [];
   $$('#ztRows .trow-wrap').forEach(w => {
     const label = w.querySelector('.zt-label').value.trim();
@@ -969,6 +984,41 @@ function saveZoneRules(zoneId){
   saveAll(); closeModal(); toast('✅ 养护规则已更新'); renderAll();
 }
 
+/* ---------- 新增区域组 ---------- */
+function openAddZone(){
+  openModal(''
+    + '<div class="mhead"><span class="mt">➕ 添加区域组</span><button class="x" onclick="closeModal()">✕</button></div>'
+    + '<div class="mbody">'
+    + '<div class="row2">'
+    + '<div class="field"><label>图标</label><input id="nzEmoji" placeholder="🌿" maxlength="4" value="🌿"></div>'
+    + '<div class="field"><label>区域名称 *</label><input id="nzName" placeholder="如：南阳台 / 客厅 / 露台"></div>'
+    + '</div>'
+    + '<div class="field"><label>示例植物（可选）</label><input id="nzSample" placeholder="如：月季 / 茉莉 / 茶花"></div>'
+    + '<div style="font-size:12px;color:var(--faint);line-height:1.6">新建区域组默认带一个「浇水」养护项目（每 7 天）。<br>保存后可点区域卡片上的「✏️ 编辑规则」修改周期、交替与新增更多项目。</div>'
+    + '</div>'
+    + '<div class="mfoot"><button class="btn btn-ghost" onclick="closeModal()">取消</button>'
+    + '<button class="btn btn-primary" onclick="submitAddZone()">创建区域组</button></div>'
+  );
+  setTimeout(()=>{ const el=$('#nzName'); if(el) el.focus(); }, 60);
+}
+function submitAddZone(){
+  const name = ($('#nzName').value||'').trim();
+  if(!name){ toast('请填写区域名称'); return; }
+  if(zones.some(z => (z.name||'').trim() === name)){ toast('⚠️ 已存在同名区域组'); return; }
+  const emoji = ($('#nzEmoji').value||'').trim() || '🌿';
+  const sample = ($('#nzSample').value||'').trim();
+  const z = {
+    id: uid('z'), name, emoji, kind:'zone', sample,
+    tasks:[{ key:'water', label:'浇水', emoji:'💧', interval:7, note:'' }]
+  };
+  zones.push(z);
+  ensureZoneCare();
+  saveAll(); closeModal();
+  toast('✅ 已创建区域组：'+emoji+' '+name);
+  renderAll();
+  switchView('zones');
+}
+
 /* ---------- 模块三：待办中心 ---------- */
 function filterStream(f){
   streamFilter = f;
@@ -991,14 +1041,20 @@ function renderStream(){
   }else{
     el.innerHTML = list.map((e, i) => {
       const lv = entryLevel(e.next);
-      const altNext = (e.task.alt && e.task.alt.length)
-        ? ' 🔄 交替：'+e.task.alt.map(esc).join(' ⇄ ') : '';
+      /* 交替类养护：直接告诉用户本次该做什么（下次打卡自动轮换） */
+      let altNowTxt = '';
+      if(e.task.alt && e.task.alt.length){
+        const st = e.type === 'zonegroup'
+          ? (e.per && e.per.length ? e.per.slice().sort((a,b)=>a.s.next-b.s.next)[0].s : {altIdx:0})
+          : e.state;
+        altNowTxt = ' · 本次做：<b>'+esc(e.task.alt[(st.altIdx||0) % e.task.alt.length])+'</b>';
+      }
       if(e.type === 'global'){
         return '<div class="todo '+lv+'">'
           + '<div class="todo-top"><span class="em">'+e.task.emoji+'</span><div>'
-          + '<div class="todo-title">'+esc(e.task.label)+' · <span class="who">全园大事件</span></div>'
-          + '<div class="todo-detail">下次：'+fmt(e.next)+(e.task.note?' · '+esc(e.task.note):'')+'</div>'
-          + '<div class="todo-src">📅 上次：'+(e.state.last?fmt(e.state.last):'（首次，尚未打卡）')+' · 周期 '+e.task.interval+' 天'+altNext+'</div>'
+          + '<div class="todo-title"><span class="who">全园大事件</span> · '+esc(e.task.label)+'</div>'
+          + '<div class="todo-detail">下次：'+fmt(e.next)+(e.task.note?' · '+esc(e.task.note):'')+altNowTxt+'</div>'
+          + '<div class="todo-src">📅 上次：'+(e.state.last?fmt(e.state.last):'（首次，尚未打卡）')+' · 周期 '+e.task.interval+' 天</div>'
           + '</div><span class="topbadge badge '+lv+'">'+levelText(e.next)+'</span></div>'
           + '<div class="todo-actions"><button class="btn btn-primary" onclick="checkinIdx('+i+')">✅ 打卡完成</button>'
           + '<button class="btn btn-ghost" onclick="openSupplement('+i+')">📋 补卡</button></div></div>';
@@ -1036,10 +1092,10 @@ function renderStream(){
         /* 区域内暂无植物：区域级养护卡片 */
         return '<div class="todo '+lv+'">'
           + '<div class="todo-top"><span class="em">'+e.task.emoji+'</span><div>'
-          + '<div class="todo-title">'+esc(e.task.label)+' · <span class="who">'+esc(e.zone.name)+'</span>'
+          + '<div class="todo-title"><span class="who">'+esc(e.zone.name)+'</span> · '+esc(e.task.label)
           + ' <span class="badge zone">暂无植物</span></div>'
-          + '<div class="todo-detail">下次：'+fmt(e.next)+(e.task.note?' · '+esc(e.task.note):'')+'</div>'
-          + '<div class="todo-src">📅 上次：'+(e.state.last?fmt(e.state.last):'（尚未打卡）')+' · 周期 '+e.task.interval+' 天'+altNext+'</div>'
+          + '<div class="todo-detail">下次：'+fmt(e.next)+(e.task.note?' · '+esc(e.task.note):'')+altNowTxt+'</div>'
+          + '<div class="todo-src">📅 上次：'+(e.state.last?fmt(e.state.last):'（尚未打卡）')+' · 周期 '+e.task.interval+' 天</div>'
           + '</div><span class="topbadge badge '+lv+'">'+levelText(e.next)+'</span></div>'
           + '<div class="todo-actions">'
           + '<button class="btn btn-primary" onclick="checkinIdx('+i+')">✅ 打卡完成</button>'
@@ -1048,16 +1104,14 @@ function renderStream(){
           + '</div></div>';
       }
       /* 区域组卡片 */
-      const names = e.per.map(p => p.m.name);
-      const preview = names.slice(0,4).join('、') + (names.length>4 ? ' 等' : '');
       const lastDates = e.per.map(p => p.s.last).filter(Boolean);
       const lastShow = lastDates.length ? fmt(Math.max.apply(null, lastDates)) + '（组内最近）' : '（尚未打卡）';
       return '<div class="todo '+lv+'">'
         + '<div class="todo-top"><span class="em">'+e.task.emoji+'</span><div>'
-        + '<div class="todo-title">'+esc(e.task.label)+' · <span class="who">'+esc(e.zone.name)+'</span>'
+        + '<div class="todo-title"><span class="who">'+esc(e.zone.name)+'</span> · '+esc(e.task.label)
         + ' <span class="badge zone">'+e.per.length+' 株</span></div>'
-        + '<div class="todo-detail">最早到期：'+fmt(e.next)+' · '+esc(preview)+'</div>'
-        + '<div class="todo-src">📅 上次：'+lastShow+' · 周期 '+e.task.interval+' 天'+altNext+'</div>'
+        + '<div class="todo-detail">下次：'+fmt(e.next)+altNowTxt+'</div>'
+        + '<div class="todo-src">📅 上次：'+lastShow+' · 周期 '+e.task.interval+' 天</div>'
         + '</div><span class="topbadge badge '+lv+'">'+levelText(e.next)+'</span></div>'
         + '<div class="todo-actions">'
         + '<button class="btn btn-primary" onclick="checkinIdx('+i+')">✅ 全组打卡（'+e.per.length+' 株）</button>'
@@ -1070,39 +1124,53 @@ function renderStream(){
 }
 /* 按渲染索引打卡（对应 streamEntries）：记录历史快照，可撤销 */
 function checkinIdx(i){ doCheckin(streamEntries[i], today0(), false); }
-/* date = 打卡日期（补卡时为用户选定日期）；isSupplement 用于提示与历史标注 */
-function doCheckin(e, date, isSupplement){
+/* date = 打卡日期（补卡时为用户选定日期）；isSupplement 用于提示与历史标注
+ * altPick = 补卡时用户指定的交替项下标；正常打卡不传，按计划顺序轮换 */
+function doCheckin(e, date, isSupplement, altPick){
   if(!e) return;
-  const tag = isSupplement ? '补卡 '+fmt(date) : '';
+  /* 交替类养护：历史与提示记录本次具体动作（如 补铁/营养液）
+   * 补卡时按用户所选；正常打卡按轮换前的当前项；不再是植物名称 */
+  let altDid = '';
+  if(e.task && e.task.alt && e.task.alt.length){
+    if(altPick !== undefined && altPick !== null && altPick !== ''){
+      altDid = e.task.alt[+altPick];
+    }else{
+      const st = e.type === 'zonegroup'
+        ? (e.per && e.per.length ? e.per.slice().sort((a,b)=>a.s.next-b.s.next)[0].s : {altIdx:0})
+        : e.state;
+      altDid = e.task.alt[((st && st.altIdx) || 0) % e.task.alt.length];
+    }
+  }
+  const detail = [isSupplement ? ('补卡 ' + fmt(date)) : '', altDid].filter(Boolean).join(' · ');
   const pre = isSupplement ? '📋 已补卡：' : '✅ 已打卡：';
   if(e.type === 'global'){
     const prev = [{ key: e.task.key, last: e.state.last, next: e.state.next, altIdx: e.state.altIdx }];
-    applyCheckinOn(e.task, e.state, date);
-    recordHistory({ kind:'global', label:'全园 · '+e.task.label, detail: tag, prev });
-    toast(pre + '全园 · ' + e.task.label);
+    applyCheckinOn(e.task, e.state, date, altPick);
+    recordHistory({ kind:'global', label:'全园 · '+e.task.label, detail, prev });
+    toast(pre + '全园 · ' + e.task.label + (altDid ? '（'+altDid+'）' : ''));
   }else if(e.type === 'emg'){
     const x = e.emg;
     const prev = [{ id: x.id, last: x.last, next: x.next }];
     x.last = date; x.next = addDays(date, x.interval);
-    recordHistory({ kind:'emg', label:'应急 · '+x.issue, detail: tag || (x.target||''), prev });
+    recordHistory({ kind:'emg', label:'应急 · '+x.issue, detail: detail || (x.target||''), prev });
     toast(pre + x.issue);
   }else if(e.type === 'custom'){
     const c = e.ct;
     const prev = [{ id: c.id, last: c.last, next: c.next, done: c.done }];
     c.last = date;
     if(c.interval){ c.next = addDays(date, c.interval); } else { c.done = true; }
-    recordHistory({ kind:'custom', label:'自定义 · '+c.title, detail: tag || (c.note||''), prev });
+    recordHistory({ kind:'custom', label:'自定义 · '+c.title, detail: detail || (c.note||''), prev });
     toast(pre + c.title);
   }else if(e.type === 'zone'){
     const prev = [{ zid: e.zone.id, key: e.task.key, last: e.state.last, next: e.state.next, altIdx: e.state.altIdx }];
-    applyCheckinOn(e.task, e.state, date);
-    recordHistory({ kind:'zonelevel', label:e.zone.name+' · '+e.task.label, detail: tag || '区域级（暂无植物）', prev });
-    toast(pre + e.zone.name + ' · ' + e.task.label);
+    applyCheckinOn(e.task, e.state, date, altPick);
+    recordHistory({ kind:'zonelevel', label:e.zone.name+' · '+e.task.label, detail: detail || '区域级（暂无植物）', prev });
+    toast(pre + e.zone.name + ' · ' + e.task.label + (altDid ? '（'+altDid+'）' : ''));
   }else{
     const prev = e.per.map(p => ({ uid: p.m.uid, key: e.task.key, last: p.s.last, next: p.s.next, altIdx: p.s.altIdx }));
-    e.per.forEach(p => applyCheckinOn(e.task, p.s, date));
-    recordHistory({ kind:'zone', label:e.zone.name+' · '+e.task.label, detail: tag || e.per.map(p=>p.m.name).join('、'), prev });
-    toast(pre + e.zone.name + ' · ' + e.task.label + '（' + e.per.length + ' 株）');
+    e.per.forEach(p => applyCheckinOn(e.task, p.s, date, altPick));
+    recordHistory({ kind:'zone', label:e.zone.name+' · '+e.task.label, detail, prev });
+    toast(pre + e.zone.name + ' · ' + e.task.label + '（' + e.per.length + ' 株）' + (altDid ? '（'+altDid+'）' : ''));
   }
   saveAll(); renderAll();
 }
@@ -1117,6 +1185,18 @@ function openSupplement(i){
   else if(e.type === 'emg') target = '应急 · ' + (e.emg.target || '—');
   else if(e.type === 'global') target = '全园大事件';
   else target = '自定义待办';
+  /* 交替类养护：让用户在补卡时选择本次实际做的是哪一项 */
+  let altPicker = '';
+  if(e.task && e.task.alt && e.task.alt.length){
+    const st = e.type === 'zonegroup'
+      ? (e.per && e.per.length ? e.per.slice().sort((a,b)=>a.s.next-b.s.next)[0].s : {altIdx:0})
+      : e.state;
+    const cur = (st && st.altIdx) || 0;
+    altPicker = '<div class="field"><label>本次实际做了哪一项？</label>'
+      + '<select id="supAlt" style="width:100%;padding:9px 12px;border-radius:10px;border:1.5px solid var(--line);background:#fff;font-size:13.5px">'
+      + e.task.alt.map((a, idx)=>'<option value="'+idx+'"'+(idx===cur?' selected':'')+'>'+esc(a)+(idx===cur?'（按计划应为本次）':'')+'</option>').join('')
+      + '</select></div>';
+  }
   openModal(''
     + '<div class="mhead"><span class="mt">📋 补卡 · '+esc(e.task.label)+'</span><button class="x" onclick="closeModal()">✕</button></div>'
     + '<div class="mbody">'
@@ -1124,7 +1204,8 @@ function openSupplement(i){
     + '<div style="padding:9px 12px;border-radius:10px;background:var(--g50);font-size:13px">'+esc(target)+'</div></div>'
     + '<div class="field"><label>实际完成日期 *<span class="tip">只能选今天或之前的日期</span></label>'
     + '<input id="supDate" type="date" max="'+t+'" value="'+t+'"></div>'
-    + '<div style="font-size:12px;color:var(--faint);line-height:1.6">补卡后，下次到期时间将从该日期 + 周期重新计算。</div>'
+    + altPicker
+    + '<div style="font-size:12px;color:var(--faint);line-height:1.6">补卡后，下次到期时间将从该日期 + 周期重新计算；交替项按所选推进。</div>'
     + '</div>'
     + '<div class="mfoot"><button class="btn btn-ghost" onclick="closeModal()">取消</button>'
     + '<button class="btn btn-primary" onclick="submitSupplement('+i+')">确认补卡</button></div>'
@@ -1137,8 +1218,10 @@ function submitSupplement(i){
   const ts = new Date(v + 'T00:00:00').getTime();
   if(isNaN(ts)){ toast('日期格式不正确'); return; }
   if(ts > today0()){ toast('补卡日期不能晚于今天'); return; }
+  const altEl = document.getElementById('supAlt');
+  const altPick = altEl ? altEl.value : null;
   closeModal();
-  doCheckin(e, ts, true);
+  doCheckin(e, ts, true, altPick);
 }
 
 /* ---------- 打卡历史折叠区 ---------- */
@@ -1517,6 +1600,12 @@ function submitAddPlant(){
               zoneId: null, targetZoneId: null, notes: ($('#addNotes').value||'').trim() };
   if(addState.mode === 'kb'){
     if(!addState.selected){ toast('请先从字典中搜索并选择一株植物'); return; }
+    /* 去重：同一 refId 已存在则提示并不再添加 */
+    if(members.some(x => x.refId === addState.selected)){
+      const bi = (KB_BY_ID[addState.selected].basic_info)||{};
+      toast('⚠️「'+(bi.name||'该植物')+'」已在植物库中，无需重复录入');
+      return;
+    }
     rec.refId = addState.selected;
     const bi = (KB_BY_ID[addState.selected].basic_info)||{};
     rec.name = bi.name;
@@ -1524,6 +1613,12 @@ function submitAddPlant(){
     const name = ($('#cName').value||'').trim();
     const family = ($('#cFamily').value||'').trim();
     if(!name || !family){ toast('自定义录入需填写「植物名称」与「科 Family」'); return; }
+    /* 去重：自定义植物按名称（不区分大小写/空格）判重 */
+    const key = name.replace(/\s+/g,'').toLowerCase();
+    if(members.some(x => (x.name||'').replace(/\s+/g,'').toLowerCase() === key)){
+      toast('⚠️「'+name+'」已在植物库中，无需重复录入');
+      return;
+    }
     rec.refId = null;
     rec.name = name;
     rec.family = family;

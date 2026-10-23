@@ -6,7 +6,7 @@
  *   3) 页面导航 Network-First，断网回退缓存的 index.html
  *   4) 天气接口 Network-First，断网回退最近一次结果
  * ===================================================================== */
-const VERSION = "garden-sw-v7";
+const VERSION = "garden-sw-v10";
 const SHELL_CACHE = VERSION + "-shell";
 const IMG_CACHE = VERSION + "-img";
 const RUNTIME_CACHE = VERSION + "-runtime";
@@ -62,12 +62,13 @@ function navigationFallback(request) {
     )));
 }
 
-/* 图片：缓存优先，未命中再走网络并写入缓存 */
+/* 图片：缓存优先，未命中再走网络并写入缓存。
+   no-store 强制绕过浏览器 HTTP 缓存，避免同名覆盖的图片被旧响应污染 */
 function cacheFirst(request, cacheName) {
   return caches.open(cacheName).then(cache =>
     cache.match(request).then(cached => {
       if (cached) return cached;
-      return fetch(request).then(res => {
+      return fetch(request, { cache: "no-store" }).then(res => {
         if (res && res.status === 200) {
           cache.put(request, res.clone());
           trimCache(cacheName, IMG_LIMIT);
@@ -133,9 +134,9 @@ self.addEventListener("fetch", event => {
     return;
   }
 
-  /* 静态字典：缓存优先 + 后台更新 */
+  /* 静态字典：网络优先（保证新增/修改的植物数据立即可见），断网回退缓存 */
   if (url.pathname.endsWith("/plants.json")) {
-    event.respondWith(staleWhileRevalidate(request, SHELL_CACHE));
+    event.respondWith(networkFirst(request, SHELL_CACHE));
     return;
   }
 
@@ -173,7 +174,7 @@ async function warmImages() {
       await Promise.all(arr.slice(i, i + 4).map(async u => {
         try {
           if (await cache.match(u)) return;
-          const r = await fetch(u);
+          const r = await fetch(u, { cache: "no-store" });
           if (r && r.status === 200) await cache.put(u, r);
         } catch (e) { /* 单张失败不影响整体 */ }
       }));

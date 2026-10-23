@@ -8,7 +8,9 @@
  * ===================================================================== */
 const VERSION = "garden-sw-v11";
 const SHELL_CACHE = VERSION + "-shell";
-const IMG_CACHE = VERSION + "-img";
+/* 图片缓存名固定，不随 SW 版本变化：
+   升版本时绝不能把手机上几十 MB 的图片缓存全部作废 */
+const IMG_CACHE = "garden-img";
 const RUNTIME_CACHE = VERSION + "-runtime";
 const IMG_LIMIT = 600;
 
@@ -140,10 +142,9 @@ self.addEventListener("fetch", event => {
     return;
   }
 
-  /* 静态字典：网络优先（保证新增/修改的植物数据立即可见），断网/弱网回退缓存。
-     超时设 2.5 秒，略早于页面的 3 秒兜底，避免手机上一打开就整页等待 */
+  /* 静态字典：先返回缓存秒开，后台静默更新（手机上最稳的策略） */
   if (url.pathname.endsWith("/plants.json")) {
-    event.respondWith(networkFirst(request, SHELL_CACHE, 2500));
+    event.respondWith(staleWhileRevalidate(request, SHELL_CACHE));
     return;
   }
 
@@ -157,46 +158,7 @@ self.addEventListener("fetch", event => {
   event.respondWith(staleWhileRevalidate(request, RUNTIME_CACHE));
 });
 
-/* ---------- 后台预热全部植物图片（低速串行，避免拖慢手机） ---------- */
-async function warmImages() {
-  try {
-    /* 省流量模式或弱网直接跳过预热，优先保证当前页面正常加载 */
-    const conn = self.navigator.connection || {};
-    if (conn.saveData) return;
-    if (/(^|-)2g$|(^|-)3g$/.test(conn.effectiveType || "")) return;
+/* ---------- 后台预热已禁用 ----------
+ * 全量预热会和页面图片抢手机带宽（201 张 ≈ 59MB），是手机端加载慢的主因。
+ * 现在只用「按需缓存」：用户滚到哪里，cacheFirst 才下载哪一张。 */
 
-    const res = await fetch("./data/plants.json", { cache: "no-store" });
-    if (!res.ok) return;
-    const list = await res.json();
-    const urls = new Set();
-    (list || []).forEach(p => {
-      const m = p.media || {};
-      ["cover_image", "main", "flower", "leaf"].forEach(k => {
-        const it = m[k];
-        if (it && it.url) urls.add(it.url);
-      });
-      if (Array.isArray(m.gallery)) {
-        m.gallery.forEach(it => { if (it && it.url) urls.add(it.url); });
-      }
-    });
-    const arr = [...urls];
-    if (!arr.length) return;
-    const cache = await caches.open(IMG_CACHE);
-    /* 串行下载：一次只用一条连接，每 3 张歇 300ms，不抢占页面带宽 */
-    for (let i = 0; i < arr.length; i++) {
-      try {
-        if (await cache.match(arr[i])) continue;
-        const r = await fetch(arr[i]);
-        if (r && r.status === 200) await cache.put(arr[i], r);
-      } catch (e) { /* 单张失败不影响整体 */ }
-      if (i % 3 === 2) await new Promise(r => setTimeout(r, 300));
-    }
-    trimCache(IMG_CACHE, IMG_LIMIT);
-  } catch (e) { /* 离线或数据异常时静默跳过 */ }
-}
-
-self.addEventListener("message", event => {
-  if (event.data && event.data.type === "CACHE_IMAGES") {
-    event.waitUntil(warmImages());
-  }
-});

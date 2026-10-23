@@ -653,27 +653,49 @@ function getStatic(m){
   };
 }
 
-/* 图片版本号：与 sw.js 的 VERSION 同步递增。
-   图片是"同名覆盖"更新的，必须靠 URL 参数绕过 Service Worker 与浏览器 HTTP 缓存。
-   IMG_VER 是全局基准值；只有某张图单独改过时，才在 IMG_VER_MAP 里给它更高的版本号，
-   这样不会让整站 200 多张图片缓存同时失效（手机上重下会非常慢）。 */
-const IMG_VER = '10';
-const IMG_VER_MAP = {};   // 例：{'begonia_maculata_main.jpg': '11'}
+/* 图片版本号：默认全局不追加版本参数（保持 URL 稳定，手机缓存才能长期命中）。
+   只有某张图单独替换过时，才在 IMG_VER_MAP 里给它一个版本号。 */
+const IMG_VER = '';
+const IMG_VER_MAP = {
+  'begonia_maculata_main.jpg': '11',
+  'begonia_pink_flag_main.jpg': '11'
+};
+function withVer(src){
+  const file = src.split('/').pop().split('?')[0];
+  const v = IMG_VER_MAP[file] || IMG_VER;
+  if(!v) return src;
+  return src + (src.indexOf('?') >= 0 ? '&' : '?') + 'v=' + v;
+}
+/* 原图（详情弹窗用） */
 function imgURL(src){
   if(!src) return '';
   if(!/\.(jpe?g|png|webp|gif)$/i.test(src)) return src;
-  const file = src.split('/').pop();
-  const v = IMG_VER_MAP[file] || IMG_VER;
-  return src + (src.indexOf('?') >= 0 ? '&' : '?') + 'v=' + v;
+  return withVer(src);
+}
+/* 列表缩略图：只在 ./images/xxx.jpg 这类本地路径上替换为 thumbs/ 目录，缺失时自动回退原图 */
+function thumbURL(src){
+  if(!src) return '';
+  const m = /^\.\/images\/([^/?#]+)$/i.exec(src);
+  if(m && /\.(jpe?g|png|webp)$/i.test(m[1])) return withVer('./images/thumbs/' + m[1]);
+  return imgURL(src);
+}
+function thumbFallback(img){
+  const cur = img.getAttribute('src') || '';
+  if(cur.indexOf('/images/thumbs/') >= 0){
+    img.setAttribute('src', cur.replace('/images/thumbs/', '/images/'));
+    return;
+  }
+  phSwap(img);
 }
 /* 图片或优雅占位 */
 function phSwap(img){ const d = document.createElement('div'); d.className = 'ph'; d.innerHTML = '<span>🌱</span>'; img.replaceWith(d); }
-function coverHTML(src){
-  if(src) return '<img src="'+esc(imgURL(src))+'" alt="" loading="lazy" onerror="phSwap(this)">';
+function coverHTML(src, small){
+  if(src) return '<img src="'+esc(small ? thumbURL(src) : imgURL(src))+'" alt="" loading="lazy" onerror="'+(small ? 'thumbFallback' : 'phSwap')+'(this)">';
   return '<div class="ph"><span>🌱</span></div>';
 }
+/* 列表/卡片一律用缩略图 */
 function coverMini(src){
-  if(src) return '<img src="'+esc(imgURL(src))+'" alt="" loading="lazy" onerror="phSwap(this)">';
+  if(src) return '<img src="'+esc(thumbURL(src))+'" alt="" loading="lazy" onerror="thumbFallback(this)">';
   return '<div class="ph"><span>🌱</span></div>';
 }
 
@@ -850,7 +872,7 @@ function plantCard(m){
     dyn = '<div class="dyn">💭 意向区域：<b>'+(zt ? zt.emoji+' '+zt.name : '未指定')+'</b>'+(m.notes ? '<br>📝 '+esc(m.notes) : '')+'</div>';
   }
   return '<div class="pcard" onclick="openDetail(\''+m.uid+'\')">'
-    + '<div class="cover">'+coverHTML(st.cover)
+    + '<div class="cover">'+coverHTML(st.cover, true)
     + '<span class="tagchip">'+(st.family||'')+'</span>'
     + '<button class="rm" title="移除" onclick="event.stopPropagation();removeMember(\''+m.uid+'\')">✕</button>'
     + '</div>'
@@ -1926,24 +1948,7 @@ function bindEvents(){
 function registerSW(){
   if(!('serviceWorker' in navigator)) return;
   const start = () => {
-    navigator.serviceWorker.register('./sw.js', { updateViaCache: 'none' }).then(reg => {
-      /* 图片预热推迟到页面空闲 8 秒后，避免手机上一打开就抢带宽 */
-      let asked = false;
-      const askCache = () => {
-        if(asked) return;
-        asked = true;
-        const sw = navigator.serviceWorker.controller || reg.active;
-        if(sw) sw.postMessage({ type:'CACHE_IMAGES' });
-      };
-      const later = () => setTimeout(() => {
-        if('requestIdleCallback' in window) requestIdleCallback(askCache, { timeout: 5000 });
-        else askCache();
-      }, 8000);
-      if(reg.active) later();
-      else if(reg.installing) reg.installing.addEventListener('statechange', e => {
-        if(e.target.state === 'activated') later();
-      });
-    }).catch(() => {});
+    navigator.serviceWorker.register('./sw.js').catch(() => {});
   };
   /* 脚本可能在 load 之后才执行，此时需立即注册，否则监听器永远不会触发 */
   if(document.readyState === 'complete') start();

@@ -9922,5 +9922,1491 @@
         "solution": "增加湿度，喷施阿维菌素或氧化乐果。"
       }
     ]
+  },
+  {
+    "plant_id": "ceropegia_woodii_01",
+    "basic_info": {
+      "name": "爱之蔓",
+      "aliases": [
+        "吊金钱",
+        "可爱藤",
+        "蜡花"
+      ],
+      "scientific_name": "Ceropegia woodii Schltr.",
+      "family": "萝藦科",
+      "genus": "吊灯花属",
+      "plant_type": "多年生常绿多肉藤本，茎细长下垂可达 1 米，叶心形肉质对生，灰绿色有银白网状斑纹，叶腋生球形块根。",
+      "garden_fit_tag": "垂吊多肉观叶",
+      "difficulty_level": "容易（耐旱，怕积水）",
+      "toxicity": "全株无毒，适合室内悬挂栽培，对猫狗安全。"
+    },
+    "media": {
+      "cover_image": {
+        "url": "./images/ceropegia_woodii_main.jpg",
+        "caption": "爱之蔓主图"
+      },
+      "gallery": []
+    },
+    "environment_requirements": {
+      "light": {
+        "description": "喜明亮散射光，每天 3–5 小时柔和光照，盛夏忌强光暴晒。",
+        "ideal_location": "东向或南向窗台、悬挂花篮、书架高处。"
+      },
+      "watering": {
+        "strategy": "见干见湿，宁干勿湿",
+        "actionable_steps": "1) 盆土完全干透后再浇透；2) 夏季 7–10 天一次；3) 冬季 15–20 天一次甚至断水；4) 浇水避开心形叶片，防止叶面积水。",
+        "humidity_warning": "忌积水，肉质叶与叶腋块根过湿易腐烂；空气干燥反而有利。"
+      },
+      "temperature": {
+        "optimal_range": "15–28℃",
+        "min_limit": "不耐寒，10℃ 以下生长停滞，5℃ 以下受冻，冬季需入室。"
+      }
+    },
+    "care_and_maintenance": {
+      "fertilization": "生长期每 3–4 周一次稀薄多肉专用肥，冬季停肥。",
+      "repotting_and_soil": "疏松透气的颗粒土，颗粒土:泥炭 = 6:4，盆底铺陶粒增强排水。",
+      "pruning": "茎蔓过长可剪下扦插；及时剪除枯黄叶片与过密枝。"
+    },
+    "troubleshooting": [
+      {
+        "symptom": "块根腐烂",
+        "cause": "浇水过多或盆土不透气",
+        "solution": "脱盆切除腐烂部分，消毒后换颗粒土重栽。"
+      },
+      {
+        "symptom": "叶片变薄发软",
+        "cause": "长期缺水或根系受损",
+        "solution": "浸盆补水，检查并修剪烂根。"
+      },
+      {
+        "symptom": "茎蔓徒长稀疏",
+        "cause": "光照不足",
+        "solution": "移至明亮处，修剪促分枝。"
+      }
+    ]
+  },
+  {
+    "plant_id": "passion_fruit_01",
+    "basic_info": {
+      "name": "百香果",
+      "aliases": [
+        "鸡蛋果",
+        "紫果西番莲",
+        "西番莲果"
+      ],
+      "scientific_name": "Passiflora edulis Sims",
+      "family": "西番莲科",
+      "genus": "西番莲属",
+      "plant_type": "多年生常绿攀援藤本，茎细长具卷须，叶掌状三深裂，花白瓣紫心副花冠丝状，果卵球形成熟紫红，香气浓郁。",
+      "garden_fit_tag": "庭院藤本果树",
+      "difficulty_level": "中等（需搭架、充足光照与授粉）",
+      "toxicity": "成熟果实可食；茎叶含微量生物碱，不宜食用。"
+    },
+    "media": {
+      "cover_image": {
+        "url": "./images/passion_fruit_main.jpg",
+        "caption": "百香果主图"
+      },
+      "gallery": []
+    },
+    "environment_requirements": {
+      "light": {
+        "description": "喜阳光，每天 6–8 小时直射光，光照不足则花少果稀。",
+        "ideal_location": "南向庭院棚架、露台花架、避风向阳处。"
+      },
+      "watering": {
+        "strategy": "见干见湿，花期适度控水",
+        "actionable_steps": "1) 生长期保持土壤湿润；2) 开花坐果期适度控水防落花；3) 果实膨大期充足供水；4) 雨季及时排水。",
+        "humidity_warning": "忌积水烂根；久旱易落花落果。"
+      },
+      "temperature": {
+        "optimal_range": "20–30℃",
+        "min_limit": "不耐寒，5℃ 以下受冻，北方需盆栽入室越冬。"
+      }
+    },
+    "care_and_maintenance": {
+      "fertilization": "春梢期每 2 周一次稀薄氮肥，花果期改为磷钾肥为主，忌偏施氮肥。",
+      "repotting_and_soil": "疏松肥沃排水好的微酸性壤土，pH 5.5–6.5。",
+      "pruning": "主蔓上架后摘心促侧蔓；花后剪除过密枝、病弱枝；冬季短截更新。"
+    },
+    "troubleshooting": [
+      {
+        "symptom": "只长叶不开花",
+        "cause": "氮肥过多或光照不足",
+        "solution": "控氮增磷钾，保证 6 小时以上直射光。"
+      },
+      {
+        "symptom": "落花落果",
+        "cause": "高温干旱或授粉不良",
+        "solution": "早晚补水降温，人工辅助授粉。"
+      },
+      {
+        "symptom": "根腐死亡",
+        "cause": "盆土积水",
+        "solution": "改善排水，切除烂根消毒后换土重栽。"
+      }
+    ]
+  },
+  {
+    "plant_id": "variegated_star_jasmine_01",
+    "basic_info": {
+      "name": "花叶络石",
+      "aliases": [
+        "斑叶络石",
+        "银边络石",
+        "花叶万字茉莉"
+      ],
+      "scientific_name": "Trachelospermum jasminoides 'Variegatum'（络石园艺品种）",
+      "family": "夹竹桃科",
+      "genus": "络石属",
+      "plant_type": "常绿木质藤本，叶对生卵形，叶缘乳白或粉白斑纹，春末夏初开白色风车状香花，可垂吊或攀援。",
+      "garden_fit_tag": "花叶垂吊藤本",
+      "difficulty_level": "容易（适应性强，耐旱耐半阴）",
+      "toxicity": "全株乳汁有毒，误食致口腔灼痛不适，修剪后需洗手。"
+    },
+    "media": {
+      "cover_image": {
+        "url": "./images/variegated_star_jasmine_main.jpg",
+        "caption": "花叶络石主图"
+      },
+      "gallery": []
+    },
+    "environment_requirements": {
+      "light": {
+        "description": "喜阳光也耐半阴，每天 4–6 小时直射光斑纹更艳，全阴处斑纹变淡。",
+        "ideal_location": "南向或东向阳台、花架、垂吊盆、墙面绿化。"
+      },
+      "watering": {
+        "strategy": "见干见湿，耐旱怕涝",
+        "actionable_steps": "1) 表层 2–3cm 干透浇透；2) 夏季早晚补水；3) 冬季减水；4) 雨后及时排水。",
+        "humidity_warning": "忌积水烂根；空气长期干燥时叶尖易焦枯。"
+      },
+      "temperature": {
+        "optimal_range": "15–28℃",
+        "min_limit": "较耐寒，-5℃ 以上可露地越冬，北方盆栽需入室。"
+      }
+    },
+    "care_and_maintenance": {
+      "fertilization": "生长期每 3–4 周一次稀薄液肥，斑叶品种忌过量氮肥以免返绿。",
+      "repotting_and_soil": "疏松肥沃排水好的沙壤土，pH 6.0–7.0。",
+      "pruning": "春季修剪整形促分枝；花后剪残花；及时剪除返绿的纯绿枝条。"
+    },
+    "troubleshooting": [
+      {
+        "symptom": "斑纹变淡返绿",
+        "cause": "光照不足或氮肥过多",
+        "solution": "增加光照，控制氮肥，剪除返绿枝。"
+      },
+      {
+        "symptom": "叶尖焦枯",
+        "cause": "空气干燥或积水伤根",
+        "solution": "提高空气湿度，检查盆底排水。"
+      },
+      {
+        "symptom": "不开花",
+        "cause": "光照不足或修剪过重",
+        "solution": "保证光照，保留老枝，避免春季重剪。"
+      }
+    ]
+  },
+  {
+    "plant_id": "aloe_vera_01",
+    "basic_info": {
+      "name": "芦荟",
+      "aliases": [
+        "库拉索芦荟",
+        "巴巴多斯芦荟",
+        "真芦荟"
+      ],
+      "scientific_name": "Aloe vera (L.) Burm.f.",
+      "family": "阿福花科",
+      "genus": "芦荟属",
+      "plant_type": "多年生常绿肉质草本，叶基生呈莲座状排列，肥厚披针形边缘有齿，叶内富含透明凝胶。",
+      "garden_fit_tag": "多肉实用盆栽",
+      "difficulty_level": "容易（耐旱，忌积水）",
+      "toxicity": "叶肉凝胶可外用护肤；表皮含大黄素，过量内服致腹泻，孕妇慎用。"
+    },
+    "media": {
+      "cover_image": {
+        "url": "./images/aloe_vera_main.jpg",
+        "caption": "芦荟主图"
+      },
+      "gallery": []
+    },
+    "environment_requirements": {
+      "light": {
+        "description": "喜阳光，每天 5–6 小时直射光，夏季正午适当遮阴。",
+        "ideal_location": "南向阳台、窗台、露台。"
+      },
+      "watering": {
+        "strategy": "见干见湿，宁干勿湿",
+        "actionable_steps": "1) 盆土完全干透再浇透；2) 夏季 7–10 天一次；3) 冬季 20–30 天一次或断水；4) 浇后倒掉托盘积水。",
+        "humidity_warning": "忌积水，过湿根茎腐烂；空气湿度大时需加强通风。"
+      },
+      "temperature": {
+        "optimal_range": "15–30℃",
+        "min_limit": "不耐寒，5℃ 以下受冻，冬季需入室。"
+      }
+    },
+    "care_and_maintenance": {
+      "fertilization": "生长期每 1–2 个月一次稀薄多肉专用肥，冬季停肥。",
+      "repotting_and_soil": "疏松透气的沙质土，颗粒土:泥炭 = 6:4。",
+      "pruning": "剪取外围老叶采收；及时剪除基部枯黄叶片。"
+    },
+    "troubleshooting": [
+      {
+        "symptom": "叶片发软发黄",
+        "cause": "浇水过多或盆土不透气",
+        "solution": "停水通风，脱盆检查并切除烂根后重栽。"
+      },
+      {
+        "symptom": "叶片变红变薄",
+        "cause": "强光暴晒或长期缺水",
+        "solution": "夏季适度遮阴，及时补水。"
+      },
+      {
+        "symptom": "介壳虫",
+        "cause": "通风不良",
+        "solution": "人工刮除，喷施蚧必治。"
+      }
+    ]
+  },
+  {
+    "plant_id": "echinopsis_tubiflora_01",
+    "basic_info": {
+      "name": "仙人球",
+      "aliases": [
+        "草球",
+        "仙人拳",
+        "短毛球"
+      ],
+      "scientific_name": "Echinopsis tubiflora (Pfeiff.) Zucc. ex A.Dietr.",
+      "family": "仙人掌科",
+      "genus": "仙人球属",
+      "plant_type": "多年生肉质植物，球体绿色具棱，刺座密生辐射状硬刺，夏季顶生漏斗形大花。",
+      "garden_fit_tag": "桌面多肉",
+      "difficulty_level": "容易（极耐旱）",
+      "toxicity": "全株无毒，但硬刺易扎伤皮肤，摆放需避开儿童与宠物。"
+    },
+    "media": {
+      "cover_image": {
+        "url": "./images/echinopsis_tubiflora_main.jpg",
+        "caption": "仙人球主图"
+      },
+      "gallery": []
+    },
+    "environment_requirements": {
+      "light": {
+        "description": "喜强光，每天 6 小时以上直射光，光照不足球体徒长变形。",
+        "ideal_location": "南向窗台、阳台、露台。"
+      },
+      "watering": {
+        "strategy": "干透浇透，严格控水",
+        "actionable_steps": "1) 春秋盆土干透后浇透，约 10–15 天一次；2) 冬季完全断水保持干燥；3) 沿盆边浇水，避开球体。",
+        "humidity_warning": "极怕积水，球体与刺座沾水易腐烂。"
+      },
+      "temperature": {
+        "optimal_range": "20–30℃",
+        "min_limit": "不耐寒，5℃ 以下受冻，冬季需入室。"
+      }
+    },
+    "care_and_maintenance": {
+      "fertilization": "生长期每月一次稀薄仙人掌专用肥，冬季停肥。",
+      "repotting_and_soil": "颗粒土为主，颗粒:泥炭 = 7:3，盆底铺陶粒。",
+      "pruning": "一般不需修剪；及时清除残花与过多侧芽。"
+    },
+    "troubleshooting": [
+      {
+        "symptom": "球体基部发黑腐烂",
+        "cause": "积水或低温",
+        "solution": "切除腐烂部分，晾干伤口后换干爽颗粒土。"
+      },
+      {
+        "symptom": "球体细长徒长",
+        "cause": "光照不足",
+        "solution": "逐步增加直射光，避免突然暴晒。"
+      },
+      {
+        "symptom": "不开花",
+        "cause": "球龄不足或冬季温度过高",
+        "solution": "保证充足光照，冬季给予 5–10℃ 低温春化。"
+      }
+    ]
+  },
+  {
+    "plant_id": "red_fox_tail_cactus_01",
+    "basic_info": {
+      "name": "红花九尾狐",
+      "aliases": [
+        "九尾狐",
+        "猴尾柱",
+        "红花猴尾柱"
+      ],
+      "scientific_name": "Cleistocactus winteri subsp. colademononis 'Red'（红花园艺品种）",
+      "family": "仙人掌科",
+      "genus": "管花柱属",
+      "plant_type": "多年生柱状仙人掌，茎细长下垂密被白色软毛形如狐尾，开红色漏斗形花。",
+      "garden_fit_tag": "垂吊仙人掌",
+      "difficulty_level": "容易（耐旱，怕冷）",
+      "toxicity": "全株无毒，软毛刺细，换盆时建议戴手套。"
+    },
+    "media": {
+      "cover_image": {
+        "url": "./images/red_fox_tail_cactus_main.jpg",
+        "caption": "红花九尾狐主图"
+      },
+      "gallery": []
+    },
+    "environment_requirements": {
+      "light": {
+        "description": "喜充足阳光，每天 5–6 小时直射光，夏季高温适度遮阴。",
+        "ideal_location": "南向阳台、悬挂盆、高花架。"
+      },
+      "watering": {
+        "strategy": "干透浇透，严格控水",
+        "actionable_steps": "1) 生长期盆土干透后浇透，10–15 天一次；2) 夏季高温加强通风；3) 冬季低温断水。",
+        "humidity_warning": "忌积水，毛茎沾水易腐烂。"
+      },
+      "temperature": {
+        "optimal_range": "18–28℃",
+        "min_limit": "不耐寒，5℃ 以下受冻，冬季需入室。"
+      }
+    },
+    "care_and_maintenance": {
+      "fertilization": "生长期每 3–4 周一次稀薄仙人掌专用肥。",
+      "repotting_and_soil": "颗粒土占七成以上，排水必须良好。",
+      "pruning": "茎段过长可剪下扦插；及时剪除干枯茎段。"
+    },
+    "troubleshooting": [
+      {
+        "symptom": "茎段软烂",
+        "cause": "浇水过多或低温潮湿",
+        "solution": "剪除烂茎，晾干伤口后重新扦插。"
+      },
+      {
+        "symptom": "毛色发黄",
+        "cause": "光照不足或积水",
+        "solution": "增加光照，改善排水。"
+      },
+      {
+        "symptom": "不开花",
+        "cause": "冬季温度过高未春化",
+        "solution": "冬季给予 5–10℃ 低温并控水。"
+      }
+    ]
+  },
+  {
+    "plant_id": "parsley_01",
+    "basic_info": {
+      "name": "欧芹",
+      "aliases": [
+        "法香",
+        "洋香菜",
+        "巴西利"
+      ],
+      "scientific_name": "Petroselinum crispum (Mill.) Fuss",
+      "family": "伞形科",
+      "genus": "欧芹属",
+      "plant_type": "一二年生草本香草，叶深裂或卷曲，伞形花序黄绿色，全株有清新香气。",
+      "garden_fit_tag": "厨房香草",
+      "difficulty_level": "容易（喜冷凉）",
+      "toxicity": "全株可食，无毒；孕妇大量食用需谨慎。"
+    },
+    "media": {
+      "cover_image": {
+        "url": "./images/parsley_main.jpg",
+        "caption": "欧芹主图"
+      },
+      "gallery": []
+    },
+    "environment_requirements": {
+      "light": {
+        "description": "喜阳光也耐半阴，每天 4–6 小时光照。",
+        "ideal_location": "南向或东向阳台、厨房窗台。"
+      },
+      "watering": {
+        "strategy": "见干见湿，保持湿润",
+        "actionable_steps": "1) 表层 2cm 干即浇透；2) 夏季早晚补水；3) 盆栽避免积水。",
+        "humidity_warning": "喜湿润，干旱易抽薹；忌积水烂根。"
+      },
+      "temperature": {
+        "optimal_range": "15–25℃",
+        "min_limit": "较耐寒，-5℃ 以上可越冬，夏季高温易抽薹。"
+      }
+    },
+    "care_and_maintenance": {
+      "fertilization": "生长期每 3 周一次稀薄氮肥，每次采收后追肥。",
+      "repotting_and_soil": "疏松肥沃保水的壤土，pH 6.0–7.0。",
+      "pruning": "定期采收外围叶片；抽薹后及时剪除花茎。"
+    },
+    "troubleshooting": [
+      {
+        "symptom": "叶片发黄",
+        "cause": "缺氮或积水",
+        "solution": "补施薄肥，改善排水。"
+      },
+      {
+        "symptom": "植株抽薹开花",
+        "cause": "高温或干旱",
+        "solution": "保持凉爽与水分，及时剪除花茎。"
+      },
+      {
+        "symptom": "蚜虫",
+        "cause": "嫩梢密集",
+        "solution": "清水冲洗或喷施吡虫啉。"
+      }
+    ]
+  },
+  {
+    "plant_id": "oregano_01",
+    "basic_info": {
+      "name": "牛至",
+      "aliases": [
+        "奥勒冈",
+        "披萨草",
+        "野马郁兰"
+      ],
+      "scientific_name": "Origanum vulgare L.",
+      "family": "唇形科",
+      "genus": "牛至属",
+      "plant_type": "多年生草本香草，茎直立或匍匐，叶对生卵圆形被细毛，顶生伞房花序开小白花。",
+      "garden_fit_tag": "厨房香草",
+      "difficulty_level": "容易（耐旱）",
+      "toxicity": "全株可食，无毒。"
+    },
+    "media": {
+      "cover_image": {
+        "url": "./images/oregano_main.jpg",
+        "caption": "牛至主图"
+      },
+      "gallery": []
+    },
+    "environment_requirements": {
+      "light": {
+        "description": "喜阳光，每天 5–6 小时直射光。",
+        "ideal_location": "南向阳台、香草园、石缝。"
+      },
+      "watering": {
+        "strategy": "见干见湿，宁干勿湿",
+        "actionable_steps": "1) 表层 3cm 干再浇；2) 夏季 3–5 天一次；3) 冬季减水。",
+        "humidity_warning": "忌积水，过湿易根腐。"
+      },
+      "temperature": {
+        "optimal_range": "15–28℃",
+        "min_limit": "耐寒，-10℃ 以上可露地越冬。"
+      }
+    },
+    "care_and_maintenance": {
+      "fertilization": "生长期每月一次稀薄液肥，香草宜淡肥。",
+      "repotting_and_soil": "疏松排水好的沙质壤土。",
+      "pruning": "花前摘心促分枝；花后剪至 10cm 促新叶。"
+    },
+    "troubleshooting": [
+      {
+        "symptom": "香味变淡",
+        "cause": "氮肥过多",
+        "solution": "减少施肥，增加光照。"
+      },
+      {
+        "symptom": "根腐",
+        "cause": "积水",
+        "solution": "改善排水，切除烂根后重栽。"
+      },
+      {
+        "symptom": "红蜘蛛",
+        "cause": "空气干燥",
+        "solution": "增加通风与湿度，喷施阿维菌素。"
+      }
+    ]
+  },
+  {
+    "plant_id": "thyme_01",
+    "basic_info": {
+      "name": "百里香",
+      "aliases": [
+        "麝香草",
+        "地椒",
+        "千里香"
+      ],
+      "scientific_name": "Thymus vulgaris L.",
+      "family": "唇形科",
+      "genus": "百里香属",
+      "plant_type": "多年生常绿半灌木香草，茎匍匐细密，叶小椭圆形对生，花小紫红色密集。",
+      "garden_fit_tag": "地被香草",
+      "difficulty_level": "容易（耐旱怕湿）",
+      "toxicity": "全株可食，无毒。"
+    },
+    "media": {
+      "cover_image": {
+        "url": "./images/thyme_main.jpg",
+        "caption": "百里香主图"
+      },
+      "gallery": []
+    },
+    "environment_requirements": {
+      "light": {
+        "description": "喜全日照，每天 6 小时以上直射光。",
+        "ideal_location": "南向阳台、花境前缘、石缝。"
+      },
+      "watering": {
+        "strategy": "宁干勿湿，干透浇透",
+        "actionable_steps": "1) 盆土干透浇透；2) 夏季 5–7 天一次；3) 冬季控水。",
+        "humidity_warning": "极怕积水，潮湿闷热易根茎腐烂。"
+      },
+      "temperature": {
+        "optimal_range": "15–28℃",
+        "min_limit": "耐寒，-15℃ 以上可露地越冬。"
+      }
+    },
+    "care_and_maintenance": {
+      "fertilization": "生长期每 2 个月一次极稀薄液肥，忌浓肥。",
+      "repotting_and_soil": "砂质排水土，可混入粗砂与珍珠岩。",
+      "pruning": "花后轻剪整形；春季重剪老枝促更新。"
+    },
+    "troubleshooting": [
+      {
+        "symptom": "枝条木质化下部光秃",
+        "cause": "光照不足或长期未修剪",
+        "solution": "花后重剪，增加光照。"
+      },
+      {
+        "symptom": "根茎腐烂",
+        "cause": "积水",
+        "solution": "改善排水，抬高种植。"
+      },
+      {
+        "symptom": "白粉病",
+        "cause": "高湿不通风",
+        "solution": "疏剪通风，喷施三唑酮。"
+      }
+    ]
+  },
+  {
+    "plant_id": "lemongrass_01",
+    "basic_info": {
+      "name": "香茅草",
+      "aliases": [
+        "柠檬草",
+        "香茅",
+        "柠檬茅"
+      ],
+      "scientific_name": "Cymbopogon citratus (DC.) Stapf",
+      "family": "禾本科",
+      "genus": "香茅属",
+      "plant_type": "多年生丛生草本，叶细长线形有浓郁柠檬香气，基部叶鞘肥厚，根茎可分蘖。",
+      "garden_fit_tag": "香草与驱蚊",
+      "difficulty_level": "容易（喜温暖）",
+      "toxicity": "全株无毒，可食用、泡茶与提取精油。"
+    },
+    "media": {
+      "cover_image": {
+        "url": "./images/lemongrass_main.jpg",
+        "caption": "香茅草主图"
+      },
+      "gallery": []
+    },
+    "environment_requirements": {
+      "light": {
+        "description": "喜强光，每天 6 小时以上直射光。",
+        "ideal_location": "南向庭院、大盆、水边。"
+      },
+      "watering": {
+        "strategy": "保持湿润，喜水怕旱",
+        "actionable_steps": "1) 生长期保持土壤湿润；2) 夏季每天或隔天浇水；3) 冬季减水。",
+        "humidity_warning": "喜湿润，忌长期积水。"
+      },
+      "temperature": {
+        "optimal_range": "20–32℃",
+        "min_limit": "不耐寒，5℃ 以下受冻，北方盆栽需入室。"
+      }
+    },
+    "care_and_maintenance": {
+      "fertilization": "生长期每 3 周一次稀薄氮肥，采收后追肥。",
+      "repotting_and_soil": "疏松肥沃保水的壤土。",
+      "pruning": "采收外层叶鞘；秋季剪去老叶与枯叶。"
+    },
+    "troubleshooting": [
+      {
+        "symptom": "叶尖发黄干枯",
+        "cause": "缺水或空气干燥",
+        "solution": "增加浇水与叶面喷雾。"
+      },
+      {
+        "symptom": "分蘖少长势弱",
+        "cause": "缺肥或盆土板结",
+        "solution": "换盆施基肥，松土。"
+      },
+      {
+        "symptom": "冬季冻伤",
+        "cause": "低温",
+        "solution": "移入室内并保持 10℃ 以上。"
+      }
+    ]
+  },
+  {
+    "plant_id": "lemon_01",
+    "basic_info": {
+      "name": "柠檬",
+      "aliases": [
+        "洋柠檬",
+        "益母果"
+      ],
+      "scientific_name": "Citrus limon (L.) Osbeck",
+      "family": "芸香科",
+      "genus": "柑橘属",
+      "plant_type": "常绿小乔木，枝具刺，叶卵形有翼叶，花白色带紫，果黄熟有浓郁香气。",
+      "garden_fit_tag": "盆栽果树",
+      "difficulty_level": "中等（需充足光照与控温）",
+      "toxicity": "果实可食；果皮精油可能致光敏，枝叶无毒。"
+    },
+    "media": {
+      "cover_image": {
+        "url": "./images/lemon_main.jpg",
+        "caption": "柠檬主图"
+      },
+      "gallery": []
+    },
+    "environment_requirements": {
+      "light": {
+        "description": "喜强光，每天 6–8 小时直射光。",
+        "ideal_location": "南向阳台、温室、避风庭院。"
+      },
+      "watering": {
+        "strategy": "见干见湿，花期控水",
+        "actionable_steps": "1) 表层 3cm 干浇透；2) 夏季早晚补水；3) 花期适度控水防落花；4) 冬季减水。",
+        "humidity_warning": "忌积水烂根，空气干燥易落蕾。"
+      },
+      "temperature": {
+        "optimal_range": "18–30℃",
+        "min_limit": "不耐寒，5℃ 以下受冻，北方需入室越冬。"
+      }
+    },
+    "care_and_maintenance": {
+      "fertilization": "春梢期氮肥为主，花期与果期增施磷钾肥，冬季停肥。",
+      "repotting_and_soil": "疏松肥沃微酸性壤土，pH 5.5–6.5。",
+      "pruning": "春季剪除交叉枝与徒长枝；采果后短截。"
+    },
+    "troubleshooting": [
+      {
+        "symptom": "落花落果",
+        "cause": "授粉不良、干旱或温度骤变",
+        "solution": "人工辅助授粉，稳定水肥与温度。"
+      },
+      {
+        "symptom": "叶片黄化",
+        "cause": "缺铁或积水",
+        "solution": "补施螯合铁，改善排水。"
+      },
+      {
+        "symptom": "红蜘蛛、介壳虫",
+        "cause": "通风不良",
+        "solution": "喷施阿维菌素或蚧必治。"
+      }
+    ]
+  },
+  {
+    "plant_id": "blueberry_01",
+    "basic_info": {
+      "name": "蓝莓",
+      "aliases": [
+        "越橘",
+        "蓝浆果",
+        "笃斯越橘"
+      ],
+      "scientific_name": "Vaccinium corymbosum L.",
+      "family": "杜鹃花科",
+      "genus": "越橘属",
+      "plant_type": "落叶灌木，株高 1–2 米，叶卵形秋季转红，花钟形白色，果蓝紫色被白霜。",
+      "garden_fit_tag": "庭院浆果灌木",
+      "difficulty_level": "中等（必须酸性土）",
+      "toxicity": "果实可食，无毒。"
+    },
+    "media": {
+      "cover_image": {
+        "url": "./images/blueberry_main.jpg",
+        "caption": "蓝莓主图"
+      },
+      "gallery": []
+    },
+    "environment_requirements": {
+      "light": {
+        "description": "喜阳光，每天 6 小时以上直射光。",
+        "ideal_location": "南向庭院、大盆、酸性土花坛。"
+      },
+      "watering": {
+        "strategy": "保持湿润，忌干旱",
+        "actionable_steps": "1) 保持土壤湿润不积水；2) 夏季早晚补水；3) 优先用雨水或静置自来水。",
+        "humidity_warning": "喜湿润，忌积水；对钙质水敏感。"
+      },
+      "temperature": {
+        "optimal_range": "15–28℃",
+        "min_limit": "耐寒，多数品种 -20℃ 以上可露地越冬。"
+      }
+    },
+    "care_and_maintenance": {
+      "fertilization": "春季与花后各一次酸性专用肥（如硫酸铵），忌碱性肥。",
+      "repotting_and_soil": "酸性泥炭土，pH 4.5–5.5，必须调酸。",
+      "pruning": "冬季剪除老枝与交叉枝；花后适当疏果。"
+    },
+    "troubleshooting": [
+      {
+        "symptom": "叶片黄化失绿",
+        "cause": "土壤偏碱缺铁",
+        "solution": "浇硫酸亚铁或更换酸性土。"
+      },
+      {
+        "symptom": "不结果",
+        "cause": "授粉品种不足或修剪不当",
+        "solution": "配植 2 个以上品种，合理修剪。"
+      },
+      {
+        "symptom": "落果",
+        "cause": "缺水或高温",
+        "solution": "保持水分，夏季遮阴降温。"
+      }
+    ]
+  },
+  {
+    "plant_id": "apple_arrowroot_01",
+    "basic_info": {
+      "name": "苹果芋",
+      "aliases": [
+        "竹芋",
+        "苹果竹芋",
+        "圆叶竹芋"
+      ],
+      "scientific_name": "Goeppertia orbifolia (Linden) Borchs. & S. Suárez（原 Calathea orbifolia）",
+      "family": "竹芋科",
+      "genus": "肖竹芋属",
+      "plant_type": "多年生常绿草本观叶植物，具地下根茎，叶大近圆形，叶面深绿带银绿条纹，叶背紫红，夜间叶片竖起。",
+      "garden_fit_tag": "室内观叶",
+      "difficulty_level": "中等（怕干怕冷）",
+      "toxicity": "全株无毒，对猫狗安全。"
+    },
+    "media": {
+      "cover_image": {
+        "url": "./images/apple_arrowroot_main.jpg",
+        "caption": "苹果芋主图"
+      },
+      "gallery": []
+    },
+    "environment_requirements": {
+      "light": {
+        "description": "喜明亮散射光，每天 2–3 小时柔和光照，忌直射强光。",
+        "ideal_location": "客厅明亮处、东向或北向窗边。"
+      },
+      "watering": {
+        "strategy": "见干见湿，保持湿润",
+        "actionable_steps": "1) 表层 1–2cm 干浇透；2) 使用静置自来水或雨水；3) 保持空气湿度 60–80%。",
+        "humidity_warning": "湿度低于 50% 叶缘焦枯；忌积水烂根。"
+      },
+      "temperature": {
+        "optimal_range": "18–26℃",
+        "min_limit": "不耐寒，12℃ 以下休眠，10℃ 以下受冻。"
+      }
+    },
+    "care_and_maintenance": {
+      "fertilization": "生长期每 3–4 周一次稀薄观叶肥，冬季停肥。",
+      "repotting_and_soil": "疏松保水的泥炭腐叶土加珍珠岩。",
+      "pruning": "剪除老黄叶；株丛过密时春季分株。"
+    },
+    "troubleshooting": [
+      {
+        "symptom": "叶缘焦枯卷曲",
+        "cause": "空气干燥",
+        "solution": "增加喷雾或使用加湿器。"
+      },
+      {
+        "symptom": "叶色变淡条纹不清",
+        "cause": "光照过强或不足",
+        "solution": "调整至明亮散射光处。"
+      },
+      {
+        "symptom": "根茎腐烂",
+        "cause": "积水",
+        "solution": "改善排水，脱盆切除烂根后换土。"
+      }
+    ]
+  },
+  {
+    "plant_id": "tradescantia_quicksilver_01",
+    "basic_info": {
+      "name": "油画婚礼",
+      "aliases": [
+        "油画婚礼吊兰",
+        "银线紫露草",
+        "婚礼吊兰"
+      ],
+      "scientific_name": "Tradescantia fluminensis 'Quicksilver'（紫露草园艺品种）",
+      "family": "鸭跖草科",
+      "genus": "紫露草属",
+      "plant_type": "多年生常绿蔓性观叶植物，茎肉质匍匐，叶椭圆，叶面银绿与紫色相间如油画。",
+      "garden_fit_tag": "垂吊彩叶",
+      "difficulty_level": "容易（喜湿润怕暴晒）",
+      "toxicity": "全株汁液有轻微刺激性，接触后需洗手，误食致口腔不适。"
+    },
+    "media": {
+      "cover_image": {
+        "url": "./images/tradescantia_quicksilver_main.jpg",
+        "caption": "油画婚礼主图"
+      },
+      "gallery": []
+    },
+    "environment_requirements": {
+      "light": {
+        "description": "喜明亮散射光，每天 3–5 小时柔和光照，充足光照叶色更艳。",
+        "ideal_location": "东向或南向窗台、悬挂盆。"
+      },
+      "watering": {
+        "strategy": "见干见湿",
+        "actionable_steps": "1) 表层 2cm 干浇透；2) 夏季 3–5 天一次；3) 冬季减水。",
+        "humidity_warning": "忌积水烂根；空气干燥叶缘易枯。"
+      },
+      "temperature": {
+        "optimal_range": "18–28℃",
+        "min_limit": "不耐寒，10℃ 以下停止生长，5℃ 以下受冻。"
+      }
+    },
+    "care_and_maintenance": {
+      "fertilization": "生长期每 3 周一次稀薄液肥。",
+      "repotting_and_soil": "疏松肥沃排水好的腐叶土。",
+      "pruning": "茎蔓过长剪短扦插，促分枝。"
+    },
+    "troubleshooting": [
+      {
+        "symptom": "叶片返绿失去彩纹",
+        "cause": "光照不足",
+        "solution": "移至明亮散射光处。"
+      },
+      {
+        "symptom": "茎基部腐烂",
+        "cause": "积水",
+        "solution": "停水通风，剪取健康茎段重新扦插。"
+      },
+      {
+        "symptom": "叶尖枯焦",
+        "cause": "空气干燥",
+        "solution": "增加空气湿度。"
+      }
+    ]
+  },
+  {
+    "plant_id": "azalea_yuyijin_01",
+    "basic_info": {
+      "name": "羽衣锦",
+      "aliases": [
+        "西洋杜鹃",
+        "比利时杜鹃",
+        "复色杜鹃"
+      ],
+      "scientific_name": "Rhododendron hybridum 'Yuyijin'（西洋杜鹃复色品种）",
+      "family": "杜鹃花科",
+      "genus": "杜鹃花属",
+      "plant_type": "常绿灌木，株型紧凑，叶小卵形被毛，花复色重瓣成簇开放，为西洋杜鹃园艺品种。",
+      "garden_fit_tag": "盆栽复色杜鹃",
+      "difficulty_level": "中等（喜酸怕碱，忌干旱）",
+      "toxicity": "全株含木藜芦毒素，误食致呕吐腹泻，对猫狗有毒。"
+    },
+    "media": {
+      "cover_image": {
+        "url": "./images/azalea_yuyijin_main.jpg",
+        "caption": "羽衣锦主图"
+      },
+      "gallery": []
+    },
+    "environment_requirements": {
+      "light": {
+        "description": "喜明亮散射光，每天 3–5 小时柔和光照，忌强光暴晒。",
+        "ideal_location": "东向阳台、室内明亮窗边、通风良好的林下。"
+      },
+      "watering": {
+        "strategy": "见干见湿，保持湿润",
+        "actionable_steps": "1) 表层 1–2cm 干浇透；2) 使用雨水或静置自来水；3) 花期避免淋花；4) 冬季减水。",
+        "humidity_warning": "喜湿润，忌积水烂根；空气干燥易落蕾。"
+      },
+      "temperature": {
+        "optimal_range": "12–22℃",
+        "min_limit": "不耐寒，5℃ 以下需入室，忌暖气直吹。"
+      }
+    },
+    "care_and_maintenance": {
+      "fertilization": "花前与花后各施一次酸性杜鹃专用肥，忌碱性肥。",
+      "repotting_and_soil": "酸性泥炭土，pH 4.5–5.5，排水透气。",
+      "pruning": "花后剪除残花与过密枝；秋季轻剪整形。"
+    },
+    "troubleshooting": [
+      {
+        "symptom": "叶片黄化",
+        "cause": "土壤偏碱缺铁",
+        "solution": "浇硫酸亚铁，更换酸性土。"
+      },
+      {
+        "symptom": "落蕾落花",
+        "cause": "空气干燥或温度骤变",
+        "solution": "增加湿度，保持温度稳定。"
+      },
+      {
+        "symptom": "褐斑病",
+        "cause": "高温高湿不通风",
+        "solution": "剪除病叶，喷施百菌清。"
+      }
+    ]
+  },
+  {
+    "plant_id": "sunflower_01",
+    "basic_info": {
+      "name": "向日葵",
+      "aliases": [
+        "葵花",
+        "转日莲",
+        "朝阳花"
+      ],
+      "scientific_name": "Helianthus annuus L.",
+      "family": "菊科",
+      "genus": "向日葵属",
+      "plant_type": "一年生草本，株高 0.5–3 米，茎粗壮，叶大心形，头状花序大金黄色且随光转动。",
+      "garden_fit_tag": "庭院夏日大花",
+      "difficulty_level": "容易（喜光耐旱）",
+      "toxicity": "全株无毒，种子可食。"
+    },
+    "media": {
+      "cover_image": {
+        "url": "./images/sunflower_main.jpg",
+        "caption": "向日葵主图"
+      },
+      "gallery": []
+    },
+    "environment_requirements": {
+      "light": {
+        "description": "喜全日照，每天 6–8 小时直射光。",
+        "ideal_location": "南向庭院、花园边缘、大盆。"
+      },
+      "watering": {
+        "strategy": "见干见湿，花前充足",
+        "actionable_steps": "1) 生长期保持湿润；2) 现蕾期与花期充分供水；3) 雨后及时排水。",
+        "humidity_warning": "忌积水，干旱易导致花盘变小。"
+      },
+      "temperature": {
+        "optimal_range": "18–30℃",
+        "min_limit": "不耐寒，霜冻即枯。"
+      }
+    },
+    "care_and_maintenance": {
+      "fertilization": "定植时施足基肥，生长期每 2 周一次复合肥。",
+      "repotting_and_soil": "深厚疏松肥沃的壤土。",
+      "pruning": "及时摘除侧芽；花后剪下花盘收种。"
+    },
+    "troubleshooting": [
+      {
+        "symptom": "植株倒伏",
+        "cause": "茎高遇风或光照不足",
+        "solution": "立支架，保证充足光照。"
+      },
+      {
+        "symptom": "花盘小开花少",
+        "cause": "缺肥或缺光",
+        "solution": "补施磷钾肥，保证全日照。"
+      },
+      {
+        "symptom": "菌核病",
+        "cause": "高湿连作",
+        "solution": "轮作换土，喷施菌核净。"
+      }
+    ]
+  },
+  {
+    "plant_id": "moss_rose_01",
+    "basic_info": {
+      "name": "太阳花",
+      "aliases": [
+        "大花马齿苋",
+        "松叶牡丹",
+        "死不了"
+      ],
+      "scientific_name": "Portulaca grandiflora Hook.",
+      "family": "马齿苋科",
+      "genus": "马齿苋属",
+      "plant_type": "一年生肉质草本，茎匍匐，叶圆柱形肉质，花单生色彩鲜艳，日出开放午后闭合。",
+      "garden_fit_tag": "地被夏日花毯",
+      "difficulty_level": "容易（极耐旱）",
+      "toxicity": "全株无毒。"
+    },
+    "media": {
+      "cover_image": {
+        "url": "./images/moss_rose_main.jpg",
+        "caption": "太阳花主图"
+      },
+      "gallery": []
+    },
+    "environment_requirements": {
+      "light": {
+        "description": "喜全日照，每天 6 小时以上直射光。",
+        "ideal_location": "南向阳台、花坛边缘、石缝。"
+      },
+      "watering": {
+        "strategy": "宁干勿湿",
+        "actionable_steps": "1) 盆土干透浇透；2) 夏季 3–5 天一次；3) 严格避免积水。",
+        "humidity_warning": "极怕积水，过湿易烂茎。"
+      },
+      "temperature": {
+        "optimal_range": "20–35℃",
+        "min_limit": "不耐寒，霜冻枯死，可自播繁衍。"
+      }
+    },
+    "care_and_maintenance": {
+      "fertilization": "生长期每月一次稀薄复合肥，忌氮肥过多。",
+      "repotting_and_soil": "疏松排水好的沙质土。",
+      "pruning": "花后摘除残花；过长茎段剪短促分枝。"
+    },
+    "troubleshooting": [
+      {
+        "symptom": "只长叶不开花",
+        "cause": "光照不足或氮肥过多",
+        "solution": "全日照养护，控氮增磷钾。"
+      },
+      {
+        "symptom": "茎基腐烂",
+        "cause": "积水",
+        "solution": "改善排水，减少浇水。"
+      },
+      {
+        "symptom": "蚜虫",
+        "cause": "嫩梢",
+        "solution": "清水冲洗或喷施吡虫啉。"
+      }
+    ]
+  },
+  {
+    "plant_id": "carnation_01",
+    "basic_info": {
+      "name": "康乃馨",
+      "aliases": [
+        "香石竹",
+        "狮头石竹",
+        "剪绒花"
+      ],
+      "scientific_name": "Dianthus caryophyllus L.",
+      "family": "石竹科",
+      "genus": "石竹属",
+      "plant_type": "多年生草本，茎直立有节，叶粉绿色线形，花重瓣有香气，色彩丰富。",
+      "garden_fit_tag": "切花与盆栽名花",
+      "difficulty_level": "中等（忌积水与高温）",
+      "toxicity": "全株无毒，可作切花。"
+    },
+    "media": {
+      "cover_image": {
+        "url": "./images/carnation_main.jpg",
+        "caption": "康乃馨主图"
+      },
+      "gallery": []
+    },
+    "environment_requirements": {
+      "light": {
+        "description": "喜阳光，每天 4–6 小时直射光。",
+        "ideal_location": "南向阳台、通风花境。"
+      },
+      "watering": {
+        "strategy": "见干见湿，忌积水",
+        "actionable_steps": "1) 表层 3cm 干浇透；2) 夏季早晚补水；3) 浇水避开叶丛与花头。",
+        "humidity_warning": "忌积水烂根；高湿易茎腐。"
+      },
+      "temperature": {
+        "optimal_range": "15–25℃",
+        "min_limit": "耐寒中等，-5℃ 以上可越冬。"
+      }
+    },
+    "care_and_maintenance": {
+      "fertilization": "生长期每 2 周一次稀薄复合肥，花前增施磷钾肥。",
+      "repotting_and_soil": "疏松肥沃排水好的石灰质壤土。",
+      "pruning": "花后剪残花与花下 2 节；生长期摘心促分枝。"
+    },
+    "troubleshooting": [
+      {
+        "symptom": "茎腐倒伏",
+        "cause": "积水或通风差",
+        "solution": "改善排水，疏枝通风。"
+      },
+      {
+        "symptom": "花少且小",
+        "cause": "缺肥或光照不足",
+        "solution": "增施磷钾肥，增加光照。"
+      },
+      {
+        "symptom": "红蜘蛛",
+        "cause": "空气干燥",
+        "solution": "增加湿度，喷施阿维菌素。"
+      }
+    ]
+  },
+  {
+    "plant_id": "marguerite_daisy_01",
+    "basic_info": {
+      "name": "玛格丽特",
+      "aliases": [
+        "木茼蒿",
+        "玛格丽特菊",
+        "蓬蒿菊"
+      ],
+      "scientific_name": "Argyranthemum frutescens (L.) Sch.Bip.",
+      "family": "菊科",
+      "genus": "木茼蒿属",
+      "plant_type": "常绿亚灌木，株型圆整，叶羽状细裂，头状花序白色或粉色舌状花密集。",
+      "garden_fit_tag": "阳台爆盆花球",
+      "difficulty_level": "容易（喜凉爽）",
+      "toxicity": "全株无毒。"
+    },
+    "media": {
+      "cover_image": {
+        "url": "./images/marguerite_daisy_main.jpg",
+        "caption": "玛格丽特主图"
+      },
+      "gallery": []
+    },
+    "environment_requirements": {
+      "light": {
+        "description": "喜阳光，每天 5–6 小时直射光。",
+        "ideal_location": "南向或东向阳台、花坛。"
+      },
+      "watering": {
+        "strategy": "见干见湿，忌积水",
+        "actionable_steps": "1) 表层 2cm 干浇透；2) 夏季早晚补水；3) 雨后及时排水。",
+        "humidity_warning": "忌积水；夏季闷热易枯萎。"
+      },
+      "temperature": {
+        "optimal_range": "15–25℃",
+        "min_limit": "不耐寒，0℃ 以下受冻；夏季高温休眠。"
+      }
+    },
+    "care_and_maintenance": {
+      "fertilization": "生长期每 2 周一次稀薄复合肥，花前增施磷钾肥。",
+      "repotting_and_soil": "疏松肥沃排水好的沙壤土。",
+      "pruning": "花后重剪至 10cm 促二次爆盆；生长期多次摘心。"
+    },
+    "troubleshooting": [
+      {
+        "symptom": "夏季整株枯萎",
+        "cause": "高温高湿休眠",
+        "solution": "遮阴降温，控水，秋季恢复生长。"
+      },
+      {
+        "symptom": "开花稀疏",
+        "cause": "未摘心或光照不足",
+        "solution": "多次摘心，增加光照。"
+      },
+      {
+        "symptom": "蚜虫",
+        "cause": "嫩梢",
+        "solution": "喷施吡虫啉。"
+      }
+    ]
+  },
+  {
+    "plant_id": "pingpong_chrysanthemum_01",
+    "basic_info": {
+      "name": "乒乓菊",
+      "aliases": [
+        "球菊",
+        "乒乓菊花"
+      ],
+      "scientific_name": "Chrysanthemum morifolium 'Pingpong'（菊花园艺品种）",
+      "family": "菊科",
+      "genus": "菊属",
+      "plant_type": "多年生草本，头状花序球形，花瓣层层内卷如乒乓球，花色有白黄粉绿等。",
+      "garden_fit_tag": "盆栽造型菊",
+      "difficulty_level": "中等（喜凉爽短日照）",
+      "toxicity": "全株无毒，可作切花。"
+    },
+    "media": {
+      "cover_image": {
+        "url": "./images/pingpong_chrysanthemum_main.jpg",
+        "caption": "乒乓菊主图"
+      },
+      "gallery": []
+    },
+    "environment_requirements": {
+      "light": {
+        "description": "喜阳光，每天 5–6 小时直射光，短日照条件促花。",
+        "ideal_location": "南向阳台、花架、案头。"
+      },
+      "watering": {
+        "strategy": "见干见湿，忌积水",
+        "actionable_steps": "1) 表层 2cm 干浇透；2) 夏季早晚补水；3) 花前适度控水。",
+        "humidity_warning": "忌积水烂根，高湿易灰霉。"
+      },
+      "temperature": {
+        "optimal_range": "15–25℃",
+        "min_limit": "不耐寒，5℃ 以下需入室。"
+      }
+    },
+    "care_and_maintenance": {
+      "fertilization": "生长期每 2 周一次复合肥，现蕾期增施磷钾肥。",
+      "repotting_and_soil": "疏松肥沃排水好的腐叶壤土。",
+      "pruning": "苗期摘心 1–2 次；花后剪除残花。"
+    },
+    "troubleshooting": [
+      {
+        "symptom": "球花松散不圆",
+        "cause": "光照不均或水肥不匀",
+        "solution": "定期转动花盆，均匀水肥。"
+      },
+      {
+        "symptom": "灰霉病",
+        "cause": "高湿不通风",
+        "solution": "疏枝通风，喷施速克灵。"
+      },
+      {
+        "symptom": "蚜虫",
+        "cause": "嫩梢",
+        "solution": "喷施吡虫啉。"
+      }
+    ]
+  },
+  {
+    "plant_id": "dianthus_first_kiss_01",
+    "basic_info": {
+      "name": "初吻石竹",
+      "aliases": [
+        "初吻",
+        "石竹初吻",
+        "初恋石竹"
+      ],
+      "scientific_name": "Dianthus 'First Kiss'（石竹园艺品种）",
+      "family": "石竹科",
+      "genus": "石竹属",
+      "plant_type": "多年生草本，叶灰绿线形，花单瓣或重瓣，花色柔粉带深色花心，花期长。",
+      "garden_fit_tag": "阳台紧凑石竹",
+      "difficulty_level": "容易（耐旱怕涝）",
+      "toxicity": "全株无毒。"
+    },
+    "media": {
+      "cover_image": {
+        "url": "./images/dianthus_first_kiss_main.jpg",
+        "caption": "初吻石竹主图"
+      },
+      "gallery": []
+    },
+    "environment_requirements": {
+      "light": {
+        "description": "喜阳光，每天 5–6 小时直射光。",
+        "ideal_location": "南向阳台、花坛前缘、石缝。"
+      },
+      "watering": {
+        "strategy": "见干见湿，宁干勿湿",
+        "actionable_steps": "1) 表层 3cm 干浇透；2) 夏季 3–5 天一次；3) 严格避免积水。",
+        "humidity_warning": "忌积水，过湿易烂根。"
+      },
+      "temperature": {
+        "optimal_range": "15–26℃",
+        "min_limit": "较耐寒，-10℃ 以上可越冬。"
+      }
+    },
+    "care_and_maintenance": {
+      "fertilization": "生长期每 3–4 周一次稀薄复合肥。",
+      "repotting_and_soil": "疏松排水好的石灰质沙壤土。",
+      "pruning": "花后剪残花促二次开花；秋季修剪整形。"
+    },
+    "troubleshooting": [
+      {
+        "symptom": "烂根",
+        "cause": "积水",
+        "solution": "改善排水，减少浇水。"
+      },
+      {
+        "symptom": "花量少",
+        "cause": "光照不足",
+        "solution": "增加直射光。"
+      },
+      {
+        "symptom": "蚜虫",
+        "cause": "嫩梢",
+        "solution": "喷施吡虫啉。"
+      }
+    ]
+  },
+  {
+    "plant_id": "campanula_medium_01",
+    "basic_info": {
+      "name": "风铃草",
+      "aliases": [
+        "洋风铃草",
+        "钟花",
+        "Canterbury bells"
+      ],
+      "scientific_name": "Campanula medium L.",
+      "family": "桔梗科",
+      "genus": "风铃草属",
+      "plant_type": "二年生草本，株高 60–90cm，叶披针形，总状花序钟形花蓝紫或白色。",
+      "garden_fit_tag": "花境高杆风铃",
+      "difficulty_level": "容易（喜凉爽）",
+      "toxicity": "全株无毒。"
+    },
+    "media": {
+      "cover_image": {
+        "url": "./images/campanula_medium_main.jpg",
+        "caption": "风铃草主图"
+      },
+      "gallery": []
+    },
+    "environment_requirements": {
+      "light": {
+        "description": "喜阳光也耐半阴，每天 4–6 小时光照。",
+        "ideal_location": "庭院花境、北向或东向花坛。"
+      },
+      "watering": {
+        "strategy": "见干见湿",
+        "actionable_steps": "1) 表层 2cm 干浇透；2) 生长期保持湿润；3) 夏季减水。",
+        "humidity_warning": "忌积水，过湿易倒伏烂根。"
+      },
+      "temperature": {
+        "optimal_range": "15–25℃",
+        "min_limit": "较耐寒，-15℃ 以上可越冬。"
+      }
+    },
+    "care_and_maintenance": {
+      "fertilization": "生长期每 2 周一次稀薄复合肥。",
+      "repotting_and_soil": "疏松肥沃排水好的壤土。",
+      "pruning": "花后剪残花；高株立支架防倒伏。"
+    },
+    "troubleshooting": [
+      {
+        "symptom": "植株倒伏",
+        "cause": "花茎过高或风大",
+        "solution": "立支架，增施磷钾肥壮茎。"
+      },
+      {
+        "symptom": "烂根",
+        "cause": "积水",
+        "solution": "改善排水。"
+      },
+      {
+        "symptom": "蚜虫",
+        "cause": "嫩梢",
+        "solution": "喷施吡虫啉。"
+      }
+    ]
+  },
+  {
+    "plant_id": "danish_campanula_01",
+    "basic_info": {
+      "name": "丹麦风铃",
+      "aliases": [
+        "丹麦风铃草",
+        "丛生风铃草",
+        "南欧风铃"
+      ],
+      "scientific_name": "Campanula portenschlagiana Schult.",
+      "family": "桔梗科",
+      "genus": "风铃草属",
+      "plant_type": "多年生草本，植株低矮丛生，叶小圆齿状，钟形花密集成球，多为蓝紫色。",
+      "garden_fit_tag": "阳台风铃花球",
+      "difficulty_level": "中等（喜凉爽怕湿热）",
+      "toxicity": "全株无毒。"
+    },
+    "media": {
+      "cover_image": {
+        "url": "./images/danish_campanula_main.jpg",
+        "caption": "丹麦风铃主图"
+      },
+      "gallery": []
+    },
+    "environment_requirements": {
+      "light": {
+        "description": "喜阳光，每天 4–6 小时直射光，夏季需遮阴。",
+        "ideal_location": "东向或南向阳台、窗台。"
+      },
+      "watering": {
+        "strategy": "见干见湿，忌积水",
+        "actionable_steps": "1) 表层 2cm 干浇透；2) 夏季早晚补水；3) 避免淋花。",
+        "humidity_warning": "忌积水与闷热，夏季高温休眠。"
+      },
+      "temperature": {
+        "optimal_range": "12–22℃",
+        "min_limit": "不耐热，30℃ 以上休眠；耐寒 -5℃。"
+      }
+    },
+    "care_and_maintenance": {
+      "fertilization": "生长期每 2 周一次稀薄复合肥，花期增施磷钾肥。",
+      "repotting_and_soil": "疏松透气排水好的腐叶土加珍珠岩。",
+      "pruning": "花后剪残花与过长枝；夏季重剪促秋季更新。"
+    },
+    "troubleshooting": [
+      {
+        "symptom": "夏季整株枯死",
+        "cause": "高温高湿",
+        "solution": "遮阴通风，控水越夏。"
+      },
+      {
+        "symptom": "不开花",
+        "cause": "光照不足或温度过高",
+        "solution": "保证光照，保持凉爽。"
+      },
+      {
+        "symptom": "根腐",
+        "cause": "积水",
+        "solution": "改善排水。"
+      }
+    ]
+  },
+  {
+    "plant_id": "blue_plumbago_01",
+    "basic_info": {
+      "name": "蓝雪花",
+      "aliases": [
+        "蓝花丹",
+        "蓝雪丹",
+        "蓝茉莉"
+      ],
+      "scientific_name": "Plumbago auriculata Lam.",
+      "family": "白花丹科",
+      "genus": "白花丹属",
+      "plant_type": "常绿半灌木藤本，枝条蔓生，叶卵形，穗状花序淡蓝色，花期长。",
+      "garden_fit_tag": "阳台蓝色花墙",
+      "difficulty_level": "容易（喜光耐热）",
+      "toxicity": "全株无毒。"
+    },
+    "media": {
+      "cover_image": {
+        "url": "./images/blue_plumbago_main.jpg",
+        "caption": "蓝雪花主图"
+      },
+      "gallery": []
+    },
+    "environment_requirements": {
+      "light": {
+        "description": "喜全日照，每天 6 小时以上直射光。",
+        "ideal_location": "南向阳台、花架、篱笆。"
+      },
+      "watering": {
+        "strategy": "见干见湿，喜湿润",
+        "actionable_steps": "1) 表层 2cm 干浇透；2) 夏季每天补水；3) 冬季减水。",
+        "humidity_warning": "喜湿润，忌积水烂根。"
+      },
+      "temperature": {
+        "optimal_range": "20–32℃",
+        "min_limit": "不耐寒，5℃ 以下受冻，北方盆栽需入室。"
+      }
+    },
+    "care_and_maintenance": {
+      "fertilization": "生长期每 2 周一次复合肥，花前增施磷钾肥。",
+      "repotting_and_soil": "疏松肥沃排水好的壤土。",
+      "pruning": "花后剪残花枝并重剪促新枝；春季修剪整形。"
+    },
+    "troubleshooting": [
+      {
+        "symptom": "不开花或花少",
+        "cause": "光照不足或未修剪",
+        "solution": "全日照养护，花后重剪。"
+      },
+      {
+        "symptom": "叶片黄化",
+        "cause": "积水或缺铁",
+        "solution": "改善排水，补施铁肥。"
+      },
+      {
+        "symptom": "蚜虫",
+        "cause": "嫩梢",
+        "solution": "喷施吡虫啉。"
+      }
+    ]
   }
 ]

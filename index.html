@@ -38,10 +38,9 @@ header.app{position:sticky;top:0;z-index:50;background:linear-gradient(135deg,va
 .app-inner{max-width:1180px;margin:0 auto;padding:12px 16px;display:flex;flex-direction:column;align-items:stretch;gap:8px}
 .logo{font-size:17px;font-weight:700;letter-spacing:.4px}
 .logo small{font-weight:400;opacity:.72;margin-left:8px;font-size:12px}
-.navtabs{display:flex;gap:6px;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
-.navtabs::-webkit-scrollbar{display:none}
-.navtabs .ntab{flex:1;min-width:max-content;text-align:center}
-.ntab{padding:8px 15px;border-radius:999px;background:rgba(255,255,255,.12);color:#e8f5ec;font-size:13.5px;transition:.18s;white-space:nowrap}
+.navtabs{display:flex;gap:4px;flex-wrap:nowrap}
+.navtabs .ntab{flex:1 1 0;min-width:0;text-align:center;padding:7px 2px;font-size:12px}
+.ntab{padding:8px 15px;border-radius:999px;background:rgba(255,255,255,.12);color:#e8f5ec;font-size:13.5px;transition:.18s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ntab:hover{background:rgba(255,255,255,.24)}
 .ntab.active{background:#fff;color:var(--g800);font-weight:600}
 .ntab .cnt{font-size:11px;opacity:.85;margin-left:2px}
@@ -91,10 +90,9 @@ main{max-width:1180px;margin:0 auto;padding:16px 16px 60px}
 .ph small{display:block;font-size:11px;opacity:.85;margin-top:4px}
 
 /* ===================== 模块一：子标签 ===================== */
-.subtabs{display:flex;gap:8px;margin-bottom:14px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
-.subtabs::-webkit-scrollbar{display:none}
-.subtabs .stab{flex:1;min-width:max-content;text-align:center}
-.stab{padding:8px 16px;border-radius:999px;background:var(--card);border:1.5px solid var(--line);font-size:13.5px;color:var(--sub);transition:.16s;font-weight:600;white-space:nowrap}
+.subtabs{display:flex;gap:4px;margin-bottom:14px;flex-wrap:nowrap}
+.subtabs .stab{flex:1 1 0;min-width:0;text-align:center;padding:7px 2px;font-size:12px}
+.stab{padding:8px 16px;border-radius:999px;background:var(--card);border:1.5px solid var(--line);font-size:13.5px;color:var(--sub);transition:.16s;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .stab:hover{border-color:var(--g400);color:var(--g700)}
 .stab.active{background:var(--g700);border-color:var(--g700);color:#fff}
 .subview{display:none}
@@ -293,10 +291,25 @@ main{max-width:1180px;margin:0 auto;padding:16px 16px 60px}
 #toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:var(--g800);color:#fff;padding:11px 20px;border-radius:999px;font-size:13.5px;box-shadow:var(--shadow-lg);opacity:0;pointer-events:none;transition:.25s;z-index:200;max-width:88vw}
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
+/* ===================== 紧凑型植物选择器 ===================== */
+.pickwrap{display:flex;gap:6px;align-items:center}
+.pickwrap input{flex:1;min-width:0}
+.pickwrap .btn{flex:none}
+.picklist{display:none;max-height:150px;overflow-y:auto;margin-top:6px;padding:4px;
+  border:1.5px solid var(--line);border-radius:10px;background:#fff}
+.picklist.open{display:block}
+.pickitem{display:block;width:100%;text-align:left;padding:7px 10px;border:0;border-radius:7px;
+  background:none;color:var(--txt);font-size:12.5px;line-height:1.4}
+.pickitem:active{background:var(--g50)}
+.pickempty{padding:8px 10px;font-size:12px;color:var(--faint)}
+
 /* ===================== 响应式 ===================== */
 @media (max-width:640px){
+  .app-inner{padding:10px 10px;gap:6px}
   .logo{font-size:16px}.logo small{display:none}
-  .ntab{padding:7px 12px;font-size:12.5px}
+  .navtabs .ntab{padding:6px 1px;font-size:11px}
+  .subtabs .stab{padding:5px 1px;font-size:11px;border-width:1.2px}
+  .subtabs .stab span{font-size:9px;opacity:.75}
   .grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
   .pcard .cover{height:118px}
   .row2,.row3,.d-grid{grid-template-columns:1fr}
@@ -335,7 +348,8 @@ main{max-width:1180px;margin:0 auto;padding:16px 16px 60px}
     <div class="subtabs" id="subtabs">
       <button class="stab active" data-sub="planted">🏡 已种植 <span id="cnt-planted"></span></button>
       <button class="stab" data-sub="wishlist">🌱 愿望清单 <span id="cnt-wish"></span></button>
-      <button class="stab" data-sub="tree">🌳 分类全景</button>
+      <button class="stab" data-sub="dead">🪦 已die <span id="cnt-dead"></span></button>
+      <button class="stab" data-sub="tree">🌳 分类</button>
     </div>
 
     <div class="subview active" id="sub-planted">
@@ -352,6 +366,14 @@ main{max-width:1180px;margin:0 auto;padding:16px 16px 60px}
         <button class="btn btn-primary" onclick="openAddPlant('wishlist')">➕ 加入愿望清单</button>
       </div>
       <div class="grid" id="grid-wishlist"></div>
+    </div>
+
+    <div class="subview" id="sub-dead">
+      <div class="bar">
+        <div class="grow" style="font-weight:600;color:var(--g800)">🪦 已die：留存档案与复盘</div>
+        <button class="btn btn-primary" onclick="openAddPlant('dead')">➕ 记录已故植物</button>
+      </div>
+      <div class="grid" id="grid-dead"></div>
     </div>
 
     <div class="subview" id="sub-tree">
@@ -757,6 +779,7 @@ function renderAll(){
   renderCounts();
   renderRoster();
   renderWishlist();
+  renderDead();
   renderTree();
   renderZones();
   renderStream();
@@ -766,8 +789,10 @@ function renderAll(){
 function renderCounts(){
   const planted = members.filter(m => m.status === 'planted').length;
   const wish = members.filter(m => m.status === 'wishlist').length;
+  const dead = members.filter(m => m.status === 'dead').length;
   $('#cnt-planted').textContent = planted ? '('+planted+')' : '';
   $('#cnt-wish').textContent = wish ? '('+wish+')' : '';
+  $('#cnt-dead').textContent = dead ? '('+dead+')' : '';
   const due = groupEntries().filter(e => entryLevel(e.next) !== 'later').length;
   $('#nav-stream-cnt').textContent = due ? due : '';
 }
@@ -780,6 +805,8 @@ function plantCard(m){
   let dyn = '';
   if(m.status === 'planted'){
     dyn = '<div class="dyn">📍 区域：<b>'+(z ? z.emoji+' '+z.name : '未分配')+'</b></div>';
+  }else if(m.status === 'dead'){
+    dyn = '<div class="dyn">🪦 已die'+(z||zt ? ' · 曾种植于 <b>'+(z||zt).emoji+' '+(z||zt).name+'</b>' : '')+'</div>';
   }else{
     dyn = '<div class="dyn">💭 意向区域：<b>'+(zt ? zt.emoji+' '+zt.name : '未指定')+'</b>'+(m.notes ? '<br>📝 '+esc(m.notes) : '')+'</div>';
   }
@@ -806,6 +833,12 @@ function renderWishlist(){
   const el = $('#grid-wishlist');
   el.innerHTML = list.length ? list.map(plantCard).join('')
     : '<div class="empty" style="grid-column:1/-1"><span class="big">🌱</span>愿望清单还是空的<br>把心仪的植物加入清单，随时转入花园</div>';
+}
+function renderDead(){
+  const list = members.filter(m => m.status === 'dead');
+  const el = $('#grid-dead');
+  el.innerHTML = list.length ? list.map(plantCard).join('')
+    : '<div class="empty" style="grid-column:1/-1"><span class="big">🪦</span>还没有已die的植物<br>可记录已故植物做复盘；想重养时一键转回花园</div>';
 }
 
 /* ---------- 模块一：科—属—种 分类树 ---------- */
@@ -1054,7 +1087,7 @@ function renderStream(){
           + '<div class="todo-top"><span class="em">'+e.task.emoji+'</span><div>'
           + '<div class="todo-title"><span class="who">全园大事件</span> · '+esc(e.task.label)+'</div>'
           + '<div class="todo-detail">下次：'+fmt(e.next)+(e.task.note?' · '+esc(e.task.note):'')+altNowTxt+'</div>'
-          + '<div class="todo-src">📅 上次：'+(e.state.last?fmt(e.state.last):'（首次，尚未打卡）')+' · 周期 '+e.task.interval+' 天</div>'
+          + '<div class="todo-src">上次：'+(e.state.last?fmt(e.state.last):'（首次，尚未打卡）')+' · 周期 '+e.task.interval+' 天</div>'
           + '</div><span class="topbadge badge '+lv+'">'+levelText(e.next)+'</span></div>'
           + '<div class="todo-actions"><button class="btn btn-primary" onclick="checkinIdx('+i+')">✅ 打卡完成</button>'
           + '<button class="btn btn-ghost" onclick="openSupplement('+i+')">📋 补卡</button></div></div>';
@@ -1065,7 +1098,7 @@ function renderStream(){
           + '<div class="todo-top"><span class="em">🚨</span><div>'
           + '<div class="todo-title">'+esc(x.issue)+' · <span class="who">'+esc(x.target||'—')+'</span> <span class="badge overdue">应急</span></div>'
           + '<div class="todo-detail">下次执行：'+fmt(x.next)+(x.action?' · 措施：'+esc(x.action):'')+'</div>'
-          + '<div class="todo-src">📅 上次：'+(x.last?fmt(x.last):'（尚未执行）')+' · 每 '+x.interval+' 天</div>'
+          + '<div class="todo-src">上次：'+(x.last?fmt(x.last):'（尚未执行）')+' · 每 '+x.interval+' 天</div>'
           + '</div><span class="topbadge badge '+lv+'">'+levelText(x.next)+'</span></div>'
           + '<div class="todo-actions">'
           + '<button class="btn btn-primary" onclick="checkinIdx('+i+')">✅ 已执行</button>'
@@ -1079,7 +1112,7 @@ function renderStream(){
           + '<div class="todo-top"><span class="em">'+(c.emoji||'📌')+'</span><div>'
           + '<div class="todo-title">'+esc(c.title)+' <span class="badge wish">自定义</span></div>'
           + '<div class="todo-detail">下次：'+fmt(c.next)+(c.note?' · '+esc(c.note):'')+'</div>'
-          + '<div class="todo-src">📅 上次：'+(c.last?fmt(c.last):'（尚未打卡）')+(c.interval?' · 周期 '+c.interval+' 天':' · 一次性事件')+'</div>'
+          + '<div class="todo-src">上次：'+(c.last?fmt(c.last):'（尚未打卡）')+(c.interval?' · 周期 '+c.interval+' 天':' · 一次性事件')+'</div>'
           + '</div><span class="topbadge badge '+lv+'">'+levelText(c.next)+'</span></div>'
           + '<div class="todo-actions">'
           + '<button class="btn btn-primary" onclick="checkinIdx('+i+')">✅ 打卡完成</button>'
@@ -1095,7 +1128,7 @@ function renderStream(){
           + '<div class="todo-title"><span class="who">'+esc(e.zone.name)+'</span> · '+esc(e.task.label)
           + ' <span class="badge zone">暂无植物</span></div>'
           + '<div class="todo-detail">下次：'+fmt(e.next)+(e.task.note?' · '+esc(e.task.note):'')+altNowTxt+'</div>'
-          + '<div class="todo-src">📅 上次：'+(e.state.last?fmt(e.state.last):'（尚未打卡）')+' · 周期 '+e.task.interval+' 天</div>'
+          + '<div class="todo-src">上次：'+(e.state.last?fmt(e.state.last):'（尚未打卡）')+' · 周期 '+e.task.interval+' 天</div>'
           + '</div><span class="topbadge badge '+lv+'">'+levelText(e.next)+'</span></div>'
           + '<div class="todo-actions">'
           + '<button class="btn btn-primary" onclick="checkinIdx('+i+')">✅ 打卡完成</button>'
@@ -1105,13 +1138,13 @@ function renderStream(){
       }
       /* 区域组卡片 */
       const lastDates = e.per.map(p => p.s.last).filter(Boolean);
-      const lastShow = lastDates.length ? fmt(Math.max.apply(null, lastDates)) + '（组内最近）' : '（尚未打卡）';
+      const lastShow = lastDates.length ? fmt(Math.max.apply(null, lastDates)) : '（尚未打卡）';
       return '<div class="todo '+lv+'">'
         + '<div class="todo-top"><span class="em">'+e.task.emoji+'</span><div>'
         + '<div class="todo-title"><span class="who">'+esc(e.zone.name)+'</span> · '+esc(e.task.label)
         + ' <span class="badge zone">'+e.per.length+' 株</span></div>'
         + '<div class="todo-detail">下次：'+fmt(e.next)+altNowTxt+'</div>'
-        + '<div class="todo-src">📅 上次：'+lastShow+' · 周期 '+e.task.interval+' 天</div>'
+        + '<div class="todo-src">上次：'+lastShow+' · 周期 '+e.task.interval+' 天</div>'
         + '</div><span class="topbadge badge '+lv+'">'+levelText(e.next)+'</span></div>'
         + '<div class="todo-actions">'
         + '<button class="btn btn-primary" onclick="checkinIdx('+i+')">✅ 全组打卡（'+e.per.length+' 株）</button>'
@@ -1253,7 +1286,7 @@ function openAddCustom(){
     + '<div class="field"><label>说明（可选）</label><input id="cuNote" placeholder="如：月季冬剪，剪至离地 30cm"></div>'
     + '<div class="row2">'
     + '<div class="field"><label>重复周期（天）<span class="tip">留空或 0 = 一次性事件</span></label><input id="cuInterval" type="number" min="0" placeholder="0"></div>'
-    + '<div class="field"><label>首次到期 <span class="tip">几天后到期，默认今天</span></label><input id="cuInDays" type="number" min="0" value="0"></div>'
+    + '<div class="field"><label>首次到期日期</label><input id="cuNext" type="date" value="'+fmt(today0())+'"></div>'
     + '</div></div>'
     + '<div class="mfoot"><button class="btn btn-ghost" onclick="closeModal()">取消</button>'
     + '<button class="btn btn-primary" onclick="submitCustom()">添加待办</button></div>'
@@ -1263,10 +1296,16 @@ function submitCustom(){
   const title = ($('#cuTitle').value||'').trim();
   if(!title){ toast('请填写事件名称'); return; }
   const interval = Math.max(0, parseInt($('#cuInterval').value||'0',10) || 0);
-  const inDays = Math.max(0, parseInt($('#cuInDays').value||'0',10) || 0);
+  const dv = ($('#cuNext').value||'').trim();
+  let next = today0();
+  if(dv){
+    const ts = new Date(dv + 'T00:00:00').getTime();
+    if(isNaN(ts)){ toast('日期格式不正确'); return; }
+    next = ts;
+  }
   custom.push({ id: uid('c'), title, emoji: ($('#cuEmoji').value||'').trim() || '📌',
     note: ($('#cuNote').value||'').trim(), interval: interval || null,
-    last: null, next: addDays(today0(), inDays), done: false, createdAt: Date.now() });
+    last: null, next, done: false, createdAt: Date.now() });
   saveAll(); closeModal(); toast('📌 已添加自定义待办'); renderAll();
 }
 function deleteCustom(id){
@@ -1540,6 +1579,7 @@ function openAddPlant(status){
     + '<select id="addStatus" onchange="onAddStatusChange()">'
     + '<option value="planted"'+(addState.status==='planted'?' selected':'')+'>🏡 已种植（进入花园）</option>'
     + '<option value="wishlist"'+(addState.status==='wishlist'?' selected':'')+'>🌱 预备池 / 愿望清单</option>'
+    + '<option value="dead"'+(addState.status==='dead'?' selected':'')+'>🪦 已die（记录已故植物）</option>'
     + '</select></div>'
     + '<div class="field"><label id="zoneLabel">物理区域</label>'
     + '<select id="addZone">'+zoneOptions+'</select></div>'
@@ -1561,8 +1601,7 @@ function setAddMode(m){
 }
 function onAddStatusChange(){
   const v = $('#addStatus').value;
-  const planted = v === 'planted';
-  $('#zoneLabel').textContent = planted ? '物理区域' : '意向区域（可选）';
+  $('#zoneLabel').textContent = v === 'planted' ? '物理区域' : (v === 'dead' ? '曾种植区域（可选）' : '意向区域（可选）');
 }
 function searchKB(){
   const q = ($('#kbSearch').value||'').trim().toLowerCase();
@@ -1636,7 +1675,7 @@ function submitAddPlant(){
   toast('🌿 已录入：' + rec.name);
   renderAll();
   // 录入后跳到对应子视图
-  switchSub(rec.status === 'wishlist' ? 'wishlist' : 'planted');
+  switchSub(rec.status);
   switchView('garden');
 }
 
@@ -1684,13 +1723,13 @@ function openDetail(uid_){
     + '<div class="cap"><h3>'+esc(st.name)+'</h3><div class="ss">'+esc(st.sci||'')+'</div>'
     + '<div class="tags"><span class="badge">'+esc(st.family)+'</span><span class="badge">'+esc(st.genus)+'</span>'
     + '<span class="badge">'+(st.kb?'📖 字典':'✍️ 自定义')+'</span>'
-    + '<span class="badge">'+(m.status==='planted'?'🏡 已种植':'🌱 愿望清单')+'</span></div></div></div>'
+    + '<span class="badge">'+(m.status==='planted'?'🏡 已种植':(m.status==='dead'?'🪦 已die':'🌱 愿望清单'))+'</span></div></div></div>'
     + '<div class="mbody">'
     + '<div class="d-sec"><h4>📖 静态百科属性</h4>'+infoHTML+'</div>'
     + (st.type ? '<div class="d-sec"><h4>🌱 植物形态</h4><div class="d-txt">'+esc(st.type)+'</div></div>' : '')
     + careHTML
     + '<div class="d-sec"><h4>📍 物理区域</h4>'
-    + '<div class="row2"><div class="field" style="margin:0"><label>'+(m.status==='planted'?'所在区域':'意向区域')+'</label>'
+    + '<div class="row2"><div class="field" style="margin:0"><label>'+(m.status==='planted'?'所在区域':(m.status==='dead'?'曾种植区域':'意向区域'))+'</label>'
     + '<select id="dZone">'+zoneOptions+'</select></div>'
     + '<div style="display:flex;align-items:flex-end;gap:8px"><button class="btn btn-soft" onclick="saveZone(\''+m.uid+'\')">保存区域</button></div></div></div>'
     + '<div class="d-sec"><h4>📝 我的备注</h4>'
@@ -1700,8 +1739,13 @@ function openDetail(uid_){
     + '</div>'
     + '<div class="mfoot">'
     + (m.status === 'planted'
-        ? '<button class="btn btn-outline" onclick="moveToWish(\''+m.uid+'\')">🌱 转回预备池</button>'
-        : '<button class="btn btn-primary" onclick="moveToPlanted(\''+m.uid+'\')">🏡 转入花园种植</button>')
+        ? '<button class="btn btn-outline" onclick="moveToWish(\''+m.uid+'\')">🌱 转愿望清单</button>'
+          + '<button class="btn btn-soft" onclick="moveToDead(\''+m.uid+'\')">🪦 标记已die</button>'
+        : m.status === 'dead'
+          ? '<button class="btn btn-primary" onclick="moveToPlanted(\''+m.uid+'\')">🏡 重新种植</button>'
+            + '<button class="btn btn-outline" onclick="moveToWish(\''+m.uid+'\')">🌱 转愿望清单</button>'
+          : '<button class="btn btn-primary" onclick="moveToPlanted(\''+m.uid+'\')">🏡 转入花园种植</button>'
+            + '<button class="btn btn-soft" onclick="moveToDead(\''+m.uid+'\')">🪦 标记已die</button>')
     + '<button class="btn btn-danger" onclick="removeMember(\''+m.uid+'\')">🗑️ 移除</button>'
     + '<button class="btn btn-ghost" onclick="closeModal()">关闭</button>'
     + '</div>'
@@ -1725,8 +1769,17 @@ function moveToWish(uid_){
 }
 function moveToPlanted(uid_){
   const m = members.find(x=>x.uid===uid_); if(!m) return;
-  m.status = 'planted'; m.zoneId = m.targetZoneId || (zones.find(z=>z.kind==='zone')||{}).id; m.targetZoneId = null;
+  m.status = 'planted';
+  m.zoneId = m.zoneId || m.targetZoneId || (zones.find(z=>z.kind==='zone')||{}).id;
+  m.targetZoneId = null;
   ensureCare(m); saveAll(); toast('🏡 已转入花园'); closeModal(); renderAll();
+}
+function moveToDead(uid_){
+  const m = members.find(x=>x.uid===uid_); if(!m) return;
+  m.status = 'dead';
+  m.targetZoneId = m.zoneId;   /* 保留曾种植位置，用于归档与复盘 */
+  delete care[m.uid];
+  saveAll(); toast('🪦 已移入 已die 档案'); closeModal(); renderAll();
 }
 function removeMember(uid_){
   const m = members.find(x=>x.uid===uid_); if(!m) return;
@@ -1737,14 +1790,34 @@ function removeMember(uid_){
 }
 
 /* ---------- 新建应急 / 课题 ---------- */
+/* 紧凑型植物选择器：按钮展开一个限高的小列表，避免原生下拉占满屏幕 */
+function pickListHTML(names){
+  const list = [...new Set(names.map(n => (n||'').trim()).filter(Boolean))];
+  if(!list.length) return '<div class="pickempty">暂无植物，可直接输入名称</div>';
+  return list.map(n => '<button type="button" class="pickitem" onclick="pickPlant(this)">'+esc(n)+'</button>').join('');
+}
+function togglePick(listId){
+  const list = document.getElementById(listId); if(!list) return;
+  document.querySelectorAll('.picklist.open').forEach(x => { if(x !== list) x.classList.remove('open'); });
+  list.classList.toggle('open');
+}
+function pickPlant(btn){
+  const field = btn.closest('.field');
+  if(field){ const inp = field.querySelector('input'); if(inp) inp.value = btn.textContent.trim(); }
+  const list = btn.closest('.picklist');
+  if(list) list.classList.remove('open');
+}
 function openAddEmergency(){
-  const plantOpts = members.filter(m=>m.status==='planted').map(m=>'<option value="'+esc(m.name)+'">'+esc(m.name)+'</option>').join('');
+  const plantOpts = pickListHTML(members.filter(m=>m.status==='planted').map(m=>m.name));
   openModal(''
     + '<div class="mhead"><span class="mt">🚨 新建病虫害应急事件</span><button class="x" onclick="closeModal()">✕</button></div>'
     + '<div class="mbody">'
     + '<div class="field"><label>病虫害 / 问题 *</label><input id="eIssue" placeholder="如：柿子树红蜘蛛 / 吊兰蚧壳虫 / 叶斑病"></div>'
     + '<div class="row2">'
-    + '<div class="field"><label>目标植物</label><input id="eTarget" list="plantOpts" placeholder="如：柿子树"><datalist id="plantOpts">'+plantOpts+'</datalist></div>'
+    + '<div class="field"><label>目标植物</label>'
+    + '<div class="pickwrap"><input id="eTarget" placeholder="如：柿子树" autocomplete="off">'
+    + '<button type="button" class="btn btn-soft sm" onclick="togglePick(\'ePickList\')">选择</button></div>'
+    + '<div class="picklist" id="ePickList">'+plantOpts+'</div></div>'
     + '<div class="field"><label>执行间隔（天）*</label><input id="eInterval" type="number" min="1" value="3"><span class="tip">如每 3 天喷一次药</span></div>'
     + '</div>'
     + '<div class="field"><label>处置措施</label><input id="eAction" placeholder="如：阿维菌素 3000 倍液叶背喷施"></div>'
@@ -1763,13 +1836,16 @@ function submitEmergency(){
   saveAll(); closeModal(); toast('🚨 应急事件已创建'); renderAll();
 }
 function openAddResearch(){
-  const plantOpts = members.map(m=>'<option value="'+esc(m.name)+'">'+esc(m.name)+'</option>').join('');
+  const plantOpts = pickListHTML(members.map(m=>m.name));
   openModal(''
     + '<div class="mhead"><span class="mt">🔬 提交科研攻关课题</span><button class="x" onclick="closeModal()">✕</button></div>'
     + '<div class="mbody">'
     + '<div class="field"><label>课题名称 *</label><input id="rTitle" placeholder="如：三角梅只长叶不开花的促花攻关"></div>'
     + '<div class="row2">'
-    + '<div class="field"><label>研究对象</label><input id="rTarget" list="rPlantOpts" placeholder="如：三角梅"><datalist id="rPlantOpts">'+plantOpts+'</datalist></div>'
+    + '<div class="field"><label>研究对象</label>'
+    + '<div class="pickwrap"><input id="rTarget" placeholder="如：三角梅" autocomplete="off">'
+    + '<button type="button" class="btn btn-soft sm" onclick="togglePick(\'rPickList\')">选择</button></div>'
+    + '<div class="picklist" id="rPickList">'+plantOpts+'</div></div>'
     + '<div class="field"><label>攻关目标</label><input id="rGoal" placeholder="如：60 天内诱导开花"></div>'
     + '</div>'
     + '<div class="field"><label>初始观察记录（可选）</label><textarea id="rNote" placeholder="记录当前症状、已尝试的手段…"></textarea></div>'

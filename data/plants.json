@@ -11408,5 +11408,690 @@
         "solution": "喷施吡虫啉。"
       }
     ]
+  },
+  {
+    "plant_id": "star_jasmine_01",
+    "basic_info": {
+      "name": "风车茉莉",
+      "aliases": [
+        "络石",
+        "万字茉莉",
+        "白花藤"
+      ],
+      "scientific_name": "Trachelospermum jasminoides (Lindl.) Lem.",
+      "family": "夹竹桃科",
+      "genus": "络石属",
+      "plant_type": "常绿木质藤本，茎缠绕攀援，叶对生革质深绿；花白色五裂如小风车，芳香浓郁。",
+      "garden_fit_tag": "香花爬藤墙",
+      "difficulty_level": "容易（耐旱耐晒，粗放管理）",
+      "toxicity": "全株含乳汁与强心苷，误食致呕吐腹泻；枝叶汁液对皮肤有刺激，修剪戴手套，对猫狗有毒。"
+    },
+    "media": {
+      "cover_image": {
+        "url": "./images/star_jasmine_main.jpg",
+        "caption": "风车茉莉主图"
+      },
+      "gallery": []
+    },
+    "environment_requirements": {
+      "light": {
+        "description": "喜光，全日照至半阴均可；光照充足则花多香浓。",
+        "ideal_location": "南向阳台花架、围墙、栅栏、廊架，可攀援可垂吊。"
+      },
+      "watering": {
+        "strategy": "见干见湿，较耐旱",
+        "actionable_steps": "1) 表土干 3cm 浇透水；2) 夏季高温早晚补水；3) 冬季控水保持微干；4) 花前适度控水促花芽。",
+        "humidity_warning": "忌长期积水，盆土久湿易烂根；空气过干则花蕾易脱落。"
+      },
+      "temperature": {
+        "optimal_range": "15–28℃",
+        "min_limit": "耐寒约 -10℃，北方幼株越冬需包裹防寒。"
+      }
+    },
+    "care_and_maintenance": {
+      "fertilization": "春季萌芽后每 2 周一次复合肥，花前增施磷钾肥，花后停氮。",
+      "repotting_and_soil": "疏松肥沃、排水良好的微酸性壤土，pH 6.0–7.0；盆栽腐叶土:园土:河沙=4:3:3。",
+      "pruning": "花后修剪过密枝与徒长枝；春季牵引整形，墙面需绑扎引导。"
+    },
+    "troubleshooting": [
+      {
+        "symptom": "枝叶茂盛不开花",
+        "cause": "光照不足或氮肥偏多",
+        "solution": "移至全日照位置，停施氮肥，增施磷钾肥。"
+      },
+      {
+        "symptom": "叶片发黄脱落",
+        "cause": "盆土积水烂根或土壤偏碱",
+        "solution": "检查排水，烂根切除后换土；定期浇 0.1% 硫酸亚铁。"
+      },
+      {
+        "symptom": "嫩叶失绿有细密蛛网",
+        "cause": "红蜘蛛危害（干热环境）",
+        "solution": "增加环境湿度，喷施阿维菌素 2000 倍液，连用 2 次。"
+      }
+    ]
+  },
+  {
+    "plant_id": "chinese_balloon_flower_01",
+    "basic_info": {
+      "name": "中华桔梗",
+      "aliases": [
+        "桔梗",
+        "铃铛花",
+        "僧冠帽",
+        "气球花"
+      ],
+      "scientific_name": "Platycodon grandiflorus (Jacq.) A.DC.",
+      "family": "桔梗科",
+      "genus": "桔梗属",
+      "plant_type": "多年生宿根草本，肉质根粗壮，株高 40–90cm；花蕾膨大如气球，开放为五裂星形钟状，蓝紫或白色。",
+      "garden_fit_tag": "宿根蓝花点缀",
+      "difficulty_level": "容易（耐寒，忌积水）",
+      "toxicity": "根含皂苷可入药、可腌制食用，但生食过量致恶心呕吐；花瓣无毒。"
+    },
+    "media": {
+      "cover_image": {
+        "url": "./images/chinese_balloon_flower_main.jpg",
+        "caption": "中华桔梗主图"
+      },
+      "gallery": []
+    },
+    "environment_requirements": {
+      "light": {
+        "description": "喜充足阳光，全日照至半阴；光照不足则茎细花少。",
+        "ideal_location": "花园向阳花境、南向阳台、宿根花坛。"
+      },
+      "watering": {
+        "strategy": "见干见湿，宁干勿湿",
+        "actionable_steps": "1) 表土干 3cm 浇透；2) 雨季及时排水；3) 秋季地上部枯萎后基本断水。",
+        "humidity_warning": "肉质根极怕涝，积水 2–3 天即烂根，盆栽须用深排水层。"
+      },
+      "temperature": {
+        "optimal_range": "15–25℃",
+        "min_limit": "耐寒约 -20℃，宿根可露地越冬，地上部冬季枯萎。"
+      }
+    },
+    "care_and_maintenance": {
+      "fertilization": "春季每月一次复合肥，孕蕾期改施磷钾肥，忌浓肥伤根。",
+      "repotting_and_soil": "疏松深厚、排水良好的沙质壤土，pH 6.0–7.5；忌黏重土。",
+      "pruning": "花后剪残花防止结籽耗养；秋季茎叶枯黄后留 5cm 剪除。"
+    },
+    "troubleshooting": [
+      {
+        "symptom": "根部腐烂、整株萎蔫",
+        "cause": "土壤积水或排水不良",
+        "solution": "立即停水通风，切除烂根，换高排水基质重栽。"
+      },
+      {
+        "symptom": "植株高瘦倒伏",
+        "cause": "氮肥过多或光照不足",
+        "solution": "减少氮肥，增施磷钾，移至全日照并立支架。"
+      },
+      {
+        "symptom": "嫩梢密集蚜虫",
+        "cause": "蚜虫危害",
+        "solution": "喷施吡虫啉 2000 倍液，或清水冲洗后喷肥皂水。"
+      }
+    ]
+  },
+  {
+    "plant_id": "imperial_green_philodendron_01",
+    "basic_info": {
+      "name": "金钻",
+      "aliases": [
+        "金钻蔓绿绒",
+        "绿帝王",
+        "翡翠宝石"
+      ],
+      "scientific_name": "Philodendron 'Imperial Green'（金钻蔓绿绒园艺品种）",
+      "family": "天南星科",
+      "genus": "喜林芋属",
+      "plant_type": "常绿多年生草本观叶植物，茎短粗，叶宽卵形、深绿油亮，株型紧凑。",
+      "garden_fit_tag": "室内耐阴大叶",
+      "difficulty_level": "容易（耐阴，忌暴晒）",
+      "toxicity": "全株含草酸钙针晶，误食致口腔灼痛肿胀、流涎；对猫狗有毒，修剪后洗手。"
+    },
+    "media": {
+      "cover_image": {
+        "url": "./images/imperial_green_philodendron_main.jpg",
+        "caption": "金钻主图"
+      },
+      "gallery": []
+    },
+    "environment_requirements": {
+      "light": {
+        "description": "耐半阴，明亮散射光最佳；强光直射会灼伤叶片出现焦边。",
+        "ideal_location": "室内明亮窗边、客厅角落、北向或东向窗台，避开南向直射。"
+      },
+      "watering": {
+        "strategy": "见干见湿",
+        "actionable_steps": "1) 表土干 2–3cm 浇透；2) 冬季减少至 10–14 天一次；3) 每月擦拭叶面并喷雾增湿。",
+        "humidity_warning": "忌积水烂根，也怕长期干透导致叶缘枯焦；空气过干新叶易开裂。"
+      },
+      "temperature": {
+        "optimal_range": "18–28℃",
+        "min_limit": "10℃ 以下停止生长，5℃ 以下受冻落叶。"
+      }
+    },
+    "care_and_maintenance": {
+      "fertilization": "生长期每月一次观叶液肥（氮略高），冬季停肥。",
+      "repotting_and_soil": "疏松透气腐叶土:珍珠岩:椰糠=5:3:2，pH 6.0–7.0。",
+      "pruning": "剪除老黄叶；株高过高可截顶促侧芽，剪下的茎可扦插。"
+    },
+    "troubleshooting": [
+      {
+        "symptom": "叶缘焦枯发褐",
+        "cause": "空气干燥或强光直射",
+        "solution": "移离直射光，提高环境湿度，剪除焦叶。"
+      },
+      {
+        "symptom": "新叶变小、节间拉长",
+        "cause": "缺肥或盆土板结",
+        "solution": "换盆修根并补施观叶肥，增加散射光。"
+      },
+      {
+        "symptom": "茎基发软有异味",
+        "cause": "浇水过多烂根",
+        "solution": "停水脱盆，切除腐烂部分，消毒后换新土。"
+      }
+    ]
+  },
+  {
+    "plant_id": "ajania_pacifica_01",
+    "basic_info": {
+      "name": "足褶野路菊",
+      "aliases": [
+        "足摺野路菊",
+        "野路菊",
+        "滨菊"
+      ],
+      "scientific_name": "Ajania pacifica (Nakai) K.Bremer & Humphries",
+      "family": "菊科",
+      "genus": "亚菊属",
+      "plant_type": "多年生常绿草本，匍匐丛生，叶面深绿、叶背银白，叶缘具乳白色镶边；秋季开黄色小头状花。",
+      "garden_fit_tag": "银叶镶边地被",
+      "difficulty_level": "容易（耐旱耐寒，忌闷湿）",
+      "toxicity": "全株无毒，可安全接触与种植。"
+    },
+    "media": {
+      "cover_image": {
+        "url": "./images/ajania_pacifica_main.jpg",
+        "caption": "足褶野路菊主图"
+      },
+      "gallery": []
+    },
+    "environment_requirements": {
+      "light": {
+        "description": "喜全日照，光照越足银白镶边越明显；耐半阴但镶边变淡。",
+        "ideal_location": "花境前缘、石边、坡地、南向阳台及露台。"
+      },
+      "watering": {
+        "strategy": "干透浇透，极耐旱",
+        "actionable_steps": "1) 表土完全干后再浇透；2) 夏季高温减少浇水频次；3) 冬季基本断水。",
+        "humidity_warning": "怕闷湿积水，夏季高温高湿时基部易腐烂，必须保持通风。"
+      },
+      "temperature": {
+        "optimal_range": "15–27℃",
+        "min_limit": "耐寒约 -15℃，可露地越冬。"
+      }
+    },
+    "care_and_maintenance": {
+      "fertilization": "春季施一次缓释肥即可；忌多氮，否则银边变淡、叶片变绿。",
+      "repotting_and_soil": "排水良好的沙质壤土，可混入 30% 颗粒（赤玉土/珍珠岩）。",
+      "pruning": "春季剪除老枝促发新叶；花后剪残花保持株形。"
+    },
+    "troubleshooting": [
+      {
+        "symptom": "基部发黑腐烂",
+        "cause": "高温高湿、通风不良",
+        "solution": "剪除腐烂基部，移通风处，减少浇水。"
+      },
+      {
+        "symptom": "银白镶边变淡",
+        "cause": "氮肥过多或光照不足",
+        "solution": "停氮肥，移至全日照。"
+      },
+      {
+        "symptom": "叶背出现蚜虫",
+        "cause": "蚜虫聚集嫩梢",
+        "solution": "喷施吡虫啉 2000 倍液。"
+      }
+    ]
+  },
+  {
+    "plant_id": "red_dragon_hibiscus_01",
+    "basic_info": {
+      "name": "红龙朱槿",
+      "aliases": [
+        "红龙扶桑",
+        "大红花",
+        "朱槿"
+      ],
+      "scientific_name": "Hibiscus rosa-sinensis 'Red Dragon'（朱槿园艺品种）",
+      "family": "锦葵科",
+      "genus": "木槿属",
+      "plant_type": "常绿灌木，高 1–3m，叶互生有光泽；花大、深红色，花瓣质感厚实，花心色更深。",
+      "garden_fit_tag": "热带大红花",
+      "difficulty_level": "中等（喜暖怕冷，需充足光照）",
+      "toxicity": "花可晒干泡茶；茎叶无毒，但对猫狗有轻微肠胃刺激。"
+    },
+    "media": {
+      "cover_image": {
+        "url": "./images/red_dragon_hibiscus_main.jpg",
+        "caption": "红龙朱槿主图"
+      },
+      "gallery": []
+    },
+    "environment_requirements": {
+      "light": {
+        "description": "强阳性，每天 6 小时以上直射光；光照不足则只长叶不开花。",
+        "ideal_location": "南向阳台、露台、庭院向阳处，避风位置。"
+      },
+      "watering": {
+        "strategy": "见干见湿，喜湿不耐涝",
+        "actionable_steps": "1) 表土干 2cm 浇透；2) 夏季早晚各一次；3) 花期保持稳定供水，勿忽干忽湿。",
+        "humidity_warning": "忌积水烂根；空气过干或供水骤变易落蕾落花。"
+      },
+      "temperature": {
+        "optimal_range": "20–30℃",
+        "min_limit": "10℃ 以下停止生长，5℃ 以下落叶受冻，北方盆栽需入室。"
+      }
+    },
+    "care_and_maintenance": {
+      "fertilization": "生长期每 10–15 天一次以磷钾为主的液肥，花期不断肥。",
+      "repotting_and_soil": "疏松肥沃的微酸性壤土，pH 6.0–6.5，盆底加陶粒排水。",
+      "pruning": "花后短截花枝促分枝；春季重剪整形，剪除内膛弱枝。"
+    },
+    "troubleshooting": [
+      {
+        "symptom": "花蕾大量脱落",
+        "cause": "温度骤变、缺水或光照不足",
+        "solution": "稳定温度与水分，移至全日照，避免频繁移动。"
+      },
+      {
+        "symptom": "新叶黄化、叶脉仍绿",
+        "cause": "缺铁或盆土积水",
+        "solution": "浇 0.1% 硫酸亚铁，同时检查排水。"
+      },
+      {
+        "symptom": "叶背有细网、叶片失绿",
+        "cause": "红蜘蛛危害",
+        "solution": "提高湿度，喷施阿维菌素 2000 倍液。"
+      }
+    ]
+  },
+  {
+    "plant_id": "persimmon_01",
+    "basic_info": {
+      "name": "柿子树",
+      "aliases": [
+        "柿树",
+        "朱果",
+        "猴枣"
+      ],
+      "scientific_name": "Diospyros kaki Thunb.",
+      "family": "柿科",
+      "genus": "柿属",
+      "plant_type": "落叶乔木，高 4–10m，叶大革质；秋季果实橙红挂枝，观果期长。",
+      "garden_fit_tag": "庭院秋果乔木",
+      "difficulty_level": "中等（需充足光照，注意落果）",
+      "toxicity": "未熟果单宁含量高，涩口且空腹大量食用易致胃结石；成熟果可食，叶可制茶。"
+    },
+    "media": {
+      "cover_image": {
+        "url": "./images/persimmon_main.jpg",
+        "caption": "柿子树主图"
+      },
+      "gallery": []
+    },
+    "environment_requirements": {
+      "light": {
+        "description": "全日照，每天 6 小时以上直射光，光照足则着色好、糖分高。",
+        "ideal_location": "庭院向阳开阔地，避开建筑遮阴。"
+      },
+      "watering": {
+        "strategy": "见干见湿，耐旱怕涝",
+        "actionable_steps": "1) 定植后浇透定根水；2) 生长期表土干 5cm 浇透；3) 果实膨大期保持供水稳定；4) 雨季及时排水。",
+        "humidity_warning": "忌积水，久涝烂根落叶落果；果实膨大期忽干忽湿易裂果落果。"
+      },
+      "temperature": {
+        "optimal_range": "15–28℃",
+        "min_limit": "耐寒约 -18℃，幼树与花期需防晚霜。"
+      }
+    },
+    "care_and_maintenance": {
+      "fertilization": "萌芽前施一次腐熟有机肥，果实膨大期追磷钾肥，秋后停氮。",
+      "repotting_and_soil": "深厚疏松、排水良好的壤土，pH 6.0–7.5。",
+      "pruning": "冬季落叶后整形修剪，疏除过密枝、病虫枝与徒长枝。"
+    },
+    "troubleshooting": [
+      {
+        "symptom": "大量落果",
+        "cause": "水分骤变、缺硼或授粉不良",
+        "solution": "稳定灌溉，花期补硼，配置授粉品种。"
+      },
+      {
+        "symptom": "叶片出现多角形褐斑",
+        "cause": "柿角斑病，高温高湿",
+        "solution": "清除病叶，喷施代森锰锌 600 倍液。"
+      },
+      {
+        "symptom": "栽多年不结果",
+        "cause": "幼树未到结果龄或品种需授粉",
+        "solution": "耐心养树，或嫁接授粉品种。"
+      }
+    ]
+  },
+  {
+    "plant_id": "japanese_maple_01",
+    "basic_info": {
+      "name": "红枫",
+      "aliases": [
+        "枫树",
+        "鸡爪槭",
+        "紫叶鸡爪槭",
+        "日本枫"
+      ],
+      "scientific_name": "Acer palmatum 'Atropurpureum'（红枫园艺品种）",
+      "family": "无患子科",
+      "genus": "槭属",
+      "plant_type": "落叶小乔木或灌木，高 2–6m；叶掌状 5–9 深裂，春叶紫红、秋叶猩红，是庭院秋色主景树。",
+      "garden_fit_tag": "庭院红叶主景树",
+      "difficulty_level": "中等（怕暴晒干热与积水）",
+      "toxicity": "全株无毒，可安全种植；落叶可堆肥。"
+    },
+    "media": {
+      "cover_image": {
+        "url": "./images/japanese_maple_main.jpg",
+        "caption": "红枫主图"
+      },
+      "gallery": []
+    },
+    "environment_requirements": {
+      "light": {
+        "description": "半阴至全日照；光照充足叶色红艳，夏季强光干热需遮西晒，否则叶缘焦枯、叶色发暗。",
+        "ideal_location": "庭院东向或疏荫处、避开水泥地反射热；盆栽放半阴通风位置。"
+      },
+      "watering": {
+        "strategy": "见干见湿，保持微湿",
+        "actionable_steps": "1) 表土干 2–3cm 浇透；2) 夏季早晚补水并遮西晒；3) 冬季落叶后控水。",
+        "humidity_warning": "既怕干旱又怕积水：干热焦叶、叶色转绿发暗，久涝烂根；盆栽忌托盘积水。"
+      },
+      "temperature": {
+        "optimal_range": "15–25℃",
+        "min_limit": "耐寒约 -20℃，但春季晚霜易冻伤新芽。"
+      }
+    },
+    "care_and_maintenance": {
+      "fertilization": "春季一次缓释肥；秋季少氮多磷钾，有助叶色转红；忌偏施氮肥否则叶色返绿。",
+      "repotting_and_soil": "疏松肥沃的微酸性壤土，pH 5.5–6.5；盆栽泥炭:赤玉土:鹿沼土=5:3:2。",
+      "pruning": "冬季落叶后整形修剪；避免春季伤流期大剪，仅去除枯枝、交叉枝与内膛弱枝。"
+    },
+    "troubleshooting": [
+      {
+        "symptom": "叶色发绿不红",
+        "cause": "光照不足或氮肥过多",
+        "solution": "移至光照充足处，停施氮肥，秋季增施磷钾肥。"
+      },
+      {
+        "symptom": "叶缘焦枯卷曲",
+        "cause": "夏季暴晒、干热或缺水",
+        "solution": "遮西晒，增加浇水，地面喷雾降温。"
+      },
+      {
+        "symptom": "枝干有蛀孔与木屑",
+        "cause": "天牛幼虫蛀干",
+        "solution": "用铁丝勾杀或注入杀虫剂后封孔。"
+      }
+    ]
+  },
+  {
+    "plant_id": "pilea_peperomioides_01",
+    "basic_info": {
+      "name": "镜面草",
+      "aliases": [
+        "铜钱草",
+        "煎饼草",
+        "中国钱币草",
+        "UFO 植物"
+      ],
+      "scientific_name": "Pilea peperomioides Diels",
+      "family": "荨麻科",
+      "genus": "冷水花属",
+      "plant_type": "常绿多年生草本，茎直立肉质，叶圆形盾状、着生于叶柄顶端中央，形如镜面。",
+      "garden_fit_tag": "室内圆叶案头",
+      "difficulty_level": "容易（耐阴，忌积水）",
+      "toxicity": "全株无毒，对猫狗安全。"
+    },
+    "media": {
+      "cover_image": {
+        "url": "./images/pilea_peperomioides_main.jpg",
+        "caption": "镜面草主图"
+      },
+      "gallery": []
+    },
+    "environment_requirements": {
+      "light": {
+        "description": "明亮散射光最佳，忌强光直射（叶片薄易灼伤）。",
+        "ideal_location": "室内东向或北向窗边、书桌、玄关。"
+      },
+      "watering": {
+        "strategy": "见干见湿",
+        "actionable_steps": "1) 表土干 2cm 浇透；2) 冬季延长至 10 天一次；3) 浇水沿盆边，避免叶面积水。",
+        "humidity_warning": "忌积水烂根；长期过干则叶片变薄卷曲、下部叶黄落。"
+      },
+      "temperature": {
+        "optimal_range": "15–25℃",
+        "min_limit": "10℃ 以下停止生长，5℃ 以下受冻。"
+      }
+    },
+    "care_and_maintenance": {
+      "fertilization": "生长期每月一次稀薄液肥，冬季停肥。",
+      "repotting_and_soil": "疏松透气腐叶土:珍珠岩:椰糠=5:3:2，pH 6.0–7.0。",
+      "pruning": "剪除下部老叶；侧芽长到 5cm 可分离扦插繁殖。"
+    },
+    "troubleshooting": [
+      {
+        "symptom": "下部叶片发黄脱落",
+        "cause": "浇水过多或盆土不透气",
+        "solution": "减少浇水频次，换透气基质，检查盆底排水。"
+      },
+      {
+        "symptom": "茎细长倒伏",
+        "cause": "光照不足徒长",
+        "solution": "移至更明亮散射光处，必要时截顶重发。"
+      },
+      {
+        "symptom": "叶面出现褐色斑点",
+        "cause": "叶面积水后日晒灼伤",
+        "solution": "改为沿盆边浇水，避免水滴滞留叶面。"
+      }
+    ]
+  },
+  {
+    "plant_id": "variegated_alocasia_frydek_01",
+    "basic_info": {
+      "name": "白锦绿天鹅绒海芋",
+      "aliases": [
+        "白锦天鹅绒海芋",
+        "斑叶绿天鹅绒海芋",
+        "绒叶海芋"
+      ],
+      "scientific_name": "Alocasia micholitziana 'Frydek'（白锦园艺品种）",
+      "family": "天南星科",
+      "genus": "海芋属",
+      "plant_type": "多年生草本观叶植物，叶箭形、表面具天鹅绒质感，叶脉白色；白锦品种叶面分布不规则白色斑块。",
+      "garden_fit_tag": "室内高级观叶",
+      "difficulty_level": "中等（喜高湿，怕积水与低温）",
+      "toxicity": "全株含草酸钙针晶，误食致口腔灼痛肿胀；对猫狗有毒，修剪戴手套。"
+    },
+    "media": {
+      "cover_image": {
+        "url": "./images/variegated_alocasia_frydek_main.jpg",
+        "caption": "白锦绿天鹅绒海芋主图"
+      },
+      "gallery": []
+    },
+    "environment_requirements": {
+      "light": {
+        "description": "明亮散射光；强光直射会灼伤白锦部分，光弱则锦斑减少。",
+        "ideal_location": "室内明亮处、浴室等高湿环境，远离空调出风口。"
+      },
+      "watering": {
+        "strategy": "见干见湿，保持微湿不积水",
+        "actionable_steps": "1) 表土干 2–3cm 浇透；2) 冬季减少浇水；3) 环境湿度保持 60% 以上，可加湿器辅助。",
+        "humidity_warning": "忌积水（球茎易烂）也怕干透；湿度低于 50% 时叶缘易焦、新叶难展开。"
+      },
+      "temperature": {
+        "optimal_range": "20–28℃",
+        "min_limit": "15℃ 以下停止生长，10℃ 以下易烂球茎并落叶休眠。"
+      }
+    },
+    "care_and_maintenance": {
+      "fertilization": "生长期每 2 周一次稀薄液肥，冬季停肥。",
+      "repotting_and_soil": "疏松透气的颗粒型基质：泥炭:珍珠岩:树皮=4:3:3，pH 5.5–6.5。",
+      "pruning": "剪除老黄叶；休眠期严格控水，仅保持基质微潮。"
+    },
+    "troubleshooting": [
+      {
+        "symptom": "白锦部分边缘焦褐",
+        "cause": "强光直射或空气湿度低",
+        "solution": "移离直射光，提高湿度至 60% 以上。"
+      },
+      {
+        "symptom": "球茎发软、整株倒伏",
+        "cause": "低温加积水导致烂球",
+        "solution": "挖出切除腐烂部分，消毒晾干后换新基质。"
+      },
+      {
+        "symptom": "叶背有细密蛛网",
+        "cause": "红蜘蛛危害（干燥环境）",
+        "solution": "提高湿度，喷施阿维菌素 2000 倍液。"
+      }
+    ]
+  },
+  {
+    "plant_id": "bird_nest_fern_01",
+    "basic_info": {
+      "name": "鸟巢蕨",
+      "aliases": [
+        "巢蕨",
+        "山苏花",
+        "王冠蕨"
+      ],
+      "scientific_name": "Asplenium nidus L.",
+      "family": "铁角蕨科",
+      "genus": "铁角蕨属",
+      "plant_type": "大型常绿附生蕨类，叶革质带状、全缘有光泽，辐射状丛生呈漏斗状如鸟巢。",
+      "garden_fit_tag": "室内蕨类绿植",
+      "difficulty_level": "容易（喜湿耐阴）",
+      "toxicity": "全株无毒，山苏嫩叶可食，对宠物安全。"
+    },
+    "media": {
+      "cover_image": {
+        "url": "./images/bird_nest_fern_main.jpg",
+        "caption": "鸟巢蕨主图"
+      },
+      "gallery": []
+    },
+    "environment_requirements": {
+      "light": {
+        "description": "半阴环境，明亮散射光最佳，忌任何直射光。",
+        "ideal_location": "室内北向或东向窗边、浴室、树荫下。"
+      },
+      "watering": {
+        "strategy": "保持湿润，勤补水",
+        "actionable_steps": "1) 表土微干即浇透；2) 每日向叶面与叶心喷雾；3) 冬季降低频次但仍不可干透。",
+        "humidity_warning": "需高湿度（60–80%）；盆土忌积水，叶心漏斗蓄水须保持清洁，低温加积水易腐烂。"
+      },
+      "temperature": {
+        "optimal_range": "18–27℃",
+        "min_limit": "12℃ 以下易受冻，5℃ 以下死亡。"
+      }
+    },
+    "care_and_maintenance": {
+      "fertilization": "生长期每月一次稀薄液肥（氮为主），可稀释后喷叶，冬季停肥。",
+      "repotting_and_soil": "疏松透气的蕨类基质：泥炭:珍珠岩:树皮=4:3:3，或直接用水苔。",
+      "pruning": "剪除老黄叶与破损叶，保持叶心无杂物堆积。"
+    },
+    "troubleshooting": [
+      {
+        "symptom": "叶缘干枯发脆",
+        "cause": "空气过于干燥",
+        "solution": "提高环境湿度，增加喷雾频次，远离空调风口。"
+      },
+      {
+        "symptom": "叶心发黑腐烂",
+        "cause": "叶心积水加低温",
+        "solution": "倒出积水，保持叶心通风，提高温度。"
+      },
+      {
+        "symptom": "叶片背面有褐色小凸点",
+        "cause": "介壳虫危害",
+        "solution": "人工刮除，或喷施蚧必治 1000 倍液。"
+      }
+    ]
+  },
+  {
+    "plant_id": "snow_ivy_01",
+    "basic_info": {
+      "name": "雪莹常春藤",
+      "aliases": [
+        "白锦常春藤",
+        "雪之莹",
+        "斑叶常春藤"
+      ],
+      "scientific_name": "Hedera helix 'Xueying'（白锦常春藤园艺品种）",
+      "family": "五加科",
+      "genus": "常春藤属",
+      "plant_type": "常绿攀援藤本，茎细长具气生根；叶掌状 3–5 裂，白绿相间，锦斑明亮。",
+      "garden_fit_tag": "垂吊白锦藤",
+      "difficulty_level": "容易（耐阴耐寒，忌闷热）",
+      "toxicity": "全株含皂苷与草酸钙，误食致呕吐腹泻；对猫狗有毒，接触汁液后洗手。"
+    },
+    "media": {
+      "cover_image": {
+        "url": "./images/snow_ivy_main.jpg",
+        "caption": "雪莹常春藤主图"
+      },
+      "gallery": []
+    },
+    "environment_requirements": {
+      "light": {
+        "description": "半阴至明亮散射光；强光会灼伤白锦部分，过暗则锦斑变绿。",
+        "ideal_location": "北向或东向阳台、室内垂吊、墙面与花架攀援。"
+      },
+      "watering": {
+        "strategy": "见干见湿，保持微湿",
+        "actionable_steps": "1) 表土干 2cm 浇透；2) 夏季增加喷雾降温；3) 冬季减少浇水但不可干透。",
+        "humidity_warning": "怕闷热干燥，夏季高温需通风降温，干热环境红蜘蛛高发。"
+      },
+      "temperature": {
+        "optimal_range": "15–24℃",
+        "min_limit": "耐寒约 -15℃，但盆栽 5℃ 以下生长停滞。"
+      }
+    },
+    "care_and_maintenance": {
+      "fertilization": "生长期每月一次稀薄液肥，氮不宜过高以免锦斑变绿。",
+      "repotting_and_soil": "疏松肥沃的微酸性壤土，pH 6.0–7.0。",
+      "pruning": "春季修剪促分枝、控制藤长；剪下的枝条可水插繁殖。"
+    },
+    "troubleshooting": [
+      {
+        "symptom": "叶背有细密蛛网、叶片失绿",
+        "cause": "红蜘蛛危害（干热环境）",
+        "solution": "提高湿度并通风，喷施阿维菌素 2000 倍液，连用 2 次。"
+      },
+      {
+        "symptom": "叶缘焦枯",
+        "cause": "强光直射或空气过干",
+        "solution": "移至半阴，提高环境湿度。"
+      },
+      {
+        "symptom": "白锦斑块变绿变淡",
+        "cause": "光照不足或氮肥过多",
+        "solution": "增加散射光，减少氮肥。"
+      }
+    ]
   }
 ]
